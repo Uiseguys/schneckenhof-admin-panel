@@ -1,0 +1,1 @@
+# schneckenhof-admin-panel
