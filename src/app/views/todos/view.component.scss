@@ -1,0 +1,35 @@
+:host {
+  display: block;
+
+  .fa-search:before {
+    font-size: 1.2em;
+    line-height: 1.3em;
+  }
+
+  .row.section1-primary-color {
+    [class^="icon-"], [class*=" icon-"] {
+      font-size: 1.3em;
+      text-decoration: none;
+    }
+  }
+
+  .row.section1-secondary-color {
+    label {
+      text-transform: uppercase;
+
+      span {
+        display: inline-block;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  .btn-link {
+    text-decoration: none;
+  }
+
+  .tag {
+    line-height: 1.4em;
+    padding-bottom: 1px;
+  }
+}

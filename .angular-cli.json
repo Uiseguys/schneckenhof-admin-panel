@@ -1,0 +1,77 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "ng-bs-redux-boilerplate"
+  },
+  "apps": [{
+    "root": "src",
+    "outDir": "dist",
+    "assets": [
+      "assets",
+      "favicon.ico",
+      {
+        "input": "../CHANGELOG.md",
+        "output": "./assets/CHANGELOG.md"
+      },
+      {
+        "glob": "**/*",
+        "input": "../node_modules/@ui-guys/stencil-bs-ui-lib/dist",
+        "output": "./assets/stencil-components/stencil-bs-ui-lib"
+      },
+      {
+        "input": "../node_modules/fullcalendar-scheduler/dist/scheduler.min.css",
+        "output": "./assets/css/scheduler.min.css"
+      },
+      {
+        "input": "../node_modules/fullcalendar/dist/fullcalendar.min.css",
+        "output": "./assets/css/fullcalendar.min.css"
+      }
+    ],
+    "index": "index.html",
+    "main": "main.ts",
+    "serviceWorker": true,
+    "polyfills": "polyfills.ts",
+    "test": "test.ts",
+    "tsconfig": "tsconfig.app.json",
+    "testTsconfig": "tsconfig.spec.json",
+    "prefix": "app",
+    "styles": ["styles.scss"],
+    "scripts": [
+      "../node_modules/jquery/dist/jquery.min.js",
+      "../node_modules/select2/dist/js/select2.min.js",
+      "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+    ],
+    "environmentSource": "environments/environment.ts",
+    "environments": {
+      "dev": "environments/environment.ts",
+      "prod": "environments/environment.prod.ts"
+    }
+  }],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [{
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {}
+  }
+}

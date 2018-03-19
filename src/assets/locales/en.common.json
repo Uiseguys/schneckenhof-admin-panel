@@ -1,0 +1,13 @@
+{
+  "application_title": "Unicorn",
+  "intro": "This application is a unicorn",
+  "parametrized_string": "I am parametrized sting with a value: {{value}} and a string: '{{str}}'",
+  "email": "email",
+  "_languages": {
+    "de": "Deutsch",
+    "en": "English"
+  },
+  "_buttons": {
+    "send": "send"
+  }
+}

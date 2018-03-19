@@ -1,0 +1,52 @@
+<div class="container">
+  <form class="form-horizontal ng-pristine ng-valid" [formGroup]="form" (submit)="handleSubmit($event)">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" formControlName="title" />
+      <div class="text-danger" *ngIf="form.controls['title'].hasError('required') && (form.controls['title'].dirty || form.controls['title'].touched)">
+        This field is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" class="form-control" formControlName="description" />
+      <div class="text-danger" *ngIf="form.controls['description'].hasError('required') && (form.controls['description'].dirty || form.controls['description'].touched)">
+        This field is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Tags</label>
+      <div>
+        <select2 [data]="availableTags" [value]="tags" [options]="tagOptions" (valueChanged)="handleTagSelect($event)"></select2>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Created Date</label>
+      <input type="date" class="form-control" formControlName="dateCreated" />
+      <div class="text-danger" *ngIf="form.controls['dateCreated'].hasError('required') && (form.controls['dateCreated'].dirty || form.controls['dateCreated'].touched)">
+        This field is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Due Date</label>
+      <input type="date" class="form-control" formControlName="dueDate" />
+      <div class="text-danger" *ngIf="form.controls['dueDate'].hasError('required') && (form.controls['dueDate'].dirty || form.controls['dueDate'].touched)">
+        This field is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Priority</label>
+      <input type="number" class="form-control" formControlName="priority" />
+    </div>
+
+    <div class="form-group">
+      <button *ngIf="isCreate" class="btn btn-primary float-right" [disabled]="!form.valid">Create</button>
+      <button *ngIf="!isCreate" class="btn btn-success float-right" [disabled]="!form.valid">Update</button>
+    </div>
+  </form>
+</div>

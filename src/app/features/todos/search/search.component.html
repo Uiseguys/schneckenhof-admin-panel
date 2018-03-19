@@ -1,0 +1,102 @@
+<header style="position: fixed; min-width: calc(100vw - 60px)">
+  <div class="container-fluid">
+    <div class="row section1-primary-color pt-3 pb-2 pl-3 pr-3">
+      <div class="col-sm-6 mb-2">
+        <div class="form-inline">
+          <div class="input-group stylish-input-group">
+            <span class="input-group-addon">
+              <button type="submit">
+                <i class="fa fa-search menu-red"></i>
+              </button>
+            </span>
+            <input type="text" class="form-control rounded-0 border-0" placeholder="Search">
+          </div>
+
+          <button type="button" class="btn btn-link" (click)="filterActive = !filterActive">
+            <i class="icon-sort text-white"></i>
+          </button>
+          <button type="button" class="btn btn-link">
+            <i class="icon-swap_vert text-white"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-sm-6 text-sm-right">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+          <button type="button" class="btn btn-link">
+            <i class="icon-playlist_play text-white"></i>
+          </button>
+          <button type="button" class="btn btn-link">
+            <i class="icon-file_upload text-white"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="section1-secondary-color row pt-2 pb-3  pl-3 pr-3" *ngIf="filterActive">
+      <form class="col-sm-12">
+        <div class="row">
+
+          <div class="form-group col-sm-4">
+            <label class="text-black form-label-font" for="sourceSelect">
+              <span class="align-middle">TAGS </span>
+              <button class="btn form-close-btn" type="button">
+                <i class="icon-close"></i>
+              </button>
+            </label>
+
+            <div *ngIf="tags$ | async as tagOptions">
+              <cwc-typeahead [data]="tagOptions" [placeholder]="'Books, movies, etc.'" (typeaheadOnSubmit)="handleTagSelect($event)"></cwc-typeahead>
+            </div>
+
+
+          </div>
+
+          <div class="form-group col-sm-5">
+            <label class="text-black form-label-font">
+              <span class="align-middle">DUE DATE </span>
+              <button class="btn form-close-btn" type="button">
+                <i class="icon-close"></i>
+              </button>
+            </label>
+            <div class="input-group">
+              <input type="date" class="form-control form-input-font rounded-0" placeholder="From">
+              <input type="date" class="form-control form-input-font rounded-0" placeholder="To">
+            </div>
+          </div>
+
+          <div class="form-group col-sm-3">
+            <label class="text-black form-label-font">
+              <span class="align-middle">Priority </span>
+              <button class="btn form-close-btn" type="button">
+                <i class="icon-close"></i>
+              </button>
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control form-input-font rounded-0" placeholder="Min">
+              <input type="number" class="form-control form-input-font rounded-0" placeholder="Max">
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+
+      <div *ngIf="selectedTags$ | async as selectedTags" class="col-12">
+
+        <cwc-tag *ngFor="let selectedTag of selectedTags" id="tag-select" [rounded]="true" [closable]="true" [text]="selectedTag"
+          [removeOnClose]="false" (tagCloseEvent)="handleTagClose($event)" class="mx-1"></cwc-tag>
+
+      </div>
+
+
+      <!--
+      <div class="row section1-primary-color-pale">
+        <button class="btn btn-link w-100 p-0 rounded-0 border-0" type="button" style="height: 12px;"
+                (click)="filterActive = !filterActive">
+          <i class="fa fa-caret-up section1-primary-color-pale-carrot" style="display: block;"></i>
+        </button>
+      </div>
+      //-->
+    </div>
+  </div>
+</header>

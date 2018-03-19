@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  cursor: pointer!important;
+
+  * {
+    cursor: pointer!important;
+  }
+}
+
+/deep/ app-link {
+  cursor: pointer!important;
+
+  * {
+    cursor: pointer!important;
+  }
+}

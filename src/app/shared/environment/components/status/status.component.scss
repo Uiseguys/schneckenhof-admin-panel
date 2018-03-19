@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  position: fixed;
+  z-index: 800;
+  width: 100%;
+  left: 0;
+  top: 0;
+
+  * {
+    cursor: pointer!important;
+  }
+  .sticky-top{
+    color: #fff;
+    text-align: center;
+
+    font-weight: 100;
+    margin-left: 0;
+    margin-right: 0;
+
+    .fa{
+      cursor: pointer!important;
+      float: right;
+      &:hover{
+        opacity: 0.8;
+      }
+    }
+  }
+
+  #overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+    #text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 50px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+  }
+}
+
+/deep/ {
+  scb-alert {
+    .alert {
+      z-index: 0;
+      position: relative;
+      display: none;
+    }
+    .alert.show {
+      z-index: 20;
+      display: block;
+    }
+  }
+}

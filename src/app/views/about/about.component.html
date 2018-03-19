@@ -1,0 +1,20 @@
+<section class="container-fluid mt-3">
+  <div class="clearfix">
+    <h2 class="float-left">About</h2>
+    <div class="float-right">
+      <template-uploader title="Template" [url]="apiUrl" (onChange)="setTemplate($event)">
+        <button *ngIf="template.id" type="button" class="btn btn-default btn-sm" (click)="downloadTemplate()">
+          <i class="fa fa-download"></i>{{template.originalFilename}}
+        </button>
+        <form id="templateForm" target="__blank" method="post" [action]="apiUrl + template.id">
+          <input type="hidden" name="title" id="title" value="Title" />
+          <input type="hidden" name="content" id="content" value="" />
+        </form>
+      </template-uploader>
+    </div>
+  </div>
+
+  <small>Build Version: {{ buildVersion }}</small>
+  <app-link [target]="'HOME'">go home</app-link>
+  <cwc-markdown [data]="content"></cwc-markdown>
+</section>

@@ -1,0 +1,10 @@
+<section class="container-fluid">
+  <h2>The ToDo App</h2>
+  <p>this is the dashboard</p>
+  <fcl-video-player poster="http://images.telvi.de/images/originals/2017/50/1/319b47392316aa2c54d5fbab.jpg" [thumbnail]="thumbnail" [theme]="theme">
+    <source src="http://techslides.com/demos/sample-videos/small.mp4" type='video/mp4' />
+  </fcl-video-player>
+  <cwc-progress-bar class="mx-1" [progressBarType]='progressBarType' [text]='progressBarText' [striped]='progressBarStriped' [animated]='progressBarAnimated' [progress]="progress"></cwc-progress-bar>
+  <cwc-progress-bar class="mx-1" [text]='progressBarText' [striped]='progressBarStriped1' [animated]='progressBarAnimated1' [progress]="40"></cwc-progress-bar>
+  <cwc-markdown [data]="markdownContent" ></cwc-markdown>
+</section>
