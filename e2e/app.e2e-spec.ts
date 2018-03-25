@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('ng-bs-redux-boilerplate App', () => {
+describe('stanapp App', () => {
   let page: AppPage;
 
   beforeEach(() => {

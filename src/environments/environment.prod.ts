@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  version: '0.13.18'
+  siteUrl: "",
+  apiUrl: "https://loopback3-i18next.herokuapp.com/api"
 };

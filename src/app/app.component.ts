@@ -1,14 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { select } from '@angular-redux/store';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
-  @select() location; // select location data from store
-
+  title = 'app';
 }

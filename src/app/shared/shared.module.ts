@@ -1,34 +1,56 @@
-import { NgModule } from '@angular/core';
-import {
-  LodashChunkPipe, LodashFilterPipe, LodashFindPipe, LodashGetPipe,
-  LodashGroupByPipe, LodashKeysPipe, LodashMapPipe, LodashSizePipe, LodashSortByPipe
-} from './utility/pipes/lodash.pipes';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SelectModule } from 'ng2-select';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ToasterService } from 'angular2-toaster';
 
+import { AttachUploader } from './attachUploader/attachUploader';
 
+// https://angular.io/styleguide#!#04-10
 @NgModule({
-  imports: [],
-  declarations: [
-    LodashMapPipe,
-    LodashGetPipe,
-    LodashFilterPipe,
-    LodashFindPipe,
-    LodashSizePipe,
-    LodashGroupByPipe,
-    LodashSortByPipe,
-    LodashChunkPipe,
-    LodashKeysPipe,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NgxPaginationModule,
+    SelectModule,
+    FileUploadModule,
+    CollapseModule.forRoot(),
+    ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot()
   ],
+  providers: [ToasterService],
+  declarations: [AttachUploader],
   exports: [
-    LodashMapPipe,
-    LodashGetPipe,
-    LodashFilterPipe,
-    LodashFindPipe,
-    LodashSizePipe,
-    LodashGroupByPipe,
-    LodashSortByPipe,
-    LodashChunkPipe,
-    LodashKeysPipe,
-  ],
-  providers: []
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NgxPaginationModule,
+    SelectModule,
+    FileUploadModule,
+    ModalModule,
+    TooltipModule,
+    CollapseModule,
+    BsDropdownModule,
+    AttachUploader
+  ]
 })
-export class SharedModule { }
+
+// https://github.com/ocombe/ng2-translate/issues/209
+export class SharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule
+    };
+  }
+}

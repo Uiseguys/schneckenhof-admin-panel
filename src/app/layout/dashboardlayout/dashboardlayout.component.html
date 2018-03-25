@@ -1,0 +1,40 @@
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<div class="container page-wrapper p-0">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Admin Panel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="'/dashboard/red'">Red</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="'/dashboard/white'">White</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="'/dashboard/rose'">Rose</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="'/dashboard/champagne'">Champagne</a>
+        </li>
+      </ul>
+      <div>
+        <div class="btn-group">
+          <span class="dropdown-toggle cp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.email}}
+          </span>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="logout($event)">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="py-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

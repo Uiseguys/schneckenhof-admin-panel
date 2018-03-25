@@ -61,8 +61,7 @@
     "no-empty-interface": true,
     "no-eval": true,
     "no-inferrable-types": [
-      // true,
-      false,
+      true,
       "ignore-params"
     ],
     "no-misused-new": true,
@@ -108,6 +107,7 @@
         "variable-declaration": "nospace"
       }
     ],
+    "typeof-compare": true,
     "unified-signatures": true,
     "variable-name": false,
     "whitespace": [
