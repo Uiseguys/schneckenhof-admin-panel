@@ -106,7 +106,7 @@ export class AttachUploader implements OnInit {
     });
   }
 
-  selectFile(staticTabs) {
+  selectFile() {
     $('#file').trigger('click');
   }
 }
