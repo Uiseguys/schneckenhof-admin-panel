@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToasterModule } from 'angular2-toaster';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 import { DashboardLayoutComponent } from './dashboardlayout/dashboardlayout.component';
 import { ServicesModule } from '../services/services.module';
@@ -15,8 +15,8 @@ import { ServicesModule } from '../services/services.module';
     BrowserAnimationsModule,
     ToasterModule
   ],
-  providers: [],
+  providers: [ToasterService],
   declarations: [DashboardLayoutComponent],
-  exports: [DashboardLayoutComponent]
+  exports: [DashboardLayoutComponent, ToasterModule]
 })
 export class LayoutModule {}

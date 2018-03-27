@@ -21,11 +21,14 @@
           <div class="wine__costs">
             <span class="content">
               <span class="item_content">
-                {{wine.content}}
+                {{wine.content}}&#8467;
               </span>
             </span>
             <span class="c-price">
-              {{wine.price}}
+              {{wine.price}}&euro;
+            </span>
+            <span *ngIf="wine.varietal">
+              &nbsp;-&nbsp;{{wine.varietal}}
             </span>
           </div>
         </div>

@@ -22,6 +22,7 @@ export class WineService {
     const filter = {
       skip: page > 0 ? (page - 1) * pageSize : 0,
       limit: pageSize,
+      order: 'priority DESC',
       where: {
         type
       }

@@ -37,11 +37,13 @@ export class WineForm implements OnInit, OnChanges {
       availability: [''],
       content: [''],
       varietal: [''],
-      premium: ['']
+      premium: [''],
+      priority: ['']
     });
 
     this.form.controls.availability.setValue(1);
     this.form.controls.premium.setValue(1);
+    this.form.controls.priority.setValue(0);
   }
 
   ngOnInit() {}
