@@ -18,6 +18,9 @@
         <div class="description">
           <div class="wine__vintage">{{wine.vintage}}</div>
           <h4 class="item_name">{{wine.name}}</h4>
+          <h6 *ngIf="wine.varietal">
+            {{wine.varietal}}
+          </h6>
           <div class="wine__costs">
             <span class="content">
               <span class="item_content">
@@ -26,9 +29,6 @@
             </span>
             <span class="c-price">
               {{wine.price}}&euro;
-            </span>
-            <span *ngIf="wine.varietal">
-              &nbsp;-&nbsp;{{wine.varietal}}
             </span>
           </div>
         </div>
