@@ -34,6 +34,7 @@ export class WineForm implements OnInit, OnChanges {
       vintage: ['', Validators.compose([Validators.required])],
       price: ['', Validators.compose([Validators.required])],
       awardText: [''],
+      awardLevel: [''],
       availability: [''],
       content: [''],
       varietal: [''],
@@ -41,6 +42,7 @@ export class WineForm implements OnInit, OnChanges {
       priority: ['']
     });
 
+    this.form.controls.awardLevel.setValue('gold');
     this.form.controls.availability.setValue(1);
     this.form.controls.premium.setValue(1);
     this.form.controls.priority.setValue(0);

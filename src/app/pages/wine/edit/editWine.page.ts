@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 
 import { WineService } from '../wine.service';
 
@@ -15,6 +16,7 @@ export class EditWinePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public router: Router,
+    private toasterService: ToasterService,
     private api: WineService
   ) {
     this.route.params.subscribe(params => {
@@ -37,9 +39,12 @@ export class EditWinePage implements OnInit {
           this.router.navigate(['/dashboard/' + this.wine.type]);
         },
         res => {
-          const error = JSON.parse(res._body);
-          this.error =
-            (error.error && error.error.message) || 'Sorry, something is wrong';
+          const body = JSON.parse(res._body);
+          this.toasterService.pop(
+            'error',
+            '',
+            (body.error && body.error.message) || 'Sorry, something is wrong'
+          );
         }
       );
   }
