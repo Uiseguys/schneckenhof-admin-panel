@@ -1,0 +1,98 @@
+<div class="container">
+  <h3 class="mt-4">Payment History</h3>
+
+  <div *ngIf="!pageConfig.totalItems" class="text-center mt-5">
+    No payments Found
+  </div>
+
+  <table *ngIf="pageConfig.totalItems > 0" class="table w-100">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Amount</th>
+        <th>Created</th>
+        <th>Completed</th>
+        <th width="100"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders | async | paginate: pageConfig">
+        <td>
+          {{order.email}}
+        </td>
+        <td>
+          {{order.total}}
+        </td>
+        <td>
+          {{order.created}}
+        </td>
+        <td>
+          {{order.completed}}
+        </td>
+        <td class="text-right">
+          <button class="btn btn-success" (click)="showDetailModal(order, detailTemplate)">View Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="pageConfig.totalItems > 0" class="mt-2 d-flex justify-content-center">
+    <pagination-controls (pageChange)="getOrders($event)"></pagination-controls>
+  </div>
+</div>
+
+<ng-template #detailTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Payment Details</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="detailModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li *ngFor="let item of selectedOrder.items">
+        {{item.name}} - {{item.price}} x {{item.quantity}}
+      </li>
+    </ul>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3">Sub Total</label>
+      <div class="col-sm-9">{{selectedOrder.subtotal}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3">Shipping</label>
+      <div class="col-sm-9">{{selectedOrder.shipping}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3">Total</label>
+      <div class="col-sm-9">{{selectedOrder.total}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3">Name</label>
+      <div class="col-sm-9">{{selectedOrder.realname}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3">Email</label>
+      <div class="col-sm-9">{{selectedOrder.email}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3 text-capitalize">street</label>
+      <div class="col-sm-9">{{selectedOrder.street}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3 text-capitalize">zip</label>
+      <div class="col-sm-9">{{selectedOrder.zip}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3 text-capitalize">city</label>
+      <div class="col-sm-9">{{selectedOrder.city}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3 text-capitalize">phone</label>
+      <div class="col-sm-9">{{selectedOrder.phone}}</div>
+    </div>
+    <div class="row">
+      <label for="staticEmail" class="col-sm-3 text-capitalize">message</label>
+      <div class="col-sm-9">{{selectedOrder.message}}</div>
+    </div>
+  </div>
+</ng-template>

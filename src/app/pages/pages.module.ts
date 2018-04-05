@@ -24,6 +24,7 @@ export const routes = [
     children: [
       { path: '', redirectTo: '/dashboard/red', pathMatch: 'full' },
 
+      { path: 'payments', loadChildren: './order/order.module#OrderModule' },
       { path: ':type', loadChildren: './wine/wine.module#WineModule' }
     ]
   },
