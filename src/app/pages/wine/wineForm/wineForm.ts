@@ -31,7 +31,7 @@ export class WineForm implements OnInit, OnChanges {
   constructor(private fb: FormBuilder) {
     this.form = fb.group({
       name: ['', Validators.compose([Validators.required])],
-      vintage: ['', Validators.compose([Validators.required])],
+      vintage: [''],
       price: ['', Validators.compose([Validators.required])],
       awardText: [''],
       awardLevel: [''],
@@ -42,7 +42,6 @@ export class WineForm implements OnInit, OnChanges {
       priority: ['']
     });
 
-    this.form.controls.awardLevel.setValue('gold');
     this.form.controls.availability.setValue(1);
     this.form.controls.premium.setValue(1);
     this.form.controls.priority.setValue(0);

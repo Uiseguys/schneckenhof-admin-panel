@@ -1,20 +1,20 @@
-<form class="form-horizontal ng-pristine ng-valid" [formGroup]="form" (submit)="handleSubmit($event)">
+<form class="form-horizontal ng-pristine ng-valid" [formGroup]="form" (submit)="handleSubmit($event)" autocomplete="off">
     <div class="p-3" style="border: 2px solid #f7f7f9;">
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <label for="vintage" class="col-sm-2 col-form-label">Vintage</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" formControlName="name" />
-                <div class="text-danger" *ngIf="form.controls['name'].hasError('required') && (form.controls['name'].dirty || form.controls['name'].touched)">
+                <input type="number" class="form-control" id="vintage" formControlName="vintage" autocomplete="off" />
+                <div class="text-danger" *ngIf="form.controls['vintage'].hasError('required') && (form.controls['vintage'].dirty || form.controls['vintage'].touched)">
                     This field is required
                 </div>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="vintage" class="col-sm-2 col-form-label">Vintage</label>
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="vintage" formControlName="vintage" />
-                <div class="text-danger" *ngIf="form.controls['vintage'].hasError('required') && (form.controls['vintage'].dirty || form.controls['vintage'].touched)">
+                <input type="text" class="form-control" id="name" formControlName="name" autocomplete="off" />
+                <div class="text-danger" *ngIf="form.controls['name'].hasError('required') && (form.controls['name'].dirty || form.controls['name'].touched)">
                     This field is required
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <div class="form-group row">
             <label for="price" class="col-sm-2 col-form-label">Price</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="price" formControlName="price" />
+                <input type="number" class="form-control" id="price" formControlName="price" autocomplete="off" />
                 <div class="text-danger" *ngIf="form.controls['price'].hasError('required') && (form.controls['price'].dirty || form.controls['price'].touched)">
                     This field is required
                 </div>
@@ -33,7 +33,7 @@
         <div class="form-group row">
             <label for="awardText" class="col-sm-2 col-form-label">Award Text</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="awardText" formControlName="awardText" />
+                <input type="text" class="form-control" id="awardText" formControlName="awardText" autocomplete="off" />
             </div>
         </div>
 
@@ -41,21 +41,11 @@
             <label for="awardText" class="col-sm-2 col-form-label">Award Level</label>
             <div class="col-sm-10">
                 <select class="form-control" id="awardLevel" formControlName="awardLevel">
+                    <option value="">None</option>
                     <option value="gold">Gold</option>
                     <option value="silver">Silver</option>
                     <option value="bronze">Bronze</option>
                 </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="image" class="col-sm-2 col-form-label">Image</label>
-            <div class="col-sm-10">
-                <attach-uploader [mimeTypes]="['image/png', 'image/jpeg', 'image/jpg', 'image/png']" (onChange)="setImage($event)">
-                    <div>
-                        <img [hidden]="!image" [src]="image" alt="portfolio" style="max-width: 100%" />
-                    </div>
-                </attach-uploader>
             </div>
         </div>
 
@@ -72,14 +62,14 @@
         <div class="form-group row">
             <label for="content" class="col-sm-2 col-form-label">Content</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="content" formControlName="content" />
+                <input type="number" class="form-control" id="content" formControlName="content" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group row">
             <label for="varietal" class="col-sm-2 col-form-label">Varietal</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="varietal" formControlName="varietal" />
+                <input type="text" class="form-control" id="varietal" formControlName="varietal" autocomplete="off" />
             </div>
         </div>
 
@@ -96,7 +86,18 @@
         <div class="form-group row">
             <label for="priority" class="col-sm-2 col-form-label">Priority</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="priority" formControlName="priority" />
+                <input type="number" class="form-control" id="priority" formControlName="priority" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="image" class="col-sm-2 col-form-label">Image</label>
+            <div class="col-sm-10">
+                <attach-uploader [mimeTypes]="['image/png', 'image/jpeg', 'image/jpg', 'image/png']" (onChange)="setImage($event)">
+                    <div>
+                        <img [hidden]="!image" [src]="image" alt="portfolio" style="max-width: 100%; max-height: 250px;" />
+                    </div>
+                </attach-uploader>
             </div>
         </div>
     </div>
