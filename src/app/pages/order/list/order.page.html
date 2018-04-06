@@ -8,6 +8,7 @@
   <table *ngIf="pageConfig.totalItems > 0" class="table w-100">
     <thead>
       <tr>
+        <th>Order ID</th>
         <th>Email</th>
         <th>Amount</th>
         <th>Created</th>
@@ -17,6 +18,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let order of orders | async | paginate: pageConfig">
+        <td>
+          {{order.id}}
+        </td>
         <td>
           {{order.email}}
         </td>
