@@ -28,11 +28,11 @@
       <div>
         <div class="btn-group mr-2">
           <span class="dropdown-toggle cp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{(lang == 'en' ? 'English' : 'Detuch' | i18nextFormat)}}
+            {{(lang == 'en' ? 'English' : 'Deutsch' | i18nextFormat)}}
           </span>
           <div class="dropdown-menu">
             <a class="dropdown-item cp" (click)="changeLanguage('en')">{{ 'English' | i18nextFormat }}</a>
-            <a class="dropdown-item cp" (click)="changeLanguage('de')">{{ 'Detuch' | i18nextFormat }}</a>
+            <a class="dropdown-item cp" (click)="changeLanguage('de')">{{ 'Deutsch' | i18nextFormat }}</a>
           </div>
         </div>
 
