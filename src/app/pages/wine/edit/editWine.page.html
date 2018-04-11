@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="my-5">Update Wine</h3>
+  <h3 class="my-5">{{ 'Update' | i18nextFormat }} {{ 'Wine' | i18nextFormat }}</h3>
 
   <wineForm [isCreate]="false" (onSubmit)="handleSubmit($event)" [initialValue]="wine"></wineForm>
 </div>

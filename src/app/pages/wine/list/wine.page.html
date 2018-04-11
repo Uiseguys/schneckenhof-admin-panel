@@ -1,12 +1,12 @@
 <div class="container">
   <h3 class="mt-4">
-    <span class="text-capitalize">{{type}}
-      <a [routerLink]="['./create']" class="ml-2 btn btn-primary btn-sm">New Wine</a>
+    <span class="text-capitalize">{{type | i18nextFormat }}
+      <a [routerLink]="['./create']" class="ml-2 btn btn-primary btn-sm">{{ 'New Wine' | i18nextFormat }}</a>
     </span>
   </h3>
 
   <div *ngIf="!pageConfig.totalItems" class="text-center mt-5">
-    No Wines Found
+    {{ 'No Wines Found' | i18nextFormat }}
   </div>
 
   <div class="wine-list clearfix">

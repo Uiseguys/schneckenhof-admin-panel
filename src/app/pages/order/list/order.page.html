@@ -1,18 +1,18 @@
 <div class="container">
-  <h3 class="mt-4">Payment History</h3>
+  <h3 class="mt-4">{{ 'Payments' | i18nextFormat }}</h3>
 
   <div *ngIf="!pageConfig.totalItems" class="text-center mt-5">
-    No payments Found
+    {{ 'No payments Found' | i18nextFormat }}
   </div>
 
   <table *ngIf="pageConfig.totalItems > 0" class="table w-100">
     <thead>
       <tr>
-        <th>Order ID</th>
-        <th>Email</th>
-        <th>Amount</th>
-        <th>Created</th>
-        <th>Completed</th>
+        <th>{{ 'Order ID' | i18nextFormat }}</th>
+        <th>{{ 'Email' | i18nextFormat }}</th>
+        <th>{{ 'Amount' | i18nextFormat }}</th>
+        <th>{{ 'Created' | i18nextFormat }}</th>
+        <th>{{ 'Completed' | i18nextFormat }}</th>
         <th width="100"></th>
       </tr>
     </thead>
@@ -47,7 +47,7 @@
 
 <ng-template #detailTemplate>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Payment Details</h4>
+    <h4 class="modal-title pull-left">{{ 'Payment Details' | i18nextFormat }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="detailModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -59,43 +59,43 @@
       </li>
     </ul>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3">Sub Total</label>
+      <label for="staticEmail" class="col-sm-3">{{ 'Sub Total' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.subtotal}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3">Shipping</label>
+      <label for="staticEmail" class="col-sm-3">{{ 'Shipping' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.shipping}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3">Total</label>
+      <label for="staticEmail" class="col-sm-3">{{ 'Total' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.total}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3">Name</label>
+      <label for="staticEmail" class="col-sm-3">{{ 'Name' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.realname}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3">Email</label>
+      <label for="staticEmail" class="col-sm-3">{{ 'Email' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.email}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3 text-capitalize">street</label>
+      <label for="staticEmail" class="col-sm-3 text-capitalize">{{ 'Street' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.street}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3 text-capitalize">zip</label>
+      <label for="staticEmail" class="col-sm-3 text-capitalize">{{ 'Zip' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.zip}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3 text-capitalize">city</label>
+      <label for="staticEmail" class="col-sm-3 text-capitalize">{{ 'City' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.city}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3 text-capitalize">phone</label>
+      <label for="staticEmail" class="col-sm-3 text-capitalize">{{ 'Phone' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.phone}}</div>
     </div>
     <div class="row">
-      <label for="staticEmail" class="col-sm-3 text-capitalize">message</label>
+      <label for="staticEmail" class="col-sm-3 text-capitalize">{{ 'Message' | i18nextFormat }}</label>
       <div class="col-sm-9">{{selectedOrder.message}}</div>
     </div>
   </div>

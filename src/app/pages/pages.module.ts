@@ -33,7 +33,7 @@ export const routes = [
 ];
 
 @NgModule({
-  imports: [SharedModule, LayoutModule, RouterModule.forRoot(routes)],
+  imports: [LayoutModule, RouterModule.forRoot(routes)],
   declarations: [LoginPage, RegisterPage],
   providers: [],
   exports: [RouterModule]
