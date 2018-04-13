@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   siteUrl: "",
-  apiUrl: "https://schneckenhof-api.herokuapp.com/api"
+  apiUrl: "https://dev-schneckenhof-api.herokuapp.com/api"
 };
