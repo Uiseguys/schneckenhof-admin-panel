@@ -24,6 +24,9 @@
         <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" [routerLink]="'/dashboard/payments'">{{ 'Payments' | i18nextFormat }}</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" [href]="settings.API_URL + '/Wines/download'" target="__blank">{{ 'Export' | i18nextFormat }}</a>
+        </li>
       </ul>
       <div>
         <div class="btn-group mr-2">
