@@ -5,10 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from 'shared/shared.module';
 import { DashboardLayoutComponent } from './dashboardlayout/dashboardlayout.component';
+import { WineService } from '../pages/wine/wine.service';
 
 @NgModule({
   imports: [CommonModule, RouterModule, BrowserAnimationsModule, SharedModule],
-  providers: [],
+  providers: [WineService],
   declarations: [DashboardLayoutComponent],
   exports: [DashboardLayoutComponent, SharedModule]
 })

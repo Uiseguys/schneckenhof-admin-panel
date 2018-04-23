@@ -18,6 +18,13 @@ export class WineService {
     return this.api.get(`/Wines/count?where=${JSON.stringify(filter)}`);
   }
 
+  getAll() {
+    const filter = {
+      order: ['type', 'priority DESC']
+    };
+    return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
+  }
+
   getWines(type, page = 1, pageSize = 20) {
     const filter = {
       skip: page > 0 ? (page - 1) * pageSize : 0,

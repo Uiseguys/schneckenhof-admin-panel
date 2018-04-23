@@ -33,4 +33,15 @@ export class ClientApiService extends Api {
 
     return this.get(`/CustomUsers/${id}?filter=${JSON.stringify(filter)}`);
   }
+
+  generatePDF(template, data) {
+    return this.http
+      .post(
+        // `http://localhost:4000?template=${encodeURIComponent(template)}`,
+        `http://35.157.103.97:4000/?template=${encodeURIComponent(template)}`,
+        data,
+        {}
+      )
+      .map((res: any) => `http://35.157.103.97:4000/${res._body}`);
+  }
 }

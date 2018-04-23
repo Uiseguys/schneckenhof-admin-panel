@@ -39,7 +39,10 @@ export class WineForm implements OnInit, OnChanges {
       content: [''],
       varietal: [''],
       premium: [''],
-      priority: ['']
+      priority: [''],
+      no: [''],
+      alcohol: [''],
+      description: [''],
     });
 
     this.form.controls.availability.setValue(1);
