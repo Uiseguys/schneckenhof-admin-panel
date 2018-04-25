@@ -38,10 +38,10 @@ export class ClientApiService extends Api {
     return this.http
       .post(
         // `http://localhost:4000?template=${encodeURIComponent(template)}`,
-        `http://35.157.103.97:4000/?template=${encodeURIComponent(template)}`,
+        `https://www.pdf-aas.io/?template=${encodeURIComponent(template)}`,
         data,
         {}
       )
-      .map((res: any) => `http://35.157.103.97:4000/${res._body}`);
+      .map((res: any) => `https://www.pdf-aas.io/${res._body}`);
   }
 }
