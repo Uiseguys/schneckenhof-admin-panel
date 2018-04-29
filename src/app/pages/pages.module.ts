@@ -25,6 +25,10 @@ export const routes = [
       { path: '', redirectTo: '/dashboard/red', pathMatch: 'full' },
 
       { path: 'payments', loadChildren: './order/order.module#OrderModule' },
+      {
+        path: 'templates',
+        loadChildren: './template/template.module#TemplateModule'
+      },
       { path: ':type', loadChildren: './wine/wine.module#WineModule' }
     ]
   },

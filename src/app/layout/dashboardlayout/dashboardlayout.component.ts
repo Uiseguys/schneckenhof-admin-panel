@@ -10,7 +10,6 @@ import { ToasterConfig } from 'angular2-toaster';
 
 import { SettingsService } from '../../services/settings/settings.service';
 import { ClientApiService } from '../../services/api/clientapi.service';
-import { WineService } from '../../pages/wine/wine.service';
 declare var $: any;
 
 @Component({
@@ -30,8 +29,7 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private settings: SettingsService,
-    private api: ClientApiService,
-    private wineApi: WineService
+    private api: ClientApiService
   ) {
     this.user = settings.getAppSetting('user');
     this.lang = localStorage.getItem('stanapplang') || 'de';
@@ -53,44 +51,5 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     this.lang = lang;
     localStorage.setItem('stanapplang', lang);
     document.location.reload();
-  }
-
-  export($e) {
-    $e.preventDefault();
-
-    this.wineApi.getAll().subscribe(wines => {
-      const groupedWines = {
-        red: { normal: [], little: [], premium: [] },
-        white: { normal: [], little: [], premium: [] },
-        rose: { normal: [], little: [], premium: [] },
-        champagne: { normal: [], little: [], premium: [] }
-      };
-      // calculate prices again
-      wines.forEach(wine => {
-        if (!groupedWines[wine.type]) return;
-
-        wine.no = wine.no || '';
-        wine.price = wine.price && wine.price.toFixed(2);
-        if (wine.alcohol) {
-          wine.alcohol += ' %';
-        }
-        if (wine.content == 0.75) {
-          wine.price1 = wine.price;
-          wine.price = (wine.price * 100 / 75).toFixed(2);
-        }
-
-        if (wine.premium) {
-          groupedWines[wine.type].premium.push(wine);
-        } else if (wine.content == 0.75) {
-          groupedWines[wine.type].little.push(wine);
-        } else {
-          groupedWines[wine.type].normal.push(wine);
-        }
-      });
-
-      this.api.generatePDF('wine_menu2.fodt', groupedWines).subscribe(res => {
-        var win = window.open(res, '_blank');
-      });
-    });
   }
 }

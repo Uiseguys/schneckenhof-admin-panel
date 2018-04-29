@@ -37,11 +37,11 @@ export class ClientApiService extends Api {
   generatePDF(template, data) {
     return this.http
       .post(
-        // `http://localhost:4000?template=${encodeURIComponent(template)}`,
-        `https://www.pdf-aas.io/?template=${encodeURIComponent(template)}`,
+        `http://localhost:4000?template=${encodeURIComponent(template)}`,
+        // `https://www.pdf-aas.io/?template=${encodeURIComponent(template)}`,
         data,
         {}
       )
-      .map((res: any) => `https://www.pdf-aas.io/${res._body}`);
+      .map((res: any) => `http://localhost:4000/${res._body}`);
   }
 }
