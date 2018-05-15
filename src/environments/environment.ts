@@ -6,5 +6,10 @@
 export const environment = {
   production: false,
   siteUrl: '',
-  apiUrl: 'http://localhost:3800/api'
+  apiUrl: 'http://localhost:3800/api',
+  pdfUrl: 'http://localhost:4000',
+  devNetlifyWebHookUrl:
+    'https://api.netlify.com/build_hooks/5afae34bb13fb15f1f2c611b',
+  liveNetlifyWebHookUrl:
+    'https://api.netlify.com/build_hooks/5ad6d48ac965925822f5aae2'
 };

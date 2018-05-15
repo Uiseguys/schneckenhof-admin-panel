@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { Api } from './api.service';
 import { Observable, Subject } from 'rxjs';
+import { environment as ENV } from '../../../environments/environment';
 
 @Injectable()
 export class ClientApiService extends Api {
@@ -36,26 +37,19 @@ export class ClientApiService extends Api {
 
   generatePDF(template, data) {
     return this.http
-      .post(
-        `http://localhost:4000?template=${encodeURIComponent(template)}`,
-        // `https://www.pdf-aas.io/?template=${encodeURIComponent(template)}`,
-        data,
-        {}
-      )
-      .map((res: any) => `http://localhost:4000/${res._body}`);
+      .post(`${ENV.pdfUrl}?template=${encodeURIComponent(template)}`, data, {})
+      .map((res: any) => `${ENV.pdfUrl}/${res._body}`);
   }
 
   // admiring-clarke-b6eff4.netlify.com
   buildPreviewSite() {
-    return this.http
-      .post('https://api.netlify.com/build_hooks/5afad506c965923950641398', {})
-      .catch(this.handleError);
+    return this.http.post(ENV.devNetlifyWebHookUrl, {}).catch(this.handleError);
   }
 
   //
   buildLiveSite() {
     return this.http
-      .post('https://api.netlify.com/build_hooks/5ad6d48ac965925822f5aae2', {})
+      .post(ENV.liveNetlifyWebHookUrl, {})
       .catch(this.handleError);
   }
 }
