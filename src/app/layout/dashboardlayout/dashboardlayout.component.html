@@ -28,7 +28,16 @@
           <a class="nav-link" [routerLink]="'/dashboard/templates'">{{ 'Templates' | i18nextFormat }}</a>
         </li>
       </ul>
-      <button class="btn btn-info btn-sm ml-2 mr-auto" (click)="deployChanges()">Deploy Changes</button>
+      <div class="btn-group ml-2 mr-auto">
+        <button type="button" class="btn btn-info btn-sm" (click)="triggerPreview()">Preview</button>
+        <button type="button" class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" data-reference="parent">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+          <a class="dropdown-item" href (click)="triggerLive($event)">Deploy Live</a>
+        </div>
+      </div>
       <div>
         <div class="btn-group mr-2">
           <span class="dropdown-toggle cp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

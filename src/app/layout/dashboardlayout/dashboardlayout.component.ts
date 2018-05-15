@@ -53,9 +53,23 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     document.location.reload();
   }
 
-  deployChanges() {
-    this.api.deployChanges().subscribe(res => {
-      alert('Deploy hook has been called. Please check site a few mins later');
+  triggerPreview() {
+    this.api.buildPreviewSite().subscribe(res => {
+      alert(
+        'Preview site https://admiring-clarke-b6eff4.netlify.com is being built now. Please check a few mins later'
+      );
+    });
+  }
+
+  triggerLive(e) {
+    e.preventDefault();
+    if (!confirm('The changes will be deployed to live site. Are you sure?'))
+      return;
+
+    this.api.buildLiveSite().subscribe(res => {
+      alert(
+        'Live site https://romantic-jennings-e6b9b8.netlify.com is being built now. Please check a few mins later'
+      );
     });
   }
 }

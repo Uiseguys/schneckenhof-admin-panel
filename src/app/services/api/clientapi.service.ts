@@ -45,7 +45,15 @@ export class ClientApiService extends Api {
       .map((res: any) => `http://localhost:4000/${res._body}`);
   }
 
-  deployChanges() {
+  // admiring-clarke-b6eff4.netlify.com
+  buildPreviewSite() {
+    return this.http
+      .post('https://api.netlify.com/build_hooks/5afad506c965923950641398', {})
+      .catch(this.handleError);
+  }
+
+  //
+  buildLiveSite() {
     return this.http
       .post('https://api.netlify.com/build_hooks/5ad6d48ac965925822f5aae2', {})
       .catch(this.handleError);
