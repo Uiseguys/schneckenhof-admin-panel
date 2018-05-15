@@ -34,20 +34,12 @@ You can run app in product version `ng serve --prod`
       siteUrl: '',
       apiUrl: 'https://dev-schneckenhof-api.herokuapp.com/api',
       pdfUrl: 'https://www.pdf-aas.io',
-      devNetlifyWebHookUrl:
-        'https://api.netlify.com/build_hooks/5afae34bb13fb15f1f2c611b',
-      liveNetlifyWebHookUrl:
-        'https://api.netlify.com/build_hooks/5ad6d48ac965925822f5aae2'
     };
 
 * apiUrl
   The site url of **[schneckenhof-api](https://github.com/Uiseguys/schneckenhof-api)**.
 * pdfUrl
   We use [carbone](https://carbone.io/) to generate PDF.
-* devNetlifyWebHookUrl
-  the build webhook of netlify development server
-* liveNetlifyWebHookUrl
-  the build webhook of netlify live server
 
 ## Build
 
