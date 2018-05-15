@@ -10,7 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SelectModule } from 'ng2-select';
 import { FileUploadModule } from 'ng2-file-upload';
 import { I18NextModule } from 'angular-i18next';
-import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { ToasterModule } from 'angular2-toaster';
 
 import { AttachUploader } from './attachUploader/attachUploader';
 import { ServicesModule } from '../services/services.module';
@@ -31,9 +31,10 @@ import { I18NextFormatPipe } from './pipes/i18next.pipe';
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
+    ToasterModule.forRoot(),
     ServicesModule
   ],
-  providers: [ToasterService],
+  providers: [],
   declarations: [I18NextFormatPipe, AttachUploader],
   exports: [
     CommonModule,

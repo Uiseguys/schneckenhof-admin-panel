@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
       },
       res => {
         const body = JSON.parse(res._body);
-        this.toasterService.pop(
+        this.toasterService.popAsync(
           'error',
           '',
           (body.error && body.error.message) ||

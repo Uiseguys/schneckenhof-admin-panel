@@ -1,4 +1,3 @@
-<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <div class="container page-wrapper p-0">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand">{{ 'Admin Panel' | i18nextFormat }}</a>
@@ -9,18 +8,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="'/dashboard/red'">{{ 'Red' | i18nextFormat }}</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Wines</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" [routerLink]="'/dashboard/red'">{{ 'Red' | i18nextFormat }}</a>
+            <a class="dropdown-item" [routerLink]="'/dashboard/white'">{{ 'White' | i18nextFormat }}</a>
+            <a class="dropdown-item" [routerLink]="'/dashboard/rose'">{{ 'Rose' | i18nextFormat }}</a>
+            <a class="dropdown-item" [routerLink]="'/dashboard/champagne'">{{ 'Champagne' | i18nextFormat }}</a>
+          </div>
         </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="'/dashboard/white'">{{ 'White' | i18nextFormat }}</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="'/dashboard/rose'">{{ 'Rose' | i18nextFormat }}</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="'/dashboard/champagne'">{{ 'Champagne' | i18nextFormat }}</a>
-        </li>
+
         <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" [routerLink]="'/dashboard/payments'">{{ 'Payments' | i18nextFormat }}</a>
         </li>
@@ -28,17 +25,7 @@
           <a class="nav-link" [routerLink]="'/dashboard/templates'">{{ 'Templates' | i18nextFormat }}</a>
         </li>
       </ul>
-      <div class="btn-group ml-2 mr-auto">
-        <button type="button" class="btn btn-info btn-sm" (click)="triggerPreview()">Preview</button>
-        <button type="button" class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" data-reference="parent">
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-          <a class="dropdown-item" href (click)="triggerLive($event)">Deploy Live</a>
-        </div>
-      </div>
-      <div>
+      <div class=" ml-auto">
         <div class="btn-group mr-2">
           <span class="dropdown-toggle cp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{(lang == 'en' ? 'English' : 'Deutsch' | i18nextFormat)}}
@@ -54,6 +41,7 @@
             {{user.email}}
           </span>
           <div class="dropdown-menu">
+            <a class="dropdown-item" [routerLink]="'/dashboard/settings'">{{ 'Settings' | i18nextFormat }}</a>
             <a class="dropdown-item cp" (click)="logout($event)">{{ 'Logout' | i18nextFormat }}</a>
           </div>
         </div>
@@ -64,4 +52,5 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <a id="pdfLink" class="d-none" target="__blank" href="">&nbsp;</a>

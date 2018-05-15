@@ -14,7 +14,7 @@ export class Api {
   public apiUrl = ENV.apiUrl;
 
   constructor(
-    protected http: Http,
+    public http: Http,
     private router: Router,
     protected settings: SettingsService
   ) {}
@@ -92,11 +92,7 @@ export class Api {
   }
 
   protected handleError(error: any) {
-    if (
-      (error.status == 401 || error.status == 400) &&
-      error.url &&
-      !error.url.endsWith('/login')
-    ) {
+    if (error.status == 401 && error.url && !error.url.endsWith('/login')) {
       if (this.settings) this.settings.clearSetting();
       document.location.href = '/';
     }

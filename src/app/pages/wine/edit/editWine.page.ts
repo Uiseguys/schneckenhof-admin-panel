@@ -40,7 +40,7 @@ export class EditWinePage implements OnInit {
         },
         res => {
           const body = JSON.parse(res._body);
-          this.toasterService.pop(
+          this.toasterService.popAsync(
             'error',
             '',
             (body.error && body.error.message) || 'Sorry, something is wrong'

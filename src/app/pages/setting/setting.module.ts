@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SharedModule } from 'shared/shared.module';
-import { OrderService } from './order.service';
-import { OrderPage } from './list/order.page';
+import { SettingService } from './setting.service';
+import { SettingPage } from './list/setting.page';
 
-const routes: Routes = [{ path: '', component: OrderPage }];
+const routes: Routes = [{ path: '', component: SettingPage }];
 
 @NgModule({
   imports: [SharedModule.forRoot(), RouterModule.forChild(routes)],
-  declarations: [OrderPage],
-  providers: [OrderService],
+  declarations: [SettingPage],
+  providers: [SettingService],
   exports: [RouterModule]
 })
-export class OrderModule {}
+export class SettingModule {}

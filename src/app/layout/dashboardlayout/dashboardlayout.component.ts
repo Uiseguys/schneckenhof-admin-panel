@@ -6,7 +6,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToasterConfig } from 'angular2-toaster';
+import { ToasterConfig, ToasterService } from 'angular2-toaster';
 
 import { SettingsService } from '../../services/settings/settings.service';
 import { ClientApiService } from '../../services/api/clientapi.service';
@@ -28,6 +28,7 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private toasterService: ToasterService,
     private settings: SettingsService,
     private api: ClientApiService
   ) {
@@ -35,7 +36,9 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     this.lang = localStorage.getItem('stanapplang') || 'de';
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.toasterService.popAsync('error', '', 'asddddddd');
+  }
 
   ngOnDestroy() {}
 
@@ -51,25 +54,5 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     this.lang = lang;
     localStorage.setItem('stanapplang', lang);
     document.location.reload();
-  }
-
-  triggerPreview() {
-    this.api.buildPreviewSite().subscribe(res => {
-      alert(
-        'Preview site https://admiring-clarke-b6eff4.netlify.com is being built now. Please check a few mins later'
-      );
-    });
-  }
-
-  triggerLive(e) {
-    e.preventDefault();
-    if (!confirm('The changes will be deployed to live site. Are you sure?'))
-      return;
-
-    this.api.buildLiveSite().subscribe(res => {
-      alert(
-        'Live site https://romantic-jennings-e6b9b8.netlify.com is being built now. Please check a few mins later'
-      );
-    });
   }
 }

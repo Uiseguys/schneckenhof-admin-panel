@@ -7,7 +7,12 @@ import { SharedModule } from 'shared/shared.module';
 import { DashboardLayoutComponent } from './dashboardlayout/dashboardlayout.component';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, BrowserAnimationsModule, SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    SharedModule.forRoot()
+  ],
   providers: [],
   declarations: [DashboardLayoutComponent],
   exports: [DashboardLayoutComponent, SharedModule]

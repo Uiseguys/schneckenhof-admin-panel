@@ -29,6 +29,10 @@ export const routes = [
         path: 'templates',
         loadChildren: './template/template.module#TemplateModule'
       },
+      {
+        path: 'settings',
+        loadChildren: './setting/setting.module#SettingModule'
+      },
       { path: ':type', loadChildren: './wine/wine.module#WineModule' }
     ]
   },
@@ -37,7 +41,7 @@ export const routes = [
 ];
 
 @NgModule({
-  imports: [LayoutModule, RouterModule.forRoot(routes)],
+  imports: [SharedModule.forRoot(), LayoutModule, RouterModule.forRoot(routes)],
   declarations: [LoginPage, RegisterPage],
   providers: [],
   exports: [RouterModule]

@@ -9,7 +9,7 @@ import { TemplatePage } from './list/template.page';
 const routes: Routes = [{ path: '', component: TemplatePage }];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes)],
+  imports: [SharedModule.forRoot(), RouterModule.forChild(routes)],
   declarations: [TemplatePage],
   providers: [WineService, TemplateService],
   exports: [RouterModule]

@@ -40,16 +40,4 @@ export class ClientApiService extends Api {
       .post(`${ENV.pdfUrl}?template=${encodeURIComponent(template)}`, data, {})
       .map((res: any) => `${ENV.pdfUrl}/${res._body}`);
   }
-
-  // admiring-clarke-b6eff4.netlify.com
-  buildPreviewSite() {
-    return this.http.post(ENV.devNetlifyWebHookUrl, {}).catch(this.handleError);
-  }
-
-  //
-  buildLiveSite() {
-    return this.http
-      .post(ENV.liveNetlifyWebHookUrl, {})
-      .catch(this.handleError);
-  }
 }
