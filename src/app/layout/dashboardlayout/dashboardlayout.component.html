@@ -8,7 +8,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav">
         <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" [routerLink]="'/dashboard/red'">{{ 'Red' | i18nextFormat }}</a>
         </li>
@@ -28,6 +28,7 @@
           <a class="nav-link" [routerLink]="'/dashboard/templates'">{{ 'Templates' | i18nextFormat }}</a>
         </li>
       </ul>
+      <button class="btn btn-info btn-sm ml-2 mr-auto" (click)="deployChanges()">Deploy Changes</button>
       <div>
         <div class="btn-group mr-2">
           <span class="dropdown-toggle cp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

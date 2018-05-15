@@ -52,4 +52,10 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     localStorage.setItem('stanapplang', lang);
     document.location.reload();
   }
+
+  deployChanges() {
+    this.api.deployChanges().subscribe(res => {
+      alert('Deploy hook has been called. Please check site a few mins later');
+    });
+  }
 }

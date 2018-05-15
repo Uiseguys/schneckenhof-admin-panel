@@ -44,4 +44,10 @@ export class ClientApiService extends Api {
       )
       .map((res: any) => `http://localhost:4000/${res._body}`);
   }
+
+  deployChanges() {
+    return this.http
+      .post('https://api.netlify.com/build_hooks/5ad6d48ac965925822f5aae2', {})
+      .catch(this.handleError);
+  }
 }
