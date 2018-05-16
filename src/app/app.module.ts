@@ -16,6 +16,7 @@ import {
 import * as i18nextXHRBackend from 'i18next-xhr-backend';
 import * as i18nextLanguageDetector from 'i18next-browser-languagedetector';
 
+import { SharedModule } from 'shared/shared.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 
@@ -75,6 +76,7 @@ export const I18N_PROVIDERS = [
     BrowserAnimationsModule,
     HttpModule,
     I18NextModule.forRoot(),
+    SharedModule.forRoot(),
     PagesModule
   ],
   providers: [I18N_PROVIDERS],

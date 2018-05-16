@@ -8,7 +8,7 @@ import { SettingPage } from './list/setting.page';
 const routes: Routes = [{ path: '', component: SettingPage }];
 
 @NgModule({
-  imports: [SharedModule.forRoot(), RouterModule.forChild(routes)],
+  imports: [SharedModule, RouterModule.forChild(routes)],
   declarations: [SettingPage],
   providers: [SettingService],
   exports: [RouterModule]

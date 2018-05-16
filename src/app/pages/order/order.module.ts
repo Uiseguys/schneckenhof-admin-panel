@@ -8,7 +8,7 @@ import { OrderPage } from './list/order.page';
 const routes: Routes = [{ path: '', component: OrderPage }];
 
 @NgModule({
-  imports: [SharedModule.forRoot(), RouterModule.forChild(routes)],
+  imports: [SharedModule, RouterModule.forChild(routes)],
   declarations: [OrderPage],
   providers: [OrderService],
   exports: [RouterModule]

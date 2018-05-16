@@ -21,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [SharedModule.forRoot(), RouterModule.forChild(routes)],
+  imports: [SharedModule, RouterModule.forChild(routes)],
   declarations: [WineForm, WinePage, CreateWinePage, EditWinePage],
   providers: [WineService],
   exports: [RouterModule]

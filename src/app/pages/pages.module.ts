@@ -41,7 +41,7 @@ export const routes = [
 ];
 
 @NgModule({
-  imports: [SharedModule.forRoot(), LayoutModule, RouterModule.forRoot(routes)],
+  imports: [SharedModule, LayoutModule, RouterModule.forRoot(routes)],
   declarations: [LoginPage, RegisterPage],
   providers: [],
   exports: [RouterModule]

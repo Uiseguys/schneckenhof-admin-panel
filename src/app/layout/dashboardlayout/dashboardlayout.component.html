@@ -25,6 +25,22 @@
           <a class="nav-link" [routerLink]="'/dashboard/templates'">{{ 'Templates' | i18nextFormat }}</a>
         </li>
       </ul>
+
+      <div class="btn-group ml-2" *ngIf="timer == null">
+        <button type="button" class="btn btn-info btn-sm" (click)="triggerHook(false)">Deploy Preview</button>
+        <button type="button" class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" data-reference="parent">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+          <div class="dropdown-item cp" (click)="triggerHook(true)">Deploy Live</div>
+        </div>
+      </div>
+      <div *ngIf="timer != null">
+        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+        <span>Site is being built now...</span>
+      </div>
+
       <div class=" ml-auto">
         <div class="btn-group mr-2">
           <span class="dropdown-toggle cp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
