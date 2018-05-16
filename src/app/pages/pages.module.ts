@@ -24,6 +24,10 @@ export const routes = [
     children: [
       { path: '', redirectTo: '/dashboard/red', pathMatch: 'full' },
 
+      {
+        path: 'packaging',
+        loadChildren: './packaging/packaging.module#PackagingModule'
+      },
       { path: 'payments', loadChildren: './order/order.module#OrderModule' },
       {
         path: 'templates',

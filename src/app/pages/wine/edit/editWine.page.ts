@@ -36,6 +36,7 @@ export class EditWinePage implements OnInit {
       })
       .subscribe(
         res => {
+          this.toasterService.popAsync('success', '', 'Wine has been updated');
           this.router.navigate(['/dashboard/' + this.wine.type]);
         },
         res => {

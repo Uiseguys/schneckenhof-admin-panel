@@ -20,6 +20,7 @@ export class WineService {
 
   getAll() {
     const filter = {
+      include: ['packaging'],
       order: ['type', 'priority DESC']
     };
     return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
@@ -27,6 +28,7 @@ export class WineService {
 
   getWines(type, page = 1, pageSize = 20) {
     const filter = {
+      include: ['packaging'],
       skip: page > 0 ? (page - 1) * pageSize : 0,
       limit: pageSize,
       order: 'priority DESC',
@@ -56,7 +58,9 @@ export class WineService {
   }
 
   getWine(id) {
-    const filter = {};
+    const filter = {
+      include: ['packaging']
+    };
     return this.api.get(`/Wines/${id}?filter=${JSON.stringify(filter)}`);
   }
 

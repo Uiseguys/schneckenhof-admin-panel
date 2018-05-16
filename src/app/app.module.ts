@@ -13,6 +13,7 @@ import {
   I18NEXT_SERVICE,
   ITranslationService
 } from 'angular-i18next';
+import { ToasterModule } from 'angular2-toaster';
 import * as i18nextXHRBackend from 'i18next-xhr-backend';
 import * as i18nextLanguageDetector from 'i18next-browser-languagedetector';
 
@@ -75,6 +76,7 @@ export const I18N_PROVIDERS = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    ToasterModule.forRoot(),
     I18NextModule.forRoot(),
     SharedModule.forRoot(),
     PagesModule
