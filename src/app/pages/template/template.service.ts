@@ -1,27 +1,18 @@
 /**
- * Created by Tall Prince on 5/26/2017.
+ * Created by S.Angel on 4/2/2017.
  */
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { environment as ENV } from '../../../environments/environment';
-import { SettingsService } from '../settings/settings.service';
-
 @Injectable()
-export class Api {
-  public apiUrl = ENV.apiUrl;
+export class TemplateService {
+  public apiUrl = 'https://www.pdf-aas.io/api';
 
-  constructor(
-    public http: Http,
-    private router: Router,
-    protected settings: SettingsService
-  ) {}
+  constructor(protected http: Http, private router: Router) {}
 
-  createAuthorizationHeader(headers: Headers) {
-    headers.append('Authorization', this.settings.getStorage('token'));
-  }
+  createAuthorizationHeader(headers: Headers) {}
 
   get(url, data?) {
     let headers = new Headers();
@@ -92,12 +83,14 @@ export class Api {
   }
 
   protected handleError(error: any) {
-    if (error.status == 401 && error.url && !error.url.endsWith('/login')) {
-      if (this.settings) this.settings.clearSetting();
-      document.location.href = '/';
-    }
-    // In a real world app, you might use a remote logging infrastructure
-
     return Observable.throw(error);
+  }
+
+  getTemplates() {
+    return this.get('/Templates');
+  }
+
+  deleteTemplate(id) {
+    return this.delete(`/Templates/${id}`);
   }
 }

@@ -1,4 +1,9 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import {
+  NgModule,
+  ModuleWithProviders,
+  Optional,
+  SkipSelf
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -10,10 +15,14 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SelectModule } from 'ng2-select';
 import { FileUploadModule } from 'ng2-file-upload';
 import { I18NextModule } from 'angular-i18next';
-import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { ToasterModule } from 'angular2-toaster';
 
 import { AttachUploader } from './attachUploader/attachUploader';
-import { ServicesModule } from '../services/services.module';
+
+import { SettingsService } from '../services/settings/settings.service';
+import { Api } from '../services/api/api.service';
+import { ClientApiService } from '../services/api/clientapi.service';
+import { AuthGuardResolve } from '../services/authguard/authguard.service';
 
 import { I18NextFormatPipe } from './pipes/i18next.pipe';
 
@@ -31,9 +40,9 @@ import { I18NextFormatPipe } from './pipes/i18next.pipe';
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ServicesModule
+    ToasterModule
   ],
-  providers: [ToasterService],
+  providers: [AuthGuardResolve],
   declarations: [I18NextFormatPipe, AttachUploader],
   exports: [
     CommonModule,
@@ -48,7 +57,6 @@ import { I18NextFormatPipe } from './pipes/i18next.pipe';
     CollapseModule,
     BsDropdownModule,
     ToasterModule,
-    ServicesModule,
     AttachUploader,
     I18NextFormatPipe
   ]
@@ -58,7 +66,8 @@ import { I18NextFormatPipe } from './pipes/i18next.pipe';
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: SharedModule
+      ngModule: SharedModule,
+      providers: [SettingsService, Api, ClientApiService]
     };
   }
 }

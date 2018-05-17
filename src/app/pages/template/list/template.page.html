@@ -1,0 +1,29 @@
+<div class="container">
+  <h3 class="mt-4">
+    <span class="text-capitalize">Templates</span>
+    <button class="btn btn-primary btn-sm" (click)="selectFile()">Upload</button>
+  </h3>
+
+  <input type="file" id="templateFile" class="file d-none" ng2FileSelect [uploader]="uploader">
+  <ng-content></ng-content>
+  <div class="progress my-2" *ngFor="let item of uploader.queue">
+    <div class="progress-bar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+  </div>
+
+  <div class="d-flex mb-2" *ngFor="let template of templates">
+    <span>
+      {{template.originalFilename || template.name}}
+    </span>
+    <button class="btn btn-success btn-sm ml-auto" (click)="downloadTemplate(template)">Download</button>
+    <button class="btn btn-danger btn-sm ml-2" (click)="deleteTemplate(template)">Delete</button>
+  </div>
+
+  <div [hidden]="templates.length" class="text-center">
+    No templates uploaded.
+  </div>
+
+  <form id="downloadForm" ngNoForm target="_blank" method="POST" class="d-none">
+    <input type="text" name="data" id="templateData" value="">
+    <input type="submit" value="Submit">
+  </form>
+</div>

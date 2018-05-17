@@ -14,6 +14,8 @@ import {
   Validators
 } from '@angular/forms';
 
+import { PackagingService } from 'pages/packaging/packaging.service';
+
 @Component({
   selector: 'wineForm',
   templateUrl: './wineForm.html'
@@ -22,13 +24,14 @@ export class WineForm implements OnInit, OnChanges {
   form: FormGroup;
   error = '';
   image = '';
+  packagings = [];
 
   @Input('isCreate') isCreate: boolean = true;
   @Input('initialValue') initialValue: any = {};
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private packagingApi: PackagingService) {
     this.form = fb.group({
       name: ['', Validators.compose([Validators.required])],
       vintage: [''],
@@ -37,9 +40,13 @@ export class WineForm implements OnInit, OnChanges {
       awardLevel: [''],
       availability: [''],
       content: [''],
+      packagingId: [''],
       varietal: [''],
       premium: [''],
-      priority: ['']
+      priority: [''],
+      no: [''],
+      alcohol: [''],
+      description: ['']
     });
 
     this.form.controls.availability.setValue(1);
@@ -47,7 +54,11 @@ export class WineForm implements OnInit, OnChanges {
     this.form.controls.priority.setValue(0);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.packagingApi.getPackagings().subscribe(res => {
+      this.packagings = res;
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (

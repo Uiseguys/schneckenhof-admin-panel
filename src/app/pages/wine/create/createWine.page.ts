@@ -33,11 +33,12 @@ export class CreateWinePage implements OnInit {
       })
       .subscribe(
         res => {
+          this.toasterService.popAsync('success', '', 'Wine has been created');
           this.router.navigate(['/dashboard/' + this.type]);
         },
         res => {
           const body = JSON.parse(res._body);
-          this.toasterService.pop(
+          this.toasterService.popAsync(
             'error',
             '',
             (body.error && body.error.message) || 'Sorry, something is wrong'
