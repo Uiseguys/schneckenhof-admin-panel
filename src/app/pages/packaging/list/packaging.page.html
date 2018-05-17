@@ -67,9 +67,6 @@
         <label class="col-sm-3">{{ 'Display Name' | i18nextFormat }}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" formControlName="displayName" />
-          <div class="text-danger" *ngIf="form.controls['displayName'].hasError('required') && (form.controls['displayName'].dirty || form.controls['displayName'].touched)">
-            This field is required
-          </div>
         </div>
       </div>
 
@@ -86,7 +83,6 @@
       <div class="form-group row">
         <label class="col-sm-3">{{ 'Unit of Measure' | i18nextFormat }}</label>
         <div class="col-sm-9">
-          <!-- <input type="text" class="form-control" formControlName="unitOfMeasure" /> -->
           <select class="form-control" formControlName="unitOfMeasure">
             <option value="ml">ml</option>
             <option value="l">l</option>

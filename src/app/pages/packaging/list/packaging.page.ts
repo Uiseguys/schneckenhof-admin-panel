@@ -43,7 +43,7 @@ export class PackagingPage implements OnInit {
     private toasterService: ToasterService
   ) {
     this.form = fb.group({
-      displayName: ['', Validators.compose([Validators.required])],
+      displayName: [''],
       measure: ['', Validators.compose([Validators.required])],
       unitOfMeasure: ['', Validators.compose([Validators.required])]
     });
