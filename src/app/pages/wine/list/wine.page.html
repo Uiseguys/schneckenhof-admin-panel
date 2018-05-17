@@ -24,7 +24,7 @@
           <div class="wine__costs">
             <span class="content">
               <span class="item_content">
-                {{wine.packaging && wine.packaging.displayName}}
+                {{wine.packaging && (wine.packaging.displayName || (wine.packaging.measure + wine.packaging.unitOfMeasure))}}
               </span>
             </span>
             <span class="c-price">
