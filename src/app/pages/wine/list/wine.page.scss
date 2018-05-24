@@ -13,18 +13,30 @@ app-wine-page {
     &:hover {
       text-decoration: none;
     }
-    h4 {
-      height: 60px;
-    }
-    .image img {
-      display: block;
-      margin: 0 auto;
-      max-height: 25vh;
+    .image {
+      min-height: 240px;
+      img {
+        display: block;
+        margin: 0 auto;
+        max-height: 25vh;
+      }
     }
     .description {
-      margin-top: auto;
-      padding-top: 20px;
+      padding-top: 25px;
       text-align: center;
+      position: relative;
+      min-height: 140px;
+      margin-top: 30px;
     }
+    .wine__vintage {
+      position: absolute;
+      top: 0px;
+      width: 100%;
+    }
+    // .wine__costs {
+    //   position: absolute;
+    //   bottom: -20px;
+    //   width: 100%;
+    // }
   }
 }

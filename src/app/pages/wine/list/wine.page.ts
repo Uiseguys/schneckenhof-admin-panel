@@ -14,15 +14,8 @@ import { WineService } from 'pages/wine/wine.service';
 export class WinePage implements OnInit {
   type = '';
 
-  page = 1;
   wines: any;
   error = '';
-
-  pageConfig = {
-    itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: 1
-  };
 
   constructor(
     private route: ActivatedRoute,
@@ -34,26 +27,11 @@ export class WinePage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.type = params.type;
-      this.route.queryParams.subscribe(queryParams => {
-        // Defaults to 0 if no query param provided.
-        const page = queryParams['page'] || 1;
-        this.api.getWineCount(this.type).subscribe(res => {
-          this.pageConfig.totalItems = res.count;
-        });
 
-        this.page = page;
-        this.wines = this.api.getWines(
-          this.type,
-          page,
-          this.pageConfig.itemsPerPage
-        );
-        this.pageConfig.currentPage = page;
+      this.api.getWines(this.type).subscribe(res => {
+        this.wines = res;
       });
     });
-  }
-
-  getWines(page: number) {
-    this.router.navigate(['/dashboard/wines'], { queryParams: { page } });
   }
 
   deleteWine(wine) {
@@ -63,14 +41,7 @@ export class WinePage implements OnInit {
 
     this.api.deleteWine(wine.id).subscribe(
       res => {
-        this.pageConfig.totalItems =
-          this.pageConfig.totalItems > 1 ? this.pageConfig.totalItems - 1 : 0;
-
-        this.wines = this.api.getWines(
-          this.type,
-          this.page,
-          this.pageConfig.itemsPerPage
-        );
+        this.wines = this.wines.filter(item => item.id != wine.id);
       },
       res => {
         const error = JSON.parse(res._body);

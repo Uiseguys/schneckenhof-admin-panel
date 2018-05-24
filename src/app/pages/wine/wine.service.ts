@@ -21,17 +21,15 @@ export class WineService {
   getAll() {
     const filter = {
       include: ['packaging'],
-      order: ['type', 'priority DESC']
+      order: ['type', 'priority ASC']
     };
     return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
   }
 
-  getWines(type, page = 1, pageSize = 20) {
+  getWines(type) {
     const filter = {
       include: ['packaging'],
-      skip: page > 0 ? (page - 1) * pageSize : 0,
-      limit: pageSize,
-      order: 'priority DESC',
+      order: 'priority ASC',
       where: {
         type
       }
@@ -44,7 +42,8 @@ export class WineService {
       where: {
         name: { like: `${encodeURIComponent(key)}%25` },
         type
-      }
+      },
+      order: ['priority ASC']
     };
     return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
   }
