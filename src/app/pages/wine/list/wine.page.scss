@@ -13,9 +13,6 @@ app-wine-page {
     &:hover {
       text-decoration: none;
     }
-    h6 {
-      min-height: 20px;
-    }
     .image {
       min-height: 240px;
       img {
@@ -29,16 +26,17 @@ app-wine-page {
       text-align: center;
       position: relative;
       min-height: 140px;
+      margin-top: 30px;
     }
     .wine__vintage {
       position: absolute;
       top: 0px;
       width: 100%;
     }
-    .wine__costs {
-      position: absolute;
-      bottom: -20px;
-      width: 100%;
-    }
+    // .wine__costs {
+    //   position: absolute;
+    //   bottom: -20px;
+    //   width: 100%;
+    // }
   }
 }
