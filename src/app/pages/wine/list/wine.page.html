@@ -5,22 +5,25 @@
     </span>
   </h3>
 
-  <div *ngIf="!pageConfig.totalItems" class="text-center mt-5">
+  <div *ngIf="wines && !wines.length" class="text-center mt-5">
     {{ 'No Wines Found' | i18nextFormat }}
   </div>
 
   <div class="wine-list clearfix">
-    <div *ngFor="let wine of wines | async | paginate: pageConfig" class="float-left m-2">
+    <div *ngFor="let wine of wines" class="float-left m-2">
       <div class="c-wine">
         <div class="image">
           <img [hidden]="!wine.image" [src]="wine.image" alt="portfolio" style="max-width: 100%" />
         </div>
         <div class="description">
-          <div class="wine__vintage">{{wine.vintage}}</div>
+          <div class="wine__vintage text-danger">{{wine.vintage}}</div>
           <h4 class="item_name">{{wine.name}}</h4>
-          <h6 *ngIf="wine.varietal">
+          <h6>
             {{wine.varietal}}
           </h6>
+          <div class="text-info">
+            {{wine.awardText}}
+          </div>
           <div class="wine__costs">
             <span class="content">
               <span class="item_content">
@@ -42,9 +45,5 @@
         </a>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="pageConfig.totalItems > 0" class="mt-2 d-flex justify-content-center">
-    <pagination-controls (pageChange)="getWines($event)"></pagination-controls>
   </div>
 </div>
