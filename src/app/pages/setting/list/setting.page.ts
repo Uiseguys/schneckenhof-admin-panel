@@ -17,6 +17,8 @@ export class SettingPage implements OnInit, OnDestroy {
   settings: any = {
     netlifySiteID: ''
   };
+  emailSetting: any = {};
+
   hook: any = null;
   timer: any = null;
 
@@ -28,19 +30,36 @@ export class SettingPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.api.getAll().subscribe(res => {
-      const item = res.find(item => item.key === 'settings');
+      let item;
+      item = res.find(item => item.key === 'settings');
       this.settings = item ? item.value : {};
+
+      item = res.find(item => item.key === 'email');
+      this.emailSetting = item ? item.value : {};
     });
   }
 
   ngOnDestroy() {}
 
-  handleSubmit($e) {
-    $e.preventDefault();
-
+  updateNetlifySetting() {
     this.api.updateSetting('settings', this.settings).subscribe(res => {
-      this.toasterService.popAsync('success', '', 'Settings have been updated');
+      this.toasterService.popAsync(
+        'success',
+        '',
+        'Netlify Settings have been updated'
+      );
       this.config.setAppSetting('settings', this.settings);
+    });
+  }
+
+  updateEmailSetting() {
+    this.api.updateSetting('email', this.emailSetting).subscribe(res => {
+      this.toasterService.popAsync(
+        'success',
+        '',
+        'Email addresses have been updated'
+      );
+      this.config.setAppSetting('email', this.emailSetting);
     });
   }
 }
