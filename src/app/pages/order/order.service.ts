@@ -22,7 +22,7 @@ export class OrderService {
     const filter = {
       skip: page > 0 ? (page - 1) * pageSize : 0,
       limit: pageSize,
-      order: ['completed DESC', 'created DESC'],
+      order: ['created DESC', 'completed DESC'],
       where: {
         or: [{ completed: { neq: null } }, { type: 'email' }]
       }
