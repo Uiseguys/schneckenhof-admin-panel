@@ -12,10 +12,7 @@ export class OrderService {
   // ---------- product api ----------
   getOrderCount(type) {
     const filter = {
-      // or: {
-      //   completed: { neq: null },
-      //   type: 'email'
-      // }
+      or: [{ completed: { neq: null } }, { type: 'email' }]
     };
 
     return this.api.get(`/Orders/count?where=${JSON.stringify(filter)}`);
@@ -25,12 +22,9 @@ export class OrderService {
     const filter = {
       skip: page > 0 ? (page - 1) * pageSize : 0,
       limit: pageSize,
-      order: 'completed DESC',
+      order: ['completed DESC', 'created DESC'],
       where: {
-        // or: {
-        //   completed: { neq: null },
-        //   type: 'email'
-        // }
+        or: [{ completed: { neq: null } }, { type: 'email' }]
       }
     };
     return this.api.get(`/Orders?filter=${JSON.stringify(filter)}`);
