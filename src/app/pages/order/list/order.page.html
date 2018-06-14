@@ -9,6 +9,7 @@
     <thead>
       <tr>
         <th>{{ 'Order ID' | i18nextFormat }}</th>
+        <th>{{ 'Type' | i18nextFormat }}</th>
         <th>{{ 'Email' | i18nextFormat }}</th>
         <th>{{ 'Amount' | i18nextFormat }}</th>
         <th>{{ 'Created' | i18nextFormat }}</th>
@@ -20,6 +21,9 @@
       <tr *ngFor="let order of orders | async | paginate: pageConfig">
         <td>
           {{order.id}}
+        </td>
+        <td>
+          {{order.type}}
         </td>
         <td>
           {{order.email}}
