@@ -12,7 +12,10 @@ export class OrderService {
   // ---------- product api ----------
   getOrderCount(type) {
     const filter = {
-      completed: { neq: null }
+      // or: {
+      //   completed: { neq: null },
+      //   type: 'email'
+      // }
     };
 
     return this.api.get(`/Orders/count?where=${JSON.stringify(filter)}`);
@@ -24,7 +27,10 @@ export class OrderService {
       limit: pageSize,
       order: 'completed DESC',
       where: {
-        completed: { neq: null }
+        // or: {
+        //   completed: { neq: null },
+        //   type: 'email'
+        // }
       }
     };
     return this.api.get(`/Orders?filter=${JSON.stringify(filter)}`);
@@ -33,8 +39,10 @@ export class OrderService {
   searchOrders(type, key) {
     const filter = {
       where: {
-        name: { like: `${encodeURIComponent(key)}%25` },
-        type
+        name: { like: `${encodeURIComponent(key)}%25` }
+        // or: {
+        //   type: 'email'
+        // }
       }
     };
     return this.api.get(`/Orders?filter=${JSON.stringify(filter)}`);
