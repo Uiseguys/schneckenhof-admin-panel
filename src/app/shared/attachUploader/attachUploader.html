@@ -1,6 +1,6 @@
 <div>
-    <button type="button" class="btn btn-default btn-sm" (click)="selectFile()">
-        Select file
+    <button type="button" class="btn btn-primary btn-sm" (click)="selectFile()">
+        Add Image
     </button>
     <div class="progress my-2" *ngFor="let item of uploader.queue">
         <div class="progress-bar" [ngStyle]="{ 'width': item.progress + '%' }"></div>

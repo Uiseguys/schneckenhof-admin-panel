@@ -18,7 +18,7 @@
       <tbody>
         <tr *ngFor="let image of images | async | paginate: pageConfig">
           <div class="image">
-            <img [hidden]="!image.weblinkUrl" [src]="getImageUrl(image.weblinkUrl)" alt="portfolio" style="width: 200px; height: 200px;" />
+            <img [hidden]="!image.weblinkUrl" [src]="getImageUrl(image.weblinkUrl)" alt="portfolio" style="width: auto; height: 170px;" />
           </div>
           <td>
             {{getImageUrl(image.weblinkUrl)}}
