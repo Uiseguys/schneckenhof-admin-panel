@@ -34,6 +34,10 @@ export const routes = [
         loadChildren: './template/template.module#TemplateModule'
       },
       {
+        path: 'images',
+        loadChildren: './image/image.module#ImageModule'
+      },
+      {
         path: 'settings',
         loadChildren: './setting/setting.module#SettingModule'
       },
