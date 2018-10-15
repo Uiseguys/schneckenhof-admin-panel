@@ -15,6 +15,10 @@ import {
 } from '@angular/forms';
 
 import { PackagingService } from 'pages/packaging/packaging.service';
+import { ImageService } from 'pages/image/image.service';
+import { SettingsService } from 'services/settings/settings.service';
+
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'wineForm',
@@ -25,13 +29,22 @@ export class WineForm implements OnInit, OnChanges {
   error = '';
   image = '';
   packagings = [];
+  images = [];
+
+  modalRef: any;
 
   @Input('isCreate') isCreate: boolean = true;
   @Input('initialValue') initialValue: any = {};
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private packagingApi: PackagingService) {
+  constructor(
+    private fb: FormBuilder,
+    private packagingApi: PackagingService,
+    private imageApi: ImageService,
+    private modalService: BsModalService,
+    private settings: SettingsService
+  ) {
     this.form = fb.group({
       name: ['', Validators.compose([Validators.required])],
       vintage: [''],
@@ -57,6 +70,9 @@ export class WineForm implements OnInit, OnChanges {
   ngOnInit() {
     this.packagingApi.getPackagings().subscribe(res => {
       this.packagings = res;
+    });
+    this.imageApi.getAllImages().subscribe(res => {
+      this.images = res;
     });
   }
 
@@ -96,5 +112,22 @@ export class WineForm implements OnInit, OnChanges {
 
   setImage(file) {
     this.image = file.weblinkUrl;
+  }
+
+  showImageSelectModal(template) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  selectImage(url, $event) {
+    $event.preventDefault();
+    this.image = `${this.settings.API_URL}${url}`;
+    this.modalRef.hide();
+  }
+
+  getImageUrl(url) {
+    if (url) {
+      return `${this.settings.API_URL}${url}`;
+    }
+    return '-';
   }
 }
