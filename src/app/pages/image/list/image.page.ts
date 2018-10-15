@@ -78,7 +78,6 @@ export class ImagePage implements OnInit {
   }
 
   deleteImage(image) {
-
     if (!confirm('Are you sure to delete')) return;
 
     this.api.deleteImage(image.id).subscribe(res => {
