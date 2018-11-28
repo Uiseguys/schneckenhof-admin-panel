@@ -30,11 +30,11 @@ app.use(function (req, res, next) { //allow cross origin requests
 
 
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'app/dist')));
 // API location
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(path.join(__dirname, 'app/dist/index.html'));
 });
 
 //Set Port
