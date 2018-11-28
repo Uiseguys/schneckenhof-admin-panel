@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from 'shared/shared.module';
-import { AuthGuardResolve } from 'services/authguard/authguard.service';
-import { ServicesModule } from 'services/services.module';
-import { LayoutModule } from 'layout/layout.module';
-import { DashboardLayoutComponent } from 'layout/dashboardlayout/dashboardlayout.component';
+import { SharedModule } from '../shared/shared.module';
+import { AuthGuardResolve } from '../services/authguard/authguard.service';
+import { ServicesModule } from '../services/services.module';
+import { LayoutModule } from '../layout/layout.module';
+import { DashboardLayoutComponent } from '../layout/dashboardlayout/dashboardlayout.component';
 import { LoginPage } from './login/login.page';
 import { RegisterPage } from './register/register.page';
 

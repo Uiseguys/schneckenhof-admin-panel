@@ -3,8 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CustomValidators} from "ng2-validation";
 
-import {SettingsService} from "services/settings/settings.service";
-import {ClientApiService} from "services/api/clientapi.service";
+import {SettingsService} from "../../services/settings/settings.service";
+import {ClientApiService} from "../../services/api/clientapi.service";
 
 @Component({
     selector: 'app-register-page',

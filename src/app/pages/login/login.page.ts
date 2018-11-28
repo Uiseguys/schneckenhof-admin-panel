@@ -8,8 +8,8 @@ import {
 import { Router } from '@angular/router';
 import { ToasterService, ToasterConfig } from 'angular2-toaster';
 
-import { SettingsService } from 'services/settings/settings.service';
-import { ClientApiService } from 'services/api/clientapi.service';
+import { SettingsService } from '../../services/settings/settings.service';
+import { ClientApiService } from '../../services/api/clientapi.service';
 
 @Component({
   selector: 'app-login-page',

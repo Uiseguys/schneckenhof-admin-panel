@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 
-import { Api } from 'services/api/api.service';
+import { Api } from '../../services/api/api.service';
 
 @Injectable()
 export class OrderService {
