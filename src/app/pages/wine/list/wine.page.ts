@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
-import { SettingsService } from 'services/settings/settings.service';
-import { WineService } from 'pages/wine/wine.service';
+import { SettingsService } from '../../../services/settings/settings.service';
+import { WineService } from '../../../pages/wine/wine.service';
 
 @Component({
   selector: 'app-wine-page',

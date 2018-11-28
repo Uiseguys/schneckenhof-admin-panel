@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
-import { SettingsService } from 'services/settings/settings.service';
-import { OrderService } from 'pages/order/order.service';
+import { SettingsService } from '../../../services/settings/settings.service';
+import { OrderService } from '../../../pages/order/order.service';
 
 @Component({
   selector: 'app-order-page',

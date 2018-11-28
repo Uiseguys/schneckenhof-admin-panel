@@ -14,9 +14,9 @@ import {
   Validators
 } from '@angular/forms';
 
-import { PackagingService } from 'pages/packaging/packaging.service';
-import { ImageService } from 'pages/image/image.service';
-import { SettingsService } from 'services/settings/settings.service';
+import { PackagingService } from '../../../pages/packaging/packaging.service';
+import { ImageService } from '../../../pages/image/image.service';
+import { SettingsService } from '../../../services/settings/settings.service';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 
