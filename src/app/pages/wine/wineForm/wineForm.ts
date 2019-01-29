@@ -14,9 +14,9 @@ import {
   Validators
 } from '@angular/forms';
 
-import { PackagingService } from 'pages/packaging/packaging.service';
-import { ImageService } from 'pages/image/image.service';
-import { SettingsService } from 'services/settings/settings.service';
+import { PackagingService } from '../../../pages/packaging/packaging.service';
+import { ImageService } from '../../../pages/image/image.service';
+import { SettingsService } from '../../../services/settings/settings.service';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 
@@ -101,9 +101,10 @@ export class WineForm implements OnInit, OnChanges {
     for (let c in this.form.controls) {
       this.form.controls[c].markAsTouched();
     }
-
+    if (this.form.value.vintage === "") {
+      this.form.value.vintage = 0
+    }
     if (!this.form.valid) return;
-
     this.onSubmit.emit({
       ...this.form.value,
       image: this.image
@@ -129,5 +130,31 @@ export class WineForm implements OnInit, OnChanges {
       return `${this.settings.API_URL}${url}`;
     }
     return '-';
+  }
+
+  copy(){
+     localStorage.setItem('formdata',JSON.stringify(this.form.value));
+  }
+
+  paste(){
+    if(localStorage.getItem('formdata')){
+       let data = JSON.parse(localStorage.getItem('formdata'));
+       this.form.controls.name.setValue(data.name);
+       this.form.controls.vintage.setValue(data.vintage);
+       this.form.controls.price.setValue(data.price);
+       this.form.controls.awardText.setValue(data.awardText);
+       this.form.controls.awardLevel.setValue(data.awardLevel);
+       this.form.controls.availability.setValue(data.availability);
+       this.form.controls.content.setValue(data.content);
+       this.form.controls.packagingId.setValue(data.packagingId);
+       this.form.controls.varietal.setValue(data.varietal);
+       this.form.controls.premium.setValue(data.premium);
+       this.form.controls.priority.setValue(data.priority);
+       this.form.controls.no.setValue(data.no);
+       this.form.controls.alcohol.setValue(data.alcohol);
+       this.form.controls.description.setValue(data.description);
+       localStorage.removeItem('formdata');
+    }
+     
   }
 }

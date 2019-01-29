@@ -1,3 +1,11 @@
+  
+<span>
+    <button (click)="copy()" class="btn btn-success ng-star-inserted">{{ 'Copy' | i18nextFormat }}</button>
+</span>
+<span>
+    <button (click)="paste()" class="btn btn-success ng-star-inserted">{{ 'Paste' | i18nextFormat }}</button>
+</span>
+  
 <form class="form-horizontal ng-pristine ng-valid" [formGroup]="form" (submit)="handleSubmit($event)" autocomplete="off">
     <div class="p-3" style="border: 2px solid #f7f7f9;">
         <div class="form-group row">
