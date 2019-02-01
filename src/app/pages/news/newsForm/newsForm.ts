@@ -73,16 +73,16 @@ export class NewsForm implements OnInit, OnChanges {
       Object.keys(this.form.controls).forEach(key => {
         if(key === "relevantFrom"){
           let date = new Date(this.initialValue[key]);
-          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth())+"-"+this.formatNumber(date.getUTCDate()));
+          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth()+1)+"-"+this.formatNumber(date.getUTCDate()));
         }else if(key === "relevantTo") {
           let date = new Date(this.initialValue[key]);
-          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth())+"-"+this.formatNumber(date.getUTCDate()));
+          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth()+1)+"-"+this.formatNumber(date.getUTCDate()));
         }else if(key === "startDate") {
           let date = new Date(this.initialValue[key]);
-          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth())+"-"+this.formatNumber(date.getUTCDate()));
+          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth()+1)+"-"+this.formatNumber(date.getUTCDate()));
         }else if(key === "endDate") {
           let date = new Date(this.initialValue[key]);
-          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth())+"-"+this.formatNumber(date.getUTCDate()));
+          this.form.controls[key].setValue(date.getUTCFullYear()+"-"+this.formatNumber(date.getMonth()+1)+"-"+this.formatNumber(date.getUTCDate()));
         }else if(key === "description"){
             this.description = this.initialValue[key]
         }else{
