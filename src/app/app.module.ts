@@ -21,6 +21,8 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 
+
+
 const i18nextOptions = {
   whitelist: ['en', 'de'],
   fallbackLng: localStorage.getItem('stanapplang') || 'de',

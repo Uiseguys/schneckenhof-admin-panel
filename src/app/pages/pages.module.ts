@@ -41,7 +41,12 @@ export const routes = [
         path: 'settings',
         loadChildren: './setting/setting.module#SettingModule'
       },
+      { 
+         path: 'news',
+         loadChildren: './news/news.module#NewsModule'
+      },
       { path: ':type', loadChildren: './wine/wine.module#WineModule' }
+      
     ]
   },
   { path: '**', redirectTo: 'login' }

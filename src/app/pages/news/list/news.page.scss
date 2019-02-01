@@ -1,0 +1,42 @@
+app-wine-page {
+  .c-wine {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 250px;
+    height: 420px;
+    flex-basis: 12%;
+    padding: 2%;
+    background-color: #fff;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25);
+    color: #333;
+    &:hover {
+      text-decoration: none;
+    }
+    .image {
+      min-height: 240px;
+      img {
+        display: block;
+        margin: 0 auto;
+        max-height: 25vh;
+      }
+    }
+    .description {
+      padding-top: 25px;
+      text-align: center;
+      position: relative;
+      min-height: 140px;
+      margin-top: 30px;
+    }
+    .wine__vintage {
+      position: absolute;
+      top: 0px;
+      width: 100%;
+    }
+    // .wine__costs {
+    //   position: absolute;
+    //   bottom: -20px;
+    //   width: 100%;
+    // }
+  }
+}
