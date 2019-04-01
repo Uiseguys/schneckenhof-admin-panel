@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SharedModule } from 'shared/shared.module';
-import { PackagingService } from 'pages/packaging/packaging.service';
-import { ImageService } from 'pages/image/image.service';
-import { SettingsService } from 'services/settings/settings.service';
+import { SharedModule } from '../../shared/shared.module';
+import { PackagingService } from '../../pages/packaging/packaging.service';
+import { ImageService } from '../../pages/image/image.service';
+import { SettingsService } from '../../services/settings/settings.service';
 import { WineService } from './wine.service';
 import { WineForm } from './wineForm/wineForm';
 import { WinePage } from './list/wine.page';

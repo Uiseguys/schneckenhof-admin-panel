@@ -1,0 +1,60 @@
+<div class="container">
+  <h3 class="mt-4">
+    <span class="text-capitalize">{{type | i18nextFormat }}
+      <a [routerLink]="['./create']" class="btn btn-primary btn-sm">{{ 'New News' | i18nextFormat }}</a>
+
+      <button id="collapse-trigger" class="btn btn-primary btn-sm"  data-toggle="collapse" data-target="#into-text-collapse">{{ 'Update Intro News' | i18nextFormat }}</button>
+    </span>
+  </h3>
+  <div class="form-group into-text collapse" id="into-text-collapse">
+    <label class="label">{{ 'Intro News' | i18nextFormat }}</label>
+    
+    <app-ngx-editor [placeholder]="'Enter intro news here...'" [spellcheck]="true" [(ngModel)]="introNews.text"
+    [ngModelOptions]="{standalone: true}"></app-ngx-editor>
+    
+    <button class="mt-3 btn btn-primary "  (click)="updateTitleNews()"  >{{ 'Update' | i18nextFormat }}</button>
+    <a class="mt-3 btn btn-default ml-3" data-toggle="collapse" data-target="#into-text-collapse">{{ 'Cancel' | i18nextFormat }}</a>
+  </div>
+
+
+  <div *ngIf="news && !news.length" class="text-center mt-5">
+    {{ 'No News Found' | i18nextFormat }}
+  </div>
+
+  <div class="wine-list clearfix">
+    <div *ngFor="let news of news" class="">
+     <div class="text-right">
+        <a [routerLink]="'/dashboard/news' + '/' + news.id" class="text-success">
+          <i class="fa fa-edit"></i>
+        </a>
+        <a class="text-danger cp ml-3" (click)="delete(news)">
+          <i class="fa fa-trash"></i>
+        </a>
+      </div>
+      <div class="c-wine">
+        <div class="description">
+          <h4 class="item_name">{{news.title}}</h4>
+          <div class="other_desc">
+            <h6>
+              {{  news.shortDescription }}
+            </h6>
+            <!--<div>
+              {{ (wine.awardText.length>10)? (wine.awardText | slice:0:10)+'...':(wine.awardText) }}
+            </div>-->
+          </div>
+          <!--<div class="wine__costs">
+            <span class="content">
+              <span class="item_content">
+                {{wine.packaging && (wine.packaging.displayName || (wine.packaging.measure + wine.packaging.unitOfMeasure))}}
+              </span>
+            </span>
+            <span class="c-price">
+              {{wine.price}}&euro;
+            </span>
+          </div>-->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

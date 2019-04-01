@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
 
-import { ClientApiService } from 'services/api/clientapi.service';
-import { SettingsService as ConfigService } from 'services/settings/settings.service';
+import { ClientApiService } from '../../../services/api/clientapi.service';
+import { SettingsService as ConfigService } from '../../../services/settings/settings.service';
 import { SettingService } from '../setting.service';
 
 declare var $: any;

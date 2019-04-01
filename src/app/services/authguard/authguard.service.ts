@@ -12,9 +12,8 @@ import {
   CanActivate
 } from '@angular/router';
 import { Observable } from 'rxjs';
-
-import { ClientApiService } from 'services/api/clientapi.service';
-import { SettingsService } from 'services/settings/settings.service';
+import { ClientApiService } from '../../services/api/clientapi.service';
+import { SettingsService } from '../../services/settings/settings.service';
 
 @Injectable()
 export class AuthGuardResolve implements Resolve<any>, CanLoad, CanActivate {

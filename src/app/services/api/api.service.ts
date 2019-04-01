@@ -20,7 +20,7 @@ export class Api {
   ) {}
 
   createAuthorizationHeader(headers: Headers) {
-    headers.append('Authorization', this.settings.getStorage('token'));
+    headers.append('Authorization', 'Basic '+this.settings.getStorage('token'));
   }
 
   get(url, data?) {
@@ -46,6 +46,7 @@ export class Api {
   post(url, data) {
     let headers = new Headers();
     this.createAuthorizationHeader(headers);
+    headers.append('withCredentials','false')
 
     return this.http
       .post(this.apiUrl + url, data, {

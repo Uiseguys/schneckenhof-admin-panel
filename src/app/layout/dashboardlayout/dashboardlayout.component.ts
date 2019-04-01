@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 import { ToasterConfig, ToasterService } from 'angular2-toaster';
 import { Http } from '@angular/http';
 
-import { SettingsService as ConfigService } from 'services/settings/settings.service';
-import { ClientApiService } from 'services/api/clientapi.service';
-import { SettingService } from 'pages/setting/setting.service';
+import { SettingsService as ConfigService } from '../../services/settings/settings.service';
+import { ClientApiService } from '../../services/api/clientapi.service';
+import { SettingService } from '../../pages/setting/setting.service';
 
 declare var $: any;
 
@@ -48,12 +48,19 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     this.settingApi.getAll().subscribe(res => {
       const item = res.find(item => item.key === 'settings');
       this.config.setAppSetting('settings', item ? item.value : {});
-
       const hook = res.find(item => item.key === 'netlifyHook');
       if (hook && hook.value.state === 'building') {
         this.startWatch();
       }
     });
+
+
+    this.settingApi.getSetting('netlifyHook').subscribe(res => {
+      if (res.length)
+        this.settingApi.deleteSetting(res[0].id).subscribe(res => {
+        })
+
+    })
   }
 
   ngOnDestroy() {
@@ -69,7 +76,10 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
         const detail = res[0].value;
         if (detail.state === 'ready') {
           this.stopWatch();
-          window.open(detail.deploy_ssl_url, '_blank');
+
+            window.open(detail.deploy_ssl_url, '_blank');
+            this.settingApi.deleteSetting(res[0].id).subscribe(res => {
+            })
         } else if (detail.state === 'failed') {
           this.stopWatch();
           this.toasterService.popAsync(
@@ -77,7 +87,16 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
             '',
             'Sorry. Building has been failed'
           );
+          this.settingApi.deleteSetting(res[0].id).subscribe(res => {
+
+          })
+
+        } else {
+          this.settingApi.deleteSetting(res[0].id).subscribe(res => {
+          })
+
         }
+
       });
     }, 3500);
   }

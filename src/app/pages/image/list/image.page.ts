@@ -2,16 +2,14 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
 import { ToasterService } from 'angular2-toaster';
 import { Observable, Subject } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
-
-import { SettingsService } from 'services/settings/settings.service';
-import { ImageService } from 'pages/image/image.service';
+import { SettingsService } from './../../../services/settings/settings.service';
+import { ImageService } from '../../../pages/image/image.service';
 
 @Component({
   selector: 'app-image-page',
@@ -87,8 +85,14 @@ export class ImagePage implements OnInit {
   }
 
   getImageUrl(url) {
+   
     if (url) {
-      return `${this.settings.API_URL}${url}`;
+      if(url.indexOf('googleapis.com') >=0){
+        return url
+      }else{
+        return `${this.settings.API_URL}${url}`;
+      }
+    
     }
     return '-';
   }

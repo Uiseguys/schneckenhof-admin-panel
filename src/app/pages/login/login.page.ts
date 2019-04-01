@@ -8,8 +8,10 @@ import {
 import { Router } from '@angular/router';
 import { ToasterService, ToasterConfig } from 'angular2-toaster';
 
-import { SettingsService } from 'services/settings/settings.service';
-import { ClientApiService } from 'services/api/clientapi.service';
+import { SettingsService } from '../../services/settings/settings.service';
+import { ClientApiService } from '../../services/api/clientapi.service';
+
+declare const Buffer
 
 @Component({
   selector: 'app-login-page',
@@ -57,8 +59,9 @@ export class LoginPage implements OnInit {
 
     this.api.login(this.loginForm.value).subscribe(
       res => {
-        this.settings.setStorage('token', res.id);
-        this.settings.setStorage('userId', res.userId);
+        var base64encodedData = new Buffer(this.loginForm.value.email + ':' + this.loginForm.value.password).toString('base64');
+        this.settings.setStorage('token', base64encodedData);
+        this.settings.setStorage('userId', res.id);
         this.router.navigate(['/dashboard']);
       },
       res => {

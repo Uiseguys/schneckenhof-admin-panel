@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 
-import { Api } from 'services/api/api.service';
+import { Api } from '../../services/api/api.service';
 
 @Injectable()
 export class WineService {
@@ -20,7 +20,6 @@ export class WineService {
 
   getAll() {
     const filter = {
-      include: ['packaging'],
       order: ['type', 'priority ASC']
     };
     return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
@@ -28,7 +27,6 @@ export class WineService {
 
   getWines(type) {
     const filter = {
-      include: ['packaging'],
       order: 'priority ASC',
       where: {
         type
@@ -60,7 +58,7 @@ export class WineService {
     const filter = {
       include: ['packaging']
     };
-    return this.api.get(`/Wines/${id}?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/Wines/${id}`);
   }
 
   deleteWine(id) {

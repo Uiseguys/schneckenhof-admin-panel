@@ -26,6 +26,29 @@ export class CreateWinePage implements OnInit {
   }
 
   handleSubmit(values) {
+    if(parseInt(values.availability)){
+      values.availability = true
+    }else{
+      values.availability = false
+    }
+    if(parseInt(values.premium)){
+      values.premium = true
+    }else{
+      values.premium = false
+    }
+    if(values.content){
+      values.content = 1
+    }else{
+      values.content = 0
+    }
+    if(!values.description){
+      values.description = ""
+    }
+    if(!values.no){
+      values.no = 0
+    }
+
+    values.packagingId = parseInt(values.packagingId);
     this.api
       .createWine({
         ...values,

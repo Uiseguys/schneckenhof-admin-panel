@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
-import { SettingsService } from 'services/settings/settings.service';
-import { WineService } from 'pages/wine/wine.service';
+import { SettingsService } from '../../../services/settings/settings.service';
+import { WineService } from '../../../pages/wine/wine.service';
 
 @Component({
   selector: 'app-wine-page',
@@ -22,14 +22,16 @@ export class WinePage implements OnInit {
     public router: Router,
     private api: WineService,
     private settings: SettingsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.type = params.type;
 
       this.api.getWines(this.type).subscribe(res => {
-        this.wines = res;
+        this.wines = res.sort(function (a, b) {
+          return a.priority - b.priority;
+        })
       });
     });
   }

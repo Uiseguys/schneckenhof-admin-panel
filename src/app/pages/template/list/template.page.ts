@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
 
-import { SettingsService } from 'services/settings/settings.service';
-import { TemplateService } from 'pages/template/template.service';
-import { WineService } from 'pages/wine/wine.service';
+import { SettingsService } from '../../../services/settings/settings.service';
+import { TemplateService } from '../../../pages/template/template.service';
+import { WineService } from '../../../pages/wine/wine.service';
+import { environment as ENV } from '../../../../environments/environment';
 
 declare var $: any;
 
@@ -18,6 +19,7 @@ declare var $: any;
 export class TemplatePage implements OnInit {
   templates = [];
   uploader: FileUploader;
+  @Input('mimeTypes') mimeTypes: any = ["image/jpeg"];
 
   constructor(
     private route: ActivatedRoute,
@@ -25,11 +27,12 @@ export class TemplatePage implements OnInit {
     private api: TemplateService,
     private wineApi: WineService,
     private settings: SettingsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.uploader = new FileUploader({
-      url: 'https://www.pdf-aas.io/api/Templates'
+      url: ENV.pdfUrl + "/Templates/",
+      authToken: this.settings.getStorage('userId')
     });
 
     this.uploader.onSuccessItem = (
@@ -53,18 +56,22 @@ export class TemplatePage implements OnInit {
     };
 
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
+      console.log(item)
+      console.log(filter)
       if (filter.name === 'mimeType') {
         alert('Invalid file');
       }
     };
 
     this.uploader.onAfterAddingFile = file => {
+      file.withCredentials = false;
       this.uploader.uploadAll();
     };
 
     // get templates
-    this.api.getTemplates().subscribe(res => {
-      this.templates = res;
+    this.api.get('/Templates').subscribe(res => {
+      let userId= this.settings.getStorage('userId');
+      this.templates = res.filter(temp=> temp.ownerId === userId )
     });
   }
 
@@ -99,12 +106,10 @@ export class TemplatePage implements OnInit {
         }
       });
 
-      $('#downloadForm').attr(
-        'action',
-        `https://www.pdf-aas.io/api/Templates/${template.id}`
-      );
-      $('#templateData').val(JSON.stringify(groupedWines));
-      $('#downloadForm').submit();
+      this.api.downloadTemplate(`${ENV.pdfUrl}/Templates/${template.id}`, JSON.stringify(groupedWines), this.settings.getStorage('userId')).subscribe(res => {
+        window.open("https://" +res, '_blank')
+      })
+
     });
   }
 

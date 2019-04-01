@@ -5,16 +5,19 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Api } from '../../services/api/api.service';
+import { environment as ENV } from '../../../environments/environment';
 
 @Injectable()
 export class TemplateService {
-  public apiUrl = 'https://www.pdf-aas.io/api';
+  public apiUrl = ENV.pdfUrl
 
-  constructor(protected http: Http, private router: Router) {}
+  constructor(protected http: Http, private router: Router, private api: Api, ) { }
 
-  createAuthorizationHeader(headers: Headers) {}
+  createAuthorizationHeader(headers: Headers) { }
 
   get(url, data?) {
+    console.log("GET" + this.apiUrl)
     let headers = new Headers();
     this.createAuthorizationHeader(headers);
 
@@ -39,7 +42,7 @@ export class TemplateService {
     this.createAuthorizationHeader(headers);
 
     return this.http
-      .post(this.apiUrl + url, data, {
+      .post(url, data, {
         headers: headers
       })
       .map(res => res.json())
@@ -87,10 +90,24 @@ export class TemplateService {
   }
 
   getTemplates() {
-    return this.get('/Templates');
+    return this.api.get('/Templates')
   }
 
   deleteTemplate(id) {
     return this.delete(`/Templates/${id}`);
   }
+
+  downloadTemplate(url, data, token) {
+    let headers = new Headers();
+    headers.append('token',  token);
+   
+    return this.http
+      .post(url, {data:data}, {
+        headers: headers
+      })
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+
 }

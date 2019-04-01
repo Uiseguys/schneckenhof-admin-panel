@@ -121,40 +121,51 @@ export class WineForm implements OnInit, OnChanges {
 
   selectImage(url, $event) {
     $event.preventDefault();
-    this.image = `${this.settings.API_URL}${url}`;
+    if (url.indexOf('googleapis.com') >= 0) {
+      this.image = url;
+    } else {
+      this.image = `${this.settings.API_URL}${url}`;
+    }
+
     this.modalRef.hide();
   }
 
   getImageUrl(url) {
+
     if (url) {
-      return `${this.settings.API_URL}${url}`;
+      if (url.indexOf('googleapis.com') >= 0) {
+        return url
+      } else {
+        return `${this.settings.API_URL}${url}`;
+      }
+
     }
     return '-';
   }
 
-  copy(){
-     localStorage.setItem('formdata',JSON.stringify(this.form.value));
+  copy() {
+    localStorage.setItem('formdata', JSON.stringify(this.form.value));
   }
 
-  paste(){
-    if(localStorage.getItem('formdata')){
-       let data = JSON.parse(localStorage.getItem('formdata'));
-       this.form.controls.name.setValue(data.name);
-       this.form.controls.vintage.setValue(data.vintage);
-       this.form.controls.price.setValue(data.price);
-       this.form.controls.awardText.setValue(data.awardText);
-       this.form.controls.awardLevel.setValue(data.awardLevel);
-       this.form.controls.availability.setValue(data.availability);
-       this.form.controls.content.setValue(data.content);
-       this.form.controls.packagingId.setValue(data.packagingId);
-       this.form.controls.varietal.setValue(data.varietal);
-       this.form.controls.premium.setValue(data.premium);
-       this.form.controls.priority.setValue(data.priority);
-       this.form.controls.no.setValue(data.no);
-       this.form.controls.alcohol.setValue(data.alcohol);
-       this.form.controls.description.setValue(data.description);
-       localStorage.removeItem('formdata');
+  paste() {
+    if (localStorage.getItem('formdata')) {
+      let data = JSON.parse(localStorage.getItem('formdata'));
+      this.form.controls.name.setValue(data.name);
+      this.form.controls.vintage.setValue(data.vintage);
+      this.form.controls.price.setValue(data.price);
+      this.form.controls.awardText.setValue(data.awardText);
+      this.form.controls.awardLevel.setValue(data.awardLevel);
+      this.form.controls.availability.setValue(data.availability);
+      this.form.controls.content.setValue(data.content);
+      this.form.controls.packagingId.setValue(data.packagingId);
+      this.form.controls.varietal.setValue(data.varietal);
+      this.form.controls.premium.setValue(data.premium);
+      this.form.controls.priority.setValue(data.priority);
+      this.form.controls.no.setValue(data.no);
+      this.form.controls.alcohol.setValue(data.alcohol);
+      this.form.controls.description.setValue(data.description);
+      localStorage.removeItem('formdata');
     }
-     
+
   }
 }

@@ -17,7 +17,7 @@ import { ToasterModule } from 'angular2-toaster';
 import * as i18nextXHRBackend from 'i18next-xhr-backend';
 import * as i18nextLanguageDetector from 'i18next-browser-languagedetector';
 
-import { SharedModule } from 'shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 

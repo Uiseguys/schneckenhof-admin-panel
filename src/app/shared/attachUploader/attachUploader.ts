@@ -68,6 +68,7 @@ export class AttachUploader implements OnInit {
       status: any,
       headers: any
     ) => {
+      console.log(response);
       alert('Sorry. file uploading failed');
       this.uploader.clearQueue();
     };
@@ -77,8 +78,8 @@ export class AttachUploader implements OnInit {
         alert('Invalid file');
       }
     };
-
     this.uploader.onAfterAddingFile = file => {
+      file.withCredentials = false; 
       if (this.validate) {
         this.validate(file).then(
           () => {

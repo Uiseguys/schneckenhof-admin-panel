@@ -3,8 +3,8 @@
  */
 import { Injectable } from '@angular/core';
 
-import { Api } from 'services/api/api.service';
-import { SettingsService } from 'services/settings/settings.service';
+import { Api } from '../../services/api/api.service';
+import { SettingsService } from '../../services/settings/settings.service';
 
 @Injectable()
 export class ImageService {
