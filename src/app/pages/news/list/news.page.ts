@@ -34,7 +34,17 @@ export class NewsPage implements OnInit {
       this.type = params.type;
 
       this.api.getNews(this.type).subscribe(res => {
-        this.news = res;
+        if (res && res.length > 0) {
+          this.news = res.sort(function (a, b) {
+            if (new Date(a.startDate) < new Date(b.startDate))
+              return -1;
+            if (new Date(a.startDate) > new Date(b.startDate))
+              return +1;
+            return 0;
+          })
+        } else {
+          this.news = []
+        }
       });
     });
 

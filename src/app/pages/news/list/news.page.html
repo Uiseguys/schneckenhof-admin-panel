@@ -10,7 +10,7 @@
     <label class="label">{{ 'Intro News' | i18nextFormat }}</label>
     
     <app-ngx-editor [placeholder]="'Enter intro news here...'" [spellcheck]="true" [(ngModel)]="introNews.text"
-    [ngModelOptions]="{standalone: true}"></app-ngx-editor>
+    [ngModelOptions]="{standalone: true}"  minHeight="100px"></app-ngx-editor>
     
     <button class="mt-3 btn btn-primary "  (click)="updateTitleNews()"  >{{ 'Update' | i18nextFormat }}</button>
     <a class="mt-3 btn btn-default ml-3" data-toggle="collapse" data-target="#into-text-collapse">{{ 'Cancel' | i18nextFormat }}</a>
@@ -35,7 +35,7 @@
         <div class="description">
           <h4 class="item_name">{{news.title}}</h4>
           <div class="other_desc">
-            <h6>
+            <h6>          
               {{  news.shortDescription }}
             </h6>
             <!--<div>

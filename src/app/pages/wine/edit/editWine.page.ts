@@ -50,6 +50,10 @@ export class EditWinePage implements OnInit {
     if(!values.no){
       values.no = 0
     }
+    values.price=parseFloat(values.price);
+    values.alcohol=parseFloat(values.alcohol)
+
+    console.log(typeof values.price)
     values.packagingId = parseInt(values.packagingId);
     this.api
       .updateWine(this.wine.id, {
@@ -60,8 +64,11 @@ export class EditWinePage implements OnInit {
         res => {
           this.toasterService.popAsync('success', '', 'Wine has been updated');
           this.router.navigate(['/dashboard/' + this.wine.type]);
+
+          console.log(res)
         },
         res => {
+          console.log(res)
           const body = JSON.parse(res._body);
           this.toasterService.popAsync(
             'error',
