@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   siteUrl: '',
-  apiUrl: 'https://schneckenhof-api4.herokuapp.com',
+  apiUrl: 'https://schneckenhof-lb4-api.herokuapp.com',
   pdfUrl: 'https://pdf-aas.io/api'
   };
   

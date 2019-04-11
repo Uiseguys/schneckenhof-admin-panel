@@ -16,7 +16,7 @@
           <img [hidden]="!wine.image" [src]="wine.image" alt="portfolio" style="max-width: 100%" />
         </div>
         <div class="description">
-          <div class="wine__vintage">{{wine.vintage}}</div>
+          <div *ngIf="wine.vintage" class="wine__vintage">{{wine.vintage}}</div>
           <h4 class="item_name">{{wine.name}}</h4>
           <div class="other_desc">
             <h6>

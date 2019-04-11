@@ -74,12 +74,12 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
         if (!res.length) return;
 
         const detail = res[0].value;
+        
         if (detail.state === 'ready') {
           this.stopWatch();
-
-            window.open(detail.deploy_ssl_url, '_blank');
-            this.settingApi.deleteSetting(res[0].id).subscribe(res => {
-            })
+          window.open(detail.deploy_ssl_url, '_blank');
+          this.settingApi.deleteSetting(res[0].id).subscribe(res => {
+          })
         } else if (detail.state === 'failed') {
           this.stopWatch();
           this.toasterService.popAsync(
@@ -88,10 +88,15 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
             'Sorry. Building has been failed'
           );
           this.settingApi.deleteSetting(res[0].id).subscribe(res => {
-
           })
 
         } else {
+          this.stopWatch();
+          this.toasterService.popAsync(
+            'error',
+            '',
+            'Sorry. Building has been failed'
+          );
           this.settingApi.deleteSetting(res[0].id).subscribe(res => {
           })
 
