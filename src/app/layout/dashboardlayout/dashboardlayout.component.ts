@@ -77,7 +77,7 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
         
         if (detail.state === 'ready') {
           this.stopWatch();
-          window.open(detail.deploy_ssl_url, '_blank');
+          window.open(detail.url, '_blank');
           this.settingApi.deleteSetting(res[0].id).subscribe(res => {
           })
         } else if (detail.state === 'failed') {
