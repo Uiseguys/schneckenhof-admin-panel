@@ -15,7 +15,7 @@ export class PackagingService {
       completed: { neq: null }
     };
 
-    return this.api.get(`/Packagings/count?where=${JSON.stringify(filter)}`);
+    return this.api.get(`/packages/count?where=${JSON.stringify(filter)}`);
   }
 
   getPackagings(page = 1, pageSize = 500) {
@@ -27,23 +27,23 @@ export class PackagingService {
         completed: { neq: null }
       }
     };
-    return this.api.get(`/Packagings?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/packages?filter=${JSON.stringify(filter)}`);
   }
 
   createPackaging(info) {
-    return this.api.post('/Packagings', info);
+    return this.api.post('/packages', info);
   }
 
   updatePackaging(id, info) {
-    return this.api.patch(`/Packagings/${id}`, info);
+    return this.api.patch(`/packages/${id}`, info);
   }
 
   getPackaging(id) {
     const filter = {};
-    return this.api.get(`/Packagings/${id}?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/packages/${id}?filter=${JSON.stringify(filter)}`);
   }
 
   deletePackaging(id) {
-    return this.api.delete(`/Packagings/${id}`);
+    return this.api.delete(`/packages/${id}`);
   }
 }

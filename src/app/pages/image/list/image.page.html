@@ -18,18 +18,19 @@
       <tbody>
         <tr *ngFor="let image of images | async | paginate: pageConfig">
           <div class="image">
-            <img [hidden]="!image.weblinkUrl" [src]="getImageUrl(image.weblinkUrl)" alt="portfolio" style="width: auto; height: 170px;" />
+            <img [hidden]="!image.url" [src]="getImageUrl(image.url)" alt="portfolio" style="width: auto; height: 170px;" />
           </div>
           <td>
-            {{getImageUrl(image.weblinkUrl)}}
+            {{getImageUrl(image.url)}}
           </td>
           <td class="text-right">
-            <button class="btn btn-danger" (click)="deleteImage(image)" title="Delete">
+            <button class="btn btn-danger" (click)="deleteImage(image.id)" title="Delete">
               <i class="fa fa-trash"></i>
             </button>
           </td>
         </tr>
-        <tr *ngIf="!pageConfig.totalItems">
+        <!-- <tr *ngIf="!pageConfig.totalItems"> -->
+          <tr *ngIf="!images.length">
           <td colspan="5" class="text-center my-5">
             {{ 'No Images Found' | i18nextFormat }}
           </td>
@@ -38,7 +39,8 @@
     </table>
   </div>
 
-  <div *ngIf="pageConfig.totalItems > 0" class="mt-2 d-flex justify-content-center">
+  <!-- <div *ngIf="pageConfig.totalItems > 0" class="mt-2 d-flex justify-content-center"> -->
+  <div *ngIf="images.length > 0" class="mt-2 d-flex justify-content-center">
     <pagination-controls (pageChange)="getImages($event)"></pagination-controls>
   </div>
 </div>

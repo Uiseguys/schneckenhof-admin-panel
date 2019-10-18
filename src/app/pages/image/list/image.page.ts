@@ -56,18 +56,18 @@ export class ImagePage implements OnInit {
       });
 
       this.page = page;
-      this.images = this.api.getImages(
-        page,
-        this.pageConfig.itemsPerPage
+      this.images = this.api.getAllImages(
+        // page,
+        // this.pageConfig.itemsPerPage
       );
       this.pageConfig.currentPage = page;
     });
   }
 
   loadImages() {
-    this.images = this.api.getImages(
-      this.page,
-      this.pageConfig.itemsPerPage
+    this.images = this.api.getAllImages(
+      // this.page,
+      // this.pageConfig.itemsPerPage
     );
   }
 
@@ -78,14 +78,13 @@ export class ImagePage implements OnInit {
   deleteImage(image) {
     if (!confirm('Are you sure to delete')) return;
 
-    this.api.deleteImage(image.id).subscribe(res => {
+    this.api.deleteImage(image).subscribe(res => {
       this.toasterService.popAsync('success', '', 'Image has been deleted');
       this.loadImages();
     });
   }
 
   getImageUrl(url) {
-   
     if (url) {
       if(url.indexOf('googleapis.com') >=0){
         return url
@@ -97,7 +96,7 @@ export class ImagePage implements OnInit {
     return '-';
   }
 
-  refreshList($event) {
+  async refreshList($event) {
     this.toasterService.popAsync('success', '', 'Image has been uploaded');
     this.loadImages();
   }

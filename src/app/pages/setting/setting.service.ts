@@ -10,24 +10,24 @@ export class SettingService {
   constructor(private api: Api) {}
 
   getAll() {
-    return this.api.get('/Settings');
+    return this.api.get('/settings');
   }
 
   getSetting(key) {
     const filter = {
       where: { key }
     };
-    return this.api.get(`/Settings?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/settings?filter=${JSON.stringify(filter)}`);
   }
 
   deleteSetting(id) {
-    return this.api.delete(`/Settings/${id}`);
+    return this.api.delete(`/settings/${id}`);
   }
 
   updateSetting(key, value) {
     const where = { key };
     return this.api.post(
-      `/Settings/upsertWithWhere?where=${JSON.stringify(where)}`,
+      `/settings/upsertWithWhere?where=${JSON.stringify(where)}`,
       { key, value }
     );
   }

@@ -163,14 +163,14 @@
                 <tbody>
                     <tr *ngFor="let image of images">
                         <div class="image">
-                            <img [hidden]="!image.weblinkUrl" [src]="getImageUrl(image.weblinkUrl)" alt="portfolio"
+                            <img [hidden]="!image.url" [src]="getImageUrl(image.url)" alt="portfolio"
                                 style="width: auto; height: 170px;" />
                         </div>
                         <!-- <td>
                             {{getImageUrl(image.weblinkUrl)}}
                         </td> -->
                         <td class="text-right">
-                            <button class="btn btn-primary" (click)="selectImage(image.weblinkUrl, $event)" title="Select">
+                            <button class="btn btn-primary" (click)="selectImage(image.url, $event)" title="Select">
                                 Select
                                 <!-- <i class="fa fa-trash"></i> -->
                             </button>

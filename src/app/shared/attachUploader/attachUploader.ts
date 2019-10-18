@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { uniqBy } from 'lodash';
 
-import { SettingsService } from 'services/settings/settings.service';
+import { SettingsService } from '../../services/settings/settings.service';
 
 declare var $: any;
 
@@ -100,7 +100,8 @@ export class AttachUploader implements OnInit {
 
     this.route.params.subscribe(params => {
       this.uploader.setOptions({
-        url: this.settings.API_URL + `/resources/${params.type}/upload`,
+        // url: this.settings.API_URL + `/resources/${params.type}/upload`,
+        url: this.settings.API_URL + `/resources/upload`,
         authToken: this.settings.getStorage('token'),
         allowedMimeType: this.mimeTypes
       });

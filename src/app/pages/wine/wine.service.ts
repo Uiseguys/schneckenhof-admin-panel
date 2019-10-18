@@ -15,14 +15,14 @@ export class WineService {
       type
     };
 
-    return this.api.get(`/Wines/count?where=${JSON.stringify(filter)}`);
+    return this.api.get(`/wines/count?where=${JSON.stringify(filter)}`);
   }
 
   getAll() {
     const filter = {
       order: ['type', 'priority ASC']
     };
-    return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/wines?filter=${JSON.stringify(filter)}`);
   }
 
   getWines(type) {
@@ -32,7 +32,7 @@ export class WineService {
         type
       }
     };
-    return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/wines?filter=${JSON.stringify(filter)}`);
   }
 
   searchWines(type, key) {
@@ -43,25 +43,25 @@ export class WineService {
       },
       order: ['priority ASC']
     };
-    return this.api.get(`/Wines?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/wines?filter=${JSON.stringify(filter)}`);
   }
 
   createWine(info) {
-    return this.api.post('/Wines', info);
+    return this.api.post('/wines', info);
   }
 
   updateWine(id, info) {
-    return this.api.patch(`/Wines/${id}`, info);
+    return this.api.patch(`/wines/${id}`, info);
   }
 
   getWine(id) {
     const filter = {
       include: ['packaging']
     };
-    return this.api.get(`/Wines/${id}`);
+    return this.api.get(`/wines/${id}`);
   }
 
   deleteWine(id) {
-    return this.api.delete(`/Wines/${id}`);
+    return this.api.delete(`/wines/${id}`);
   }
 }

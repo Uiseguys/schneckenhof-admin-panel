@@ -16,15 +16,15 @@ export class ClientApiService extends Api {
 
   // ---------- auth api ----------
   login(info) {
-    return this.post('/CustomUsers/login', info);
+    return this.post('/custom-users/login', info);
   }
 
   register(info) {
-    return this.post('/CustomUsers', info);
+    return this.post('/custom-users', info);
   }
 
   logout() {
-    return this.post('/CustomUsers/logout', {});
+    return this.post('/custom-users/logout', {});
   }
 
   getUserInfo(id) {
@@ -32,7 +32,7 @@ export class ClientApiService extends Api {
       include: ['roles']
     };
 
-    return this.get(`/CustomUsers/${id}?filter=${JSON.stringify(filter)}`);
+    return this.get(`/custom-users/${id}?filter=${JSON.stringify(filter)}`);
   }
 
   generatePDF(template, data) {
