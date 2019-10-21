@@ -15,14 +15,14 @@ export class NewsService {
       type
     };
 
-    return this.api.get(`/News/count?where=${JSON.stringify(filter)}`);
+    return this.api.get(`/news/count?where=${JSON.stringify(filter)}`);
   }
 
   getAll() {
     const filter = {
       order: ['type', 'startDate ASC']
     };
-    return this.api.get(`/News?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/news?filter=${JSON.stringify(filter)}`);
   }
 
   getNews(type) {
@@ -32,7 +32,7 @@ export class NewsService {
         type
       }
     };
-    return this.api.get(`/News?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/news?filter=${JSON.stringify(filter)}`);
   }
 
   searchNews(type, key) {
@@ -43,24 +43,24 @@ export class NewsService {
       },
       order: ['startDate ASC']
     };
-    return this.api.get(`/News?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/news?filter=${JSON.stringify(filter)}`);
   }
 
   createNews(info) {
-    return this.api.post('/News', info);
+    return this.api.post('/news', info);
   }
 
   updateNews(id, info) {
-    return this.api.patch(`/News/${id}`, info);
+    return this.api.patch(`/news/${id}`, info);
   }
 
   getSingleNews(id) {
     const filter = {
     };
-    return this.api.get(`/News/${id}?filter=${JSON.stringify(filter)}`);
+    return this.api.get(`/news/${id}?filter=${JSON.stringify(filter)}`);
   }
 
   deleteNews(id) {
-    return this.api.delete(`/News/${id}`);
+    return this.api.delete(`/news/${id}`);
   }
 }
