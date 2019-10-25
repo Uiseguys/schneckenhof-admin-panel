@@ -21,14 +21,6 @@ export class ImageService {
     return this.api.get(`/resources/count?where=${JSON.stringify(filter)}`);
   }
 
-  getImages(page = 1, pageSize = 500) {
-    const filter = {
-      skip: page > 0 ? (page - 1) * pageSize : 0,
-      limit: pageSize
-    };
-    return this.api.get(`/resources/?filter=${JSON.stringify(filter)}`);
-  }
-
   getAllImages() {
     return this.api.get(`/resources/all`);
   }
