@@ -57,8 +57,8 @@ export class ImagePage implements OnInit {
 
       this.page = page;
       this.images = this.api.getAllImages(
-        // page,
-        // this.pageConfig.itemsPerPage
+        this.page,
+        this.pageConfig.itemsPerPage
       );
       this.pageConfig.currentPage = page;
     });
@@ -66,8 +66,8 @@ export class ImagePage implements OnInit {
 
   loadImages() {
     this.images = this.api.getAllImages(
-      // this.page,
-      // this.pageConfig.itemsPerPage
+      this.page,
+      this.pageConfig.itemsPerPage
     );
   }
 
@@ -98,6 +98,9 @@ export class ImagePage implements OnInit {
 
   async refreshList($event) {
       await this.toasterService.popAsync('success', '', 'Image has been uploaded');
-      this.images = await this.api.getAllImages();
+      this.images = await this.api.getAllImages(
+        this.page,
+        this.pageConfig.itemsPerPage
+      );
   }
 }
