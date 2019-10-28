@@ -62,7 +62,7 @@ export class SettingPage implements OnInit, OnDestroy {
       this.toasterService.popAsync(
         'success',
         '',
-        'Email addresses have been updated'
+        'Email Settings have been updated'
       );
       this.config.setAppSetting('email', this.emailSetting);
     });
