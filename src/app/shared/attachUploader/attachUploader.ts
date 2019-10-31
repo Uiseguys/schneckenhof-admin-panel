@@ -45,6 +45,8 @@ export class AttachUploader implements OnInit {
   ngOnInit() {
     this.uploader = new FileUploader({
       url: this.settings.API_URL,
+      disableMultipart: false,
+      method: "post",
       authToken: this.settings.getStorage('token'),
       allowedMimeType: this.mimeTypes
     });
@@ -57,8 +59,7 @@ export class AttachUploader implements OnInit {
     ) => {
       this.uploader.clearQueue();
       const result = JSON.parse(response);
-
-      result.weblinkUrl = this.settings.API_URL + result.weblinkUrl;
+      // result.weblinkUrl = this.settings.API_URL + response.weblinkUrl;
       this.onChange.emit(result);
     };
 

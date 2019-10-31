@@ -54,7 +54,6 @@ export class ImagePage implements OnInit {
       this.api.getImageCount().subscribe(res => {
         this.pageConfig.totalItems = res.count;
       });
-
       this.page = page;
       this.images = this.api.getAllImages(
         this.page,
@@ -97,10 +96,10 @@ export class ImagePage implements OnInit {
   }
 
   async refreshList($event) {
-      await this.toasterService.popAsync('success', '', 'Image has been uploaded');
-      this.images = await this.api.getAllImages(
-        this.page,
-        this.pageConfig.itemsPerPage
-      );
+    await this.toasterService.popAsync('success', '', 'Image has been uploaded');
+    const checkImages = async () => {
+      await this.loadImages();
+    }
+    setTimeout(checkImages, 1000);
   }
 }
