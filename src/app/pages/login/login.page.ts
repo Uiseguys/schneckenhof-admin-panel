@@ -1,26 +1,28 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToasterService, ToasterConfig } from 'angular2-toaster';
+} from "@angular/forms";
+import { Router } from "@angular/router";
+import { ToasterService, ToasterConfig } from "angular2-toaster";
 
-import { SettingsService } from '../../services/settings/settings.service';
-import { ClientApiService } from '../../services/api/clientapi.service';
+import { SettingsService } from "../../services/settings/settings.service";
+import { ClientApiService } from "../../services/api/clientapi.service";
+import { NetlifyWidgetService } from "../../services/netlify/netlify-widget.service";
 
-declare const Buffer
+declare const Buffer;
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  selector: "app-login-page",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
+  currentUser;
   loginForm: FormGroup;
-  loginError: string = '';
+  loginError: string = "";
   toasterconfig = new ToasterConfig({
     showCloseButton: false,
     tapToDismiss: false,
@@ -32,22 +34,29 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private api: ClientApiService,
     private toasterService: ToasterService,
-    private settings: SettingsService
+    private settings: SettingsService,
+    private netlifyIdentity: NetlifyWidgetService
   ) {
     this.loginForm = fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required])]
+      email: ["", Validators.compose([Validators.required, Validators.email])],
+      password: ["", Validators.compose([Validators.required])]
     });
 
-    this.loginForm.controls['email'].setValue('admin@admin.com');
-    this.loginForm.controls['password'].setValue('admin123');
+    this.loginForm.controls["email"].setValue("admin@admin.com");
+    this.loginForm.controls["password"].setValue("admin123");
+    this.currentUser = netlifyIdentity.currentUser();
 
-    if (this.settings.getStorage('token')) {
-      this.router.navigate(['/dashboard']);
+    if (this.settings.getStorage("token")) {
+      this.router.navigate(["/dashboard"]);
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.netlifyIdentity.currentUser()) {
+      this.netlifyIdentity.init("body");
+      this.netlifyIdentity.login();
+    }
+  }
 
   login($event) {
     $event.preventDefault();
@@ -59,18 +68,20 @@ export class LoginPage implements OnInit {
 
     this.api.login(this.loginForm.value).subscribe(
       res => {
-        var base64encodedData = new Buffer(this.loginForm.value.email + ':' + this.loginForm.value.password).toString('base64');
-        this.settings.setStorage('token', base64encodedData);
-        this.settings.setStorage('userId', res.id);
-        this.router.navigate(['/dashboard']);
+        var base64encodedData = new Buffer(
+          this.loginForm.value.email + ":" + this.loginForm.value.password
+        ).toString("base64");
+        this.settings.setStorage("token", base64encodedData);
+        this.settings.setStorage("userId", res.id);
+        this.router.navigate(["/dashboard"]);
       },
       res => {
         const body = JSON.parse(res._body);
         this.toasterService.popAsync(
-          'error',
-          '',
+          "error",
+          "",
           (body.error && body.error.message) ||
-            ' Email or Password is incorrect'
+            " Email or Password is incorrect"
         );
       }
     );

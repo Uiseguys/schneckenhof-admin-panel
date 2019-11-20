@@ -4,21 +4,22 @@ import {
   OnInit,
   OnDestroy,
   ViewEncapsulation
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { ToasterConfig, ToasterService } from 'angular2-toaster';
-import { Http } from '@angular/http';
+} from "@angular/core";
+import { Router } from "@angular/router";
+import { ToasterConfig, ToasterService } from "angular2-toaster";
+import { Http } from "@angular/http";
 
-import { SettingsService as ConfigService } from '../../services/settings/settings.service';
-import { ClientApiService } from '../../services/api/clientapi.service';
-import { SettingService } from '../../pages/setting/setting.service';
+import { SettingsService as ConfigService } from "../../services/settings/settings.service";
+import { ClientApiService } from "../../services/api/clientapi.service";
+import { SettingService } from "../../pages/setting/setting.service";
+import { NetlifyWidgetService } from "../../services/netlify/netlify-widget.service";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-dashboardlayout',
-  templateUrl: './dashboardlayout.component.html',
-  styleUrls: ['./dashboardlayout.component.scss']
+  selector: "app-dashboardlayout",
+  templateUrl: "./dashboardlayout.component.html",
+  styleUrls: ["./dashboardlayout.component.scss"]
 })
 export class DashboardLayoutComponent implements OnInit, OnDestroy {
   toasterconfig = new ToasterConfig({
@@ -27,8 +28,8 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     timeout: 2000
   });
 
-  user = { email: '', roles: [] };
-  lang = '';
+  user = { email: "", roles: [] };
+  lang = "";
   timer: any = null;
 
   constructor(
@@ -37,30 +38,40 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     private toasterService: ToasterService,
     private config: ConfigService,
     private api: ClientApiService,
-    private settingApi: SettingService
+    private settingApi: SettingService,
+    private netlifyIdentity: NetlifyWidgetService
   ) {
-    this.user = config.getAppSetting('user');
-    this.lang = localStorage.getItem('stanapplang') || 'de';
+    this.user = config.getAppSetting("user");
+    this.lang = localStorage.getItem("stanapplang") || "de";
   }
 
   ngOnInit() {
+    // Setup Netlify Identity Service
+    if (!this.netlifyIdentity.currentUser()) {
+      if (this.user.email) {
+        this.api.logout().subscribe(() => {
+          this.config.clearSetting();
+          this.router.navigate(["/home"]);
+        });
+      } else {
+        this.router.navigate(["/home"]);
+      }
+    }
+
     // this.toasterService.popAsync('error', '', 'asddddddd');
     this.settingApi.getAll().subscribe(res => {
-      const item = res.find(item => item.key === 'settings');
-      this.config.setAppSetting('settings', item ? item.value : {});
-      const hook = res.find(item => item.key === 'netlifyHook');
-      if (hook && hook.value.state === 'building') {
+      const item = res.find(item => item.key === "settings");
+      this.config.setAppSetting("settings", item ? item.value : {});
+      const hook = res.find(item => item.key === "netlifyHook");
+      if (hook && hook.value.state === "building") {
         this.startWatch();
       }
     });
 
-
-    this.settingApi.getSetting('netlifyHook').subscribe(res => {
+    this.settingApi.getSetting("netlifyHook").subscribe(res => {
       if (res.length)
-        this.settingApi.deleteSetting(res[0].id).subscribe(res => {
-        })
-
-    })
+        this.settingApi.deleteSetting(res[0].id).subscribe(res => {});
+    });
   }
 
   ngOnDestroy() {
@@ -70,38 +81,32 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
   startWatch() {
     if (this.timer) return;
     this.timer = setInterval(() => {
-      this.settingApi.getSetting('netlifyHook').subscribe(res => {
+      this.settingApi.getSetting("netlifyHook").subscribe(res => {
         if (!res.length) return;
 
         const detail = res[0].value;
-        
-        if (detail.state === 'ready') {
+
+        if (detail.state === "ready") {
           this.stopWatch();
-          window.open(detail.url, '_blank');
-          this.settingApi.deleteSetting(res[0].id).subscribe(res => {
-          })
-        } else if (detail.state === 'failed') {
+          window.open(detail.url, "_blank");
+          this.settingApi.deleteSetting(res[0].id).subscribe(res => {});
+        } else if (detail.state === "failed") {
           this.stopWatch();
           this.toasterService.popAsync(
-            'error',
-            '',
-            'Sorry. Building has been failed'
+            "error",
+            "",
+            "Sorry. Building has been failed"
           );
-          this.settingApi.deleteSetting(res[0].id).subscribe(res => {
-          })
-
+          this.settingApi.deleteSetting(res[0].id).subscribe(res => {});
         } else {
           this.stopWatch();
           this.toasterService.popAsync(
-            'error',
-            '',
-            'Sorry. Building has been failed'
+            "error",
+            "",
+            "Sorry. Building has been failed"
           );
-          this.settingApi.deleteSetting(res[0].id).subscribe(res => {
-          })
-
+          this.settingApi.deleteSetting(res[0].id).subscribe(res => {});
         }
-
       });
     }, 3500);
   }
@@ -117,32 +122,32 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     $event.preventDefault();
     this.api.logout().subscribe(() => {
       this.config.clearSetting();
-      this.router.navigate(['/home']);
+      this.router.navigate(["/home"]);
     });
   }
 
   changeLanguage(lang) {
     this.lang = lang;
-    localStorage.setItem('stanapplang', lang);
+    localStorage.setItem("stanapplang", lang);
     document.location.reload();
   }
 
   triggerHook(isLive) {
-    const settings = this.config.getAppSetting('settings') || {};
+    const settings = this.config.getAppSetting("settings") || {};
     const url = isLive ? settings.liveBuildHook : settings.previewBuildHook;
 
     if (!url) {
       this.toasterService.popAsync(
-        'error',
-        '',
-        'Web Hook url is not defined. Please check settings page'
+        "error",
+        "",
+        "Web Hook url is not defined. Please check settings page"
       );
       return;
     }
 
     if (
       isLive &&
-      !confirm('The changes will be deployed to live site. Are you sure?')
+      !confirm("The changes will be deployed to live site. Are you sure?")
     ) {
       return;
     }
@@ -152,7 +157,7 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
         this.startWatch();
       },
       err => {
-        this.toasterService.popAsync('error', '', 'Sorry. Something is wrong');
+        this.toasterService.popAsync("error", "", "Sorry. Something is wrong");
       }
     );
   }
