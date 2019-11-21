@@ -28,7 +28,7 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     timeout: 2000
   });
 
-  user = { email: "", roles: [] };
+  user: any;
   lang = "";
   timer: any = null;
 
@@ -41,23 +41,12 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     private settingApi: SettingService,
     private netlifyIdentity: NetlifyWidgetService
   ) {
-    this.user = config.getAppSetting("user");
+    //this.user = config.getAppSetting("user");
+    this.user = this.netlifyIdentity.currentUser();
     this.lang = localStorage.getItem("stanapplang") || "de";
   }
 
   ngOnInit() {
-    // Setup Netlify Identity Service
-    if (!this.netlifyIdentity.currentUser()) {
-      if (this.user.email) {
-        this.api.logout().subscribe(() => {
-          this.config.clearSetting();
-          this.router.navigate(["/home"]);
-        });
-      } else {
-        this.router.navigate(["/home"]);
-      }
-    }
-
     // this.toasterService.popAsync('error', '', 'asddddddd');
     this.settingApi.getAll().subscribe(res => {
       const item = res.find(item => item.key === "settings");
@@ -120,10 +109,12 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
 
   logout($event) {
     $event.preventDefault();
-    this.api.logout().subscribe(() => {
-      this.config.clearSetting();
-      this.router.navigate(["/home"]);
-    });
+    //this.api.logout().subscribe(() => {
+    //this.config.clearSetting();
+    //this.router.navigate(["/home"]);
+    //});
+    this.netlifyIdentity.logout();
+    this.netlifyIdentity.on("logout", () => this.router.navigate(["/login"]));
   }
 
   changeLanguage(lang) {

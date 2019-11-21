@@ -9,5 +9,10 @@ export class NetlifyWidgetService {
   };
   login = () => netlifyIdentity.open("login");
   signup = () => netlifyIdentity.open("signup");
-  currentUser = () => netlifyIdentity.currentUser();
+  currentUser = () => {
+    return netlifyIdentity.currentUser();
+  };
+  logout = () => netlifyIdentity.logout();
+  close = () => netlifyIdentity.close();
+  on = (event, callbackFunc) => netlifyIdentity.on(event, callbackFunc);
 }

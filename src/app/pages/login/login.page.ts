@@ -20,7 +20,7 @@ declare const Buffer;
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  currentUser;
+  user;
   loginForm: FormGroup;
   loginError: string = "";
   toasterconfig = new ToasterConfig({
@@ -37,24 +37,31 @@ export class LoginPage implements OnInit {
     private settings: SettingsService,
     private netlifyIdentity: NetlifyWidgetService
   ) {
-    this.loginForm = fb.group({
-      email: ["", Validators.compose([Validators.required, Validators.email])],
-      password: ["", Validators.compose([Validators.required])]
-    });
+    //this.loginForm = fb.group({
+    //email: ["", Validators.compose([Validators.required, Validators.email])],
+    //password: ["", Validators.compose([Validators.required])]
+    //});
 
-    this.loginForm.controls["email"].setValue("admin@admin.com");
-    this.loginForm.controls["password"].setValue("admin123");
-    this.currentUser = netlifyIdentity.currentUser();
+    //this.loginForm.controls["email"].setValue("admin@admin.com");
+    //this.loginForm.controls["password"].setValue("admin123");
+    this.user = this.netlifyIdentity.currentUser();
+    console.log(this.user);
 
-    if (this.settings.getStorage("token")) {
-      this.router.navigate(["/dashboard"]);
-    }
+    //if (this.settings.getStorage("token")) {
+    //this.router.navigate(["/dashboard"]);
+    //}
   }
 
   ngOnInit() {
-    if (!this.netlifyIdentity.currentUser()) {
+    if (!this.user) {
       this.netlifyIdentity.init("body");
       this.netlifyIdentity.login();
+      this.netlifyIdentity.on("login", () => {
+        this.netlifyIdentity.close();
+        this.router.navigate(["/dashboard"]);
+      });
+    } else {
+      this.router.navigate(["/dashboard"]);
     }
   }
 
