@@ -16,6 +16,13 @@ export class GoTrueJs {
     return this.auth.currentUser();
   };
 
+  acceptInvite = (token, password, inviteSuccess) => {
+    this.auth
+      .acceptInvite(token, password, true)
+      .then(() => inviteSuccess())
+      .catch(err => console.error(err));
+  };
+
   login = (formValue, loginSuccess) =>
     this.auth
       .login(formValue.email, formValue.password)

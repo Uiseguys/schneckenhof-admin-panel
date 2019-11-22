@@ -2,12 +2,15 @@
 <div class="single-page">
   <div class="container">
     <form
+      *ngIf="!recoveryToken && !inviteToken"
       [formGroup]="loginForm"
       role="form"
       autocomplete="off"
       (submit)="login($event)"
     >
-      <h2 class="text-center">{{ "Log In" | i18nextFormat }}</h2>
+      <h2 class="text-center">
+        {{ "Log In" | i18nextFormat }}
+      </h2>
       <div class="form-group">
         <label for="email">{{ "Email" | i18nextFormat }}</label>
         <input
@@ -70,6 +73,59 @@
           [disabled]="!loginForm.valid"
         >
           {{ "Log In" | i18nextFormat }}
+        </button>
+      </div>
+    </form>
+    <form
+      *ngIf="inviteToken"
+      [formGroup]="invitationForm"
+      role="form"
+      autocomplete="off"
+      (submit)="acceptInvite($event)"
+    >
+      <h2 *ngIf="invitationSuccess" class="text-center">
+        {{ "Success, click on the button below to login" }}
+      </h2>
+      <div *ngIf="invitationSuccess" class="form-group clearfix">
+        <button
+          type="button"
+          class="btn btn-primary float-right"
+          (click)="nullInvitationToken()"
+        >
+          {{ "Login" }}
+        </button>
+      </div>
+      <h2 *ngIf="!invitationSuccess" class="text-center">
+        {{ "Signup Invitation Form" }}
+      </h2>
+      <div *ngIf="!invitationSuccess" class="form-group">
+        <label for="password">{{ "Password" | i18nextFormat }}</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          placeholder="Password"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            invitationForm.controls['password'].hasError('required') &&
+            (invitationForm.controls['password'].dirty ||
+              invitationForm.controls['password'].touched)
+          "
+        >
+          {{ "Password is required" | i18nextFormat }}
+        </div>
+      </div>
+
+      <div *ngIf="!invitationSuccess" class="form-group clearfix">
+        <button
+          type="submit"
+          class="btn btn-primary float-right"
+          [disabled]="!invitationForm.valid"
+        >
+          {{ "Accept Invite" }}
         </button>
       </div>
     </form>

@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ToasterService, ToasterConfig } from "angular2-toaster";
 
 import { SettingsService } from "../../services/settings/settings.service";
@@ -21,7 +21,11 @@ declare const Buffer;
 })
 export class LoginPage implements OnInit {
   user;
+  inviteToken;
+  recoveryToken;
+  invitationSuccess = true;
   loginForm: FormGroup;
+  invitationForm: FormGroup;
   loginError: string = "";
   toasterconfig = new ToasterConfig({
     showCloseButton: false,
@@ -31,6 +35,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     public router: Router,
+    public activeRoute: ActivatedRoute,
     private fb: FormBuilder,
     private api: ClientApiService,
     private toasterService: ToasterService,
@@ -42,16 +47,37 @@ export class LoginPage implements OnInit {
       password: ["", Validators.compose([Validators.required])]
     });
 
+    this.invitationForm = fb.group({
+      password: ["", Validators.compose([Validators.required])]
+    });
+
     //this.loginForm.controls["email"].setValue("admin@admin.com");
     //this.loginForm.controls["password"].setValue("admin123");
     this.user = this.gotrue.currentUser();
+
+    // Get the current # anchor params from the router
 
     //if (this.settings.getStorage("token")) {
     //this.router.navigate(["/dashboard"]);
     //}
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Check to see if the URL contains a recovery or invite token
+    if (/[\#]\S+\=\S+/.test(this.router.url)) {
+      const getRouteAnchorParams = /[\#]\S+\=\S+/.exec(this.router.url);
+      if (/invite_token/.test(getRouteAnchorParams[0])) {
+        this.inviteToken = /\=\S+$/
+          .exec(getRouteAnchorParams[0])[0]
+          .replace(/\=/, "");
+      }
+      if (/recovery_token/.test(getRouteAnchorParams[0])) {
+        this.recoveryToken = /\=\S+$/
+          .exec(getRouteAnchorParams[0])[0]
+          .replace(/\=/, "");
+      }
+    }
+  }
 
   login($event) {
     $event.preventDefault();
@@ -59,30 +85,33 @@ export class LoginPage implements OnInit {
     for (let c in this.loginForm.controls) {
       this.loginForm.controls[c].markAsTouched();
     }
-    if (!this.loginForm.valid) return;
 
-    //this.api.login(this.loginForm.value).subscribe(
-    //res => {
-    //var base64encodedData = new Buffer(
-    //this.loginForm.value.email + ":" + this.loginForm.value.password
-    //).toString("base64");
-    //this.settings.setStorage("token", base64encodedData);
-    //this.settings.setStorage("userId", res.id);
-    //this.router.navigate(["/dashboard"]);
-    //},
-    //res => {
-    //const body = JSON.parse(res._body);
-    //this.toasterService.popAsync(
-    //"error",
-    //"",
-    //(body.error && body.error.message) ||
-    //" Email or Password is incorrect"
-    //);
-    //}
-    //);
+    if (!this.loginForm.valid) return;
     const loginSuccess = () => {
       this.router.navigate(["/dashboard"]);
     };
+
     this.gotrue.login(this.loginForm.value, loginSuccess);
+  }
+
+  nullInvitationToken() {
+    this.inviteToken = null;
+  }
+
+  acceptInvite($event) {
+    $event.preventDefault();
+
+    for (let c in this.invitationForm.controls) {
+      this.invitationForm.controls[c].markAsTouched();
+    }
+    if (!this.invitationForm.valid) return;
+    const inviteSuccess = () => {
+      this.invitationSuccess = true;
+    };
+    this.gotrue.acceptInvite(
+      this.inviteToken,
+      this.invitationForm.value.password,
+      inviteSuccess
+    );
   }
 }
