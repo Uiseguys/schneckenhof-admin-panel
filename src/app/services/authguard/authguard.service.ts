@@ -14,21 +14,16 @@ import {
 import { Observable } from "rxjs";
 import { ClientApiService } from "../../services/api/clientapi.service";
 import { SettingsService } from "../../services/settings/settings.service";
-import { NetlifyWidgetService } from "../../services/netlify/netlify-widget.service";
+import { GoTrueJs } from "../../services/netlify/gotrue-js.service";
 
 @Injectable()
 export class AuthGuardResolve implements Resolve<any>, CanLoad, CanActivate {
-  user;
   constructor(
     private router: Router,
     private settings: SettingsService,
     private api: ClientApiService,
-    private netlifyIdentity: NetlifyWidgetService
-  ) {
-    this.netlifyIdentity.init("body");
-    this.user = this.netlifyIdentity.currentUser();
-    this.netlifyIdentity.close();
-  }
+    private gotrue: GoTrueJs
+  ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
@@ -61,10 +56,10 @@ export class AuthGuardResolve implements Resolve<any>, CanLoad, CanActivate {
     //}
     //});
     return new Promise((resolve, reject) => {
-      if (this.user) {
-        resolve(this.user);
+      if (this.gotrue.currentUser()) {
+        resolve(this.gotrue.currentUser());
       } else {
-        reject("Permission Denied");
+        reject("Dashboard Permission Denied");
         this.router.navigate(["/login"]);
       }
     });

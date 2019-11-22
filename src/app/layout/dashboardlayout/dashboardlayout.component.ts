@@ -12,7 +12,7 @@ import { Http } from "@angular/http";
 import { SettingsService as ConfigService } from "../../services/settings/settings.service";
 import { ClientApiService } from "../../services/api/clientapi.service";
 import { SettingService } from "../../pages/setting/setting.service";
-import { NetlifyWidgetService } from "../../services/netlify/netlify-widget.service";
+import { GoTrueJs } from "../../services/netlify/gotrue-js.service";
 
 declare var $: any;
 
@@ -39,10 +39,9 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     private config: ConfigService,
     private api: ClientApiService,
     private settingApi: SettingService,
-    private netlifyIdentity: NetlifyWidgetService
+    private gotrue: GoTrueJs
   ) {
-    //this.user = config.getAppSetting("user");
-    this.user = this.netlifyIdentity.currentUser();
+    this.user = this.gotrue.currentUser();
     this.lang = localStorage.getItem("stanapplang") || "de";
   }
 
@@ -113,8 +112,8 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     //this.config.clearSetting();
     //this.router.navigate(["/home"]);
     //});
-    this.netlifyIdentity.logout();
-    this.netlifyIdentity.on("logout", () => this.router.navigate(["/login"]));
+    const logoutSuccess = () => this.router.navigate(["/login"]);
+    this.gotrue.logout(logoutSuccess);
   }
 
   changeLanguage(lang) {

@@ -10,7 +10,7 @@ import { ToasterService, ToasterConfig } from "angular2-toaster";
 
 import { SettingsService } from "../../services/settings/settings.service";
 import { ClientApiService } from "../../services/api/clientapi.service";
-import { NetlifyWidgetService } from "../../services/netlify/netlify-widget.service";
+import { GoTrueJs } from "../../services/netlify/gotrue-js.service";
 
 declare const Buffer;
 
@@ -35,35 +35,23 @@ export class LoginPage implements OnInit {
     private api: ClientApiService,
     private toasterService: ToasterService,
     private settings: SettingsService,
-    private netlifyIdentity: NetlifyWidgetService
+    private gotrue: GoTrueJs
   ) {
-    //this.loginForm = fb.group({
-    //email: ["", Validators.compose([Validators.required, Validators.email])],
-    //password: ["", Validators.compose([Validators.required])]
-    //});
+    this.loginForm = fb.group({
+      email: ["", Validators.compose([Validators.required, Validators.email])],
+      password: ["", Validators.compose([Validators.required])]
+    });
 
     //this.loginForm.controls["email"].setValue("admin@admin.com");
     //this.loginForm.controls["password"].setValue("admin123");
-    this.user = this.netlifyIdentity.currentUser();
-    console.log(this.user);
+    this.user = this.gotrue.currentUser();
 
     //if (this.settings.getStorage("token")) {
     //this.router.navigate(["/dashboard"]);
     //}
   }
 
-  ngOnInit() {
-    if (!this.user) {
-      this.netlifyIdentity.init("body");
-      this.netlifyIdentity.login();
-      this.netlifyIdentity.on("login", () => {
-        this.netlifyIdentity.close();
-        this.router.navigate(["/dashboard"]);
-      });
-    } else {
-      this.router.navigate(["/dashboard"]);
-    }
-  }
+  ngOnInit() {}
 
   login($event) {
     $event.preventDefault();
@@ -73,24 +61,28 @@ export class LoginPage implements OnInit {
     }
     if (!this.loginForm.valid) return;
 
-    this.api.login(this.loginForm.value).subscribe(
-      res => {
-        var base64encodedData = new Buffer(
-          this.loginForm.value.email + ":" + this.loginForm.value.password
-        ).toString("base64");
-        this.settings.setStorage("token", base64encodedData);
-        this.settings.setStorage("userId", res.id);
-        this.router.navigate(["/dashboard"]);
-      },
-      res => {
-        const body = JSON.parse(res._body);
-        this.toasterService.popAsync(
-          "error",
-          "",
-          (body.error && body.error.message) ||
-            " Email or Password is incorrect"
-        );
-      }
-    );
+    //this.api.login(this.loginForm.value).subscribe(
+    //res => {
+    //var base64encodedData = new Buffer(
+    //this.loginForm.value.email + ":" + this.loginForm.value.password
+    //).toString("base64");
+    //this.settings.setStorage("token", base64encodedData);
+    //this.settings.setStorage("userId", res.id);
+    //this.router.navigate(["/dashboard"]);
+    //},
+    //res => {
+    //const body = JSON.parse(res._body);
+    //this.toasterService.popAsync(
+    //"error",
+    //"",
+    //(body.error && body.error.message) ||
+    //" Email or Password is incorrect"
+    //);
+    //}
+    //);
+    const loginSuccess = () => {
+      this.router.navigate(["/dashboard"]);
+    };
+    this.gotrue.login(this.loginForm.value, loginSuccess);
   }
 }

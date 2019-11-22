@@ -6,11 +6,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "../shared/shared.module";
 import { SettingService } from "../pages/setting/setting.service";
 import { DashboardLayoutComponent } from "./dashboardlayout/dashboardlayout.component";
-import { NetlifyWidgetService } from "../services/netlify/netlify-widget.service";
+import { GoTrueJs } from "../services/netlify/gotrue-js.service";
 
 @NgModule({
   imports: [CommonModule, RouterModule, BrowserAnimationsModule, SharedModule],
-  providers: [SettingService, NetlifyWidgetService],
+  providers: [SettingService, GoTrueJs],
   declarations: [DashboardLayoutComponent],
   exports: [DashboardLayoutComponent, SharedModule]
 })
