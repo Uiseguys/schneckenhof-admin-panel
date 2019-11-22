@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   user;
   inviteToken;
   recoveryToken;
-  invitationSuccess = true;
+  invitationSuccess;
   loginForm: FormGroup;
   invitationForm: FormGroup;
   loginError: string = "";
