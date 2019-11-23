@@ -23,11 +23,11 @@ export class GoTrueJs {
       .catch(err => console.error(err));
   };
 
-  login = (formValue, loginSuccess) =>
+  login = (formValue, loginSuccess, loginFailure) =>
     this.auth
-      .login(formValue.email, formValue.password)
+      .login(formValue.email, formValue.password, formValue.remember)
       .then(() => loginSuccess())
-      .catch(err => console.error(err));
+      .catch(() => loginFailure());
 
   logout = logoutSuccess =>
     this.auth

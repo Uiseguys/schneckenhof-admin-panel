@@ -26,6 +26,11 @@ body {
   outline: 0;
   box-shadow: none;
 }
+#remember {
+  display: inline;
+  width: auto;
+  margin-left: 1vw;
+}
 .single-page {
   width: 100vw;
   height: 100vh;

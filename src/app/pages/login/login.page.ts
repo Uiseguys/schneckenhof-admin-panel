@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
   invitationSuccess;
   loginForm: FormGroup;
   invitationForm: FormGroup;
-  loginError: string = "";
+  loginErr = 0;
   toasterconfig = new ToasterConfig({
     showCloseButton: false,
     tapToDismiss: false,
@@ -44,7 +44,8 @@ export class LoginPage implements OnInit {
   ) {
     this.loginForm = fb.group({
       email: ["", Validators.compose([Validators.required, Validators.email])],
-      password: ["", Validators.compose([Validators.required])]
+      password: ["", Validators.compose([Validators.required])],
+      remember: [0]
     });
 
     this.invitationForm = fb.group({
@@ -81,6 +82,9 @@ export class LoginPage implements OnInit {
 
   login($event) {
     $event.preventDefault();
+    if (this.loginErr) {
+      this.loginErr = 0;
+    }
 
     for (let c in this.loginForm.controls) {
       this.loginForm.controls[c].markAsTouched();
@@ -90,12 +94,16 @@ export class LoginPage implements OnInit {
     const loginSuccess = () => {
       this.router.navigate(["/dashboard"]);
     };
+    const loginFailure = () => {
+      this.loginErr = 1;
+    };
 
-    this.gotrue.login(this.loginForm.value, loginSuccess);
+    this.gotrue.login(this.loginForm.value, loginSuccess, loginFailure);
   }
 
   nullInvitationToken() {
     this.inviteToken = null;
+    this.invitationSuccess = null;
   }
 
   acceptInvite($event) {
