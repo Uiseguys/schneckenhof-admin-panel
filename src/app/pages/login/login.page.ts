@@ -24,10 +24,9 @@ export class LoginPage implements OnInit {
   inviteToken;
   recoveryToken;
   submitButton = 1;
-  invitationSuccess;
   loginForm: FormGroup;
   invitationForm: FormGroup;
-  loginErr = 0;
+  formErr = 0;
   toasterconfig = new ToasterConfig({
     showCloseButton: false,
     tapToDismiss: false,
@@ -53,19 +52,11 @@ export class LoginPage implements OnInit {
       password: ["", Validators.compose([Validators.required])]
     });
 
-    //this.loginForm.controls["email"].setValue("admin@admin.com");
-    //this.loginForm.controls["password"].setValue("admin123");
     this.user = this.gotrue.currentUser();
-
-    // Get the current # anchor params from the router
-
-    //if (this.settings.getStorage("token")) {
-    //this.router.navigate(["/dashboard"]);
-    //}
   }
 
   ngOnInit() {
-    // Check to see if the URL contains a recovery or invite token
+    // Check to see if the URL contains a recovery or invitation token
     if (/[\#]\S+\=\S+/.test(this.router.url)) {
       const getRouteAnchorParams = /[\#]\S+\=\S+/.exec(this.router.url);
       if (/invite_token/.test(getRouteAnchorParams[0])) {
@@ -84,8 +75,8 @@ export class LoginPage implements OnInit {
   login($event) {
     $event.preventDefault();
     this.submitButton = 0;
-    if (this.loginErr) {
-      this.loginErr = 0;
+    if (this.formErr) {
+      this.formErr = 0;
     }
 
     for (let c in this.loginForm.controls) {
@@ -97,32 +88,36 @@ export class LoginPage implements OnInit {
       this.router.navigate(["/dashboard"]);
     };
     const loginFailure = () => {
-      this.loginErr = 1;
+      this.formErr = 1;
       this.submitButton = 1;
     };
 
     this.gotrue.login(this.loginForm.value, loginSuccess, loginFailure);
   }
 
-  nullInvitationToken() {
-    this.inviteToken = null;
-    this.invitationSuccess = null;
-  }
-
   acceptInvite($event) {
     $event.preventDefault();
+    this.submitButton = 0;
+    if (this.formErr) {
+      this.formErr = 0;
+    }
 
     for (let c in this.invitationForm.controls) {
       this.invitationForm.controls[c].markAsTouched();
     }
     if (!this.invitationForm.valid) return;
     const inviteSuccess = () => {
-      this.invitationSuccess = true;
+      this.router.navigate(["/dashboard"]);
+    };
+    const inviteFailure = () => {
+      this.formErr = 1;
+      this.submitButton = 1;
     };
     this.gotrue.acceptInvite(
       this.inviteToken,
       this.invitationForm.value.password,
-      inviteSuccess
+      inviteSuccess,
+      inviteFailure
     );
   }
 }

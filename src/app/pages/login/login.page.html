@@ -94,22 +94,13 @@
       autocomplete="off"
       (submit)="acceptInvite($event)"
     >
-      <h2 *ngIf="invitationSuccess" class="text-center">
-        {{ "Success, click on the button below to login" }}
-      </h2>
-      <div *ngIf="invitationSuccess" class="form-group clearfix">
-        <button
-          type="button"
-          class="btn btn-primary float-right"
-          (click)="nullInvitationToken()"
-        >
-          {{ "Login" }}
-        </button>
-      </div>
-      <h2 *ngIf="!invitationSuccess" class="text-center">
+      <h2 class="text-center">
         {{ "Signup Invitation Form" }}
       </h2>
-      <div *ngIf="!invitationSuccess" class="form-group">
+      <div class="text-danger" *ngIf="formErr">
+        {{ "Invitation failed, please double check your link" }}
+      </div>
+      <div class="form-group">
         <label for="password">{{ "Password" | i18nextFormat }}</label>
         <input
           type="password"
@@ -130,11 +121,11 @@
         </div>
       </div>
 
-      <div *ngIf="!invitationSuccess" class="form-group clearfix">
+      <div class="form-group clearfix">
         <button
           type="submit"
           class="btn btn-primary float-right"
-          [disabled]="!invitationForm.valid"
+          [disabled]="!submitButton || !invitationForm.valid"
         >
           {{ "Accept Invite" }}
         </button>
