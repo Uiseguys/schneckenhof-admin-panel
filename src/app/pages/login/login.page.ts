@@ -24,8 +24,11 @@ export class LoginPage implements OnInit {
   inviteToken;
   recoveryToken;
   submitButton = 1;
+  requestPassword;
+  requestPasswordSuccess;
   loginForm: FormGroup;
   invitationForm: FormGroup;
+  requestPasswordForm: FormGroup;
   formErr = 0;
   toasterconfig = new ToasterConfig({
     showCloseButton: false,
@@ -47,9 +50,11 @@ export class LoginPage implements OnInit {
       password: ["", Validators.compose([Validators.required])],
       remember: [0]
     });
-
     this.invitationForm = fb.group({
       password: ["", Validators.compose([Validators.required])]
+    });
+    this.requestPasswordForm = fb.group({
+      email: ["", Validators.compose([Validators.required, Validators.email])]
     });
 
     this.user = this.gotrue.currentUser();
@@ -101,7 +106,6 @@ export class LoginPage implements OnInit {
     if (this.formErr) {
       this.formErr = 0;
     }
-
     for (let c in this.invitationForm.controls) {
       this.invitationForm.controls[c].markAsTouched();
     }
@@ -119,5 +123,39 @@ export class LoginPage implements OnInit {
       inviteSuccess,
       inviteFailure
     );
+  }
+
+  requestPasswordRecovery($event) {
+    $event.preventDefault();
+    this.submitButton = 0;
+    if (this.formErr) {
+      this.formErr = 0;
+    }
+    for (let c in this.requestPasswordForm.controls) {
+      this.requestPasswordForm.controls[c].markAsTouched();
+    }
+    if (!this.requestPasswordForm.valid) return;
+    const requestSuccess = () => {
+      this.requestPasswordSuccess = 1;
+    };
+    const requestFailure = () => {
+      this.formErr = 1;
+      this.submitButton = 1;
+    };
+    this.gotrue.requestPasswordRecovery(
+      this.requestPasswordForm.value.email,
+      requestSuccess,
+      requestFailure
+    );
+  }
+
+  openForgotPassword() {
+    this.requestPassword = 1;
+    this.requestPasswordSuccess = 0;
+  }
+
+  closeForgotPassword() {
+    this.requestPassword = 0;
+    this.requestPasswordSuccess = 0;
   }
 }

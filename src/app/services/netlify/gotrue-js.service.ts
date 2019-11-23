@@ -35,4 +35,11 @@ export class GoTrueJs {
       .logout()
       .then(() => logoutSuccess())
       .catch(err => console.error(err));
+
+  requestPasswordRecovery = (email, requestSuccess, requestFailure) => {
+    this.auth
+      .requestPasswordRecovery(email)
+      .then(() => requestSuccess())
+      .catch(() => requestFailure());
+  };
 }

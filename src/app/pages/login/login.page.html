@@ -2,7 +2,7 @@
 <div class="single-page">
   <div class="container">
     <form
-      *ngIf="!recoveryToken && !inviteToken"
+      *ngIf="!recoveryToken && !inviteToken && !requestPassword"
       [formGroup]="loginForm"
       role="form"
       autocomplete="off"
@@ -86,6 +86,73 @@
           {{ "Log In" | i18nextFormat }}
         </button>
       </div>
+      <div class="form-group">
+        <a href="javascript:void(0)" (click)="openForgotPassword()"
+          >Forgot Password?</a
+        >
+      </div>
+    </form>
+    <form
+      *ngIf="requestPassword"
+      [formGroup]="requestPasswordForm"
+      role="form"
+      autocomplete="off"
+      (submit)="requestPasswordRecovery($event)"
+    >
+      <h2 *ngIf="requestPasswordSuccess" class="text-center">
+        {{
+          "An email with details of how to recover your password has been sent"
+        }}
+      </h2>
+      <h2 *ngIf="!requestPasswordSuccess" class="text-center">
+        {{ "Password Recovery" }}
+      </h2>
+      <div class="text-danger" *ngIf="formErr">
+        {{ "Request failed, please counter check your email" }}
+      </div>
+      <div *ngIf="!requestPasswordSuccess" class="form-group">
+        <label for="email">{{ "Email" | i18nextFormat }}</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="Enter email"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            requestPasswordForm.controls['email'].hasError('required') &&
+            (requestPasswordForm.controls['email'].dirty ||
+              requestPasswordForm.controls['email'].touched)
+          "
+        >
+          {{ "Email is required" | i18nextFormat }}
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="
+            !requestPasswordForm.controls['email'].hasError('required') &&
+            requestPasswordForm.controls['email'].hasError('email') &&
+            (requestPasswordForm.controls['email'].dirty ||
+              requestPasswordForm.controls['email'].touched)
+          "
+        >
+          {{ "Email is invalid" | i18nextFormat }}
+        </div>
+      </div>
+      <div *ngIf="!requestPasswordSuccess" class="form-group clearfix">
+        <button
+          type="submit"
+          class="btn btn-primary float-right"
+          [disabled]="!submitButton || !requestPasswordForm.valid"
+        >
+          {{ "Request Passsword" }}
+        </button>
+      </div>
+      <div class="form-group">
+        <a href="javascript:void(0)" (click)="closeForgotPassword()">Login?</a>
+      </div>
     </form>
     <form
       *ngIf="inviteToken"
@@ -120,7 +187,49 @@
           {{ "Password is required" | i18nextFormat }}
         </div>
       </div>
-
+      <div class="form-group clearfix">
+        <button
+          type="submit"
+          class="btn btn-primary float-right"
+          [disabled]="!submitButton || !invitationForm.valid"
+        >
+          {{ "Accept Invite" }}
+        </button>
+      </div>
+    </form>
+    <form
+      *ngIf="recoveryToken"
+      [formGroup]="invitationForm"
+      role="form"
+      autocomplete="off"
+      (submit)="acceptInvite($event)"
+    >
+      <h2 class="text-center">
+        {{ "Signup Invitation Form" }}
+      </h2>
+      <div class="text-danger" *ngIf="formErr">
+        {{ "Invitation failed, please double check your link" }}
+      </div>
+      <div class="form-group">
+        <label for="password">{{ "Password" | i18nextFormat }}</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          placeholder="Password"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            invitationForm.controls['password'].hasError('required') &&
+            (invitationForm.controls['password'].dirty ||
+              invitationForm.controls['password'].touched)
+          "
+        >
+          {{ "Password is required" | i18nextFormat }}
+        </div>
+      </div>
       <div class="form-group clearfix">
         <button
           type="submit"
