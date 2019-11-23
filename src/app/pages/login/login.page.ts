@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   user;
   inviteToken;
   recoveryToken;
+  submitButton = 1;
   invitationSuccess;
   loginForm: FormGroup;
   invitationForm: FormGroup;
@@ -82,6 +83,7 @@ export class LoginPage implements OnInit {
 
   login($event) {
     $event.preventDefault();
+    this.submitButton = 0;
     if (this.loginErr) {
       this.loginErr = 0;
     }
@@ -96,6 +98,7 @@ export class LoginPage implements OnInit {
     };
     const loginFailure = () => {
       this.loginErr = 1;
+      this.submitButton = 1;
     };
 
     this.gotrue.login(this.loginForm.value, loginSuccess, loginFailure);
