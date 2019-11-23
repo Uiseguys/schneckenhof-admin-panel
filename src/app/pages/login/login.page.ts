@@ -70,9 +70,12 @@ export class LoginPage implements OnInit {
           .replace(/\=/, "");
       }
       if (/recovery_token/.test(getRouteAnchorParams[0])) {
-        this.recoveryToken = /\=\S+$/
-          .exec(getRouteAnchorParams[0])[0]
-          .replace(/\=/, "");
+        let tmp = /\=\S+$/.exec(getRouteAnchorParams[0])[0].replace(/\=/, "");
+        const recoverSuccess = () => {
+          this.recoveryToken = tmp;
+        };
+        const recoverFailure = () => {};
+        this.gotrue.recoverPassword(tmp, recoverSuccess, recoverFailure);
       }
     }
   }
@@ -152,10 +155,36 @@ export class LoginPage implements OnInit {
   openForgotPassword() {
     this.requestPassword = 1;
     this.requestPasswordSuccess = 0;
+    this.submitButton = 1;
   }
 
   closeForgotPassword() {
     this.requestPassword = 0;
     this.requestPasswordSuccess = 0;
+    this.submitButton = 1;
+  }
+
+  updatePassword($event) {
+    $event.preventDefault();
+    this.submitButton = 0;
+    if (this.formErr) {
+      this.formErr = 0;
+    }
+    for (let c in this.invitationForm.controls) {
+      this.invitationForm.controls[c].markAsTouched();
+    }
+    if (!this.invitationForm.valid) return;
+    const updateSuccess = () => {
+      this.router.navigate(["/dashboard"]);
+    };
+    const updateFailure = () => {
+      this.formErr = 1;
+      this.submitButton = 1;
+    };
+    this.gotrue.updatePassword(
+      this.invitationForm.value.password,
+      updateSuccess,
+      updateFailure
+    );
   }
 }

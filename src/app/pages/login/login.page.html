@@ -202,16 +202,16 @@
       [formGroup]="invitationForm"
       role="form"
       autocomplete="off"
-      (submit)="acceptInvite($event)"
+      (submit)="updatePassword($event)"
     >
       <h2 class="text-center">
-        {{ "Signup Invitation Form" }}
+        {{ "Recover Password" }}
       </h2>
       <div class="text-danger" *ngIf="formErr">
         {{ "Invitation failed, please double check your link" }}
       </div>
       <div class="form-group">
-        <label for="password">{{ "Password" | i18nextFormat }}</label>
+        <label for="password">{{ "Type in your new password" }}</label>
         <input
           type="password"
           class="form-control"
@@ -236,7 +236,7 @@
           class="btn btn-primary float-right"
           [disabled]="!submitButton || !invitationForm.valid"
         >
-          {{ "Accept Invite" }}
+          {{ "Confirm New Password" }}
         </button>
       </div>
     </form>

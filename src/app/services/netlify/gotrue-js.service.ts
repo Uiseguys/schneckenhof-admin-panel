@@ -42,4 +42,19 @@ export class GoTrueJs {
       .then(() => requestSuccess())
       .catch(() => requestFailure());
   };
+
+  recoverPassword = (token, recoverSuccess, recoverFailure) => {
+    this.auth
+      .recover(token)
+      .then(() => recoverSuccess())
+      .catch(() => recoverFailure());
+  };
+
+  updatePassword = (updatePassword, updateSuccess, updateFailure) => {
+    this.auth
+      .currentUser()
+      .update({ password: updatePassword })
+      .then(() => updateSuccess())
+      .catch(() => updateFailure());
+  };
 }
