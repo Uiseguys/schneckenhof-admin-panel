@@ -157,8 +157,6 @@ export class LoginPage implements OnInit {
       this.passwordForm.controls[c].markAsTouched();
     }
     if (!this.passwordForm.valid) return;
-    const updateSuccess = () => {};
-    const updateFailure = () => {};
     this.gotrue.updatePassword$(this.passwordForm.value.password).subscribe(
       () => this.router.navigate(["/dashboard"]),
       () => {
