@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import GoTrue from "gotrue-js";
-import { Observable } from "rxjs";
 import { fromPromise } from "rxjs/observable/fromPromise";
-import { of } from "rxjs/observable/of";
 
 @Injectable()
 export class GoTrueJs {
