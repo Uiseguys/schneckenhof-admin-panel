@@ -18,6 +18,7 @@ import { GoTrueJs } from "../../services/netlify/gotrue-js.service";
 
 @Injectable()
 export class AuthGuardResolve implements Resolve<any>, CanLoad, CanActivate {
+  user;
   constructor(
     private router: Router,
     private settings: SettingsService,
@@ -29,35 +30,10 @@ export class AuthGuardResolve implements Resolve<any>, CanLoad, CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<any> {
-    // check role
-    //return new Promise((resolve, reject) => {
-    //if (
-    //this.settings.getStorage('token') &&
-    //this.settings.getStorage('userId')
-    //) {
-    //this.api.getUserInfo(this.settings.getStorage('userId')).subscribe(
-    //res => {
-    //if (res.roles) {
-    //res.roles = res.roles.map(item => item.name);
-    //}
-    //res.token = this.settings.getStorage('token');
-    //this.settings.setAppSetting('user', res);
-    //resolve(res);
-    //},
-    //err => {
-    //this.settings.clearSetting();
-    //this.router.navigate(['/login']);
-    //}
-    //);
-    //} else {
-    //this.settings.clearSetting();
-    //reject('Permission denied');
-    //this.router.navigate(['/login']);
-    //}
-    //});
     return new Promise((resolve, reject) => {
-      if (this.gotrue.currentUser()) {
-        resolve(this.gotrue.currentUser());
+      const user = this.gotrue.currentUser();
+      if (user) {
+        resolve(user);
       } else {
         reject("Dashboard Permission Denied");
         this.router.navigate(["/login"]);

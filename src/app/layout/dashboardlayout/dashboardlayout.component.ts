@@ -108,8 +108,9 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
 
   logout($event) {
     $event.preventDefault();
-    const logoutSuccess = () => this.router.navigate(["/login"]);
-    this.gotrue.logout(logoutSuccess);
+    const logoutSuccess = this.gotrue
+      .logout$()
+      .subscribe(() => this.router.navigate(["/login"]));
   }
 
   changeLanguage(lang) {

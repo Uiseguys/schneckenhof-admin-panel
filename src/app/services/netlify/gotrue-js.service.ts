@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
 import GoTrue from "gotrue-js";
+import { Observable } from "rxjs";
+import { fromPromise } from "rxjs/observable/fromPromise";
+import { of } from "rxjs/observable/of";
 
 @Injectable()
 export class GoTrueJs {
@@ -16,45 +19,31 @@ export class GoTrueJs {
     return this.auth.currentUser();
   };
 
-  acceptInvite = (token, password, inviteSuccess, inviteFailure) => {
-    this.auth
-      .acceptInvite(token, password, true)
-      .then(() => inviteSuccess())
-      .catch(() => inviteFailure());
+  acceptInvite$ = (token, password) => {
+    return fromPromise(this.auth.acceptInvite(token, password, true));
   };
 
-  login = (formValue, loginSuccess, loginFailure) =>
-    this.auth
-      .login(formValue.email, formValue.password, formValue.remember)
-      .then(() => loginSuccess())
-      .catch(() => loginFailure());
-
-  logout = logoutSuccess =>
-    this.auth
-      .currentUser()
-      .logout()
-      .then(() => logoutSuccess())
-      .catch(err => console.error(err));
-
-  requestPasswordRecovery = (email, requestSuccess, requestFailure) => {
-    this.auth
-      .requestPasswordRecovery(email)
-      .then(() => requestSuccess())
-      .catch(() => requestFailure());
+  login$ = formValue => {
+    return fromPromise(
+      this.auth.login(formValue.email, formValue.password, formValue.remember)
+    );
   };
 
-  recoverPassword = (token, recoverSuccess, recoverFailure) => {
-    this.auth
-      .recover(token)
-      .then(() => recoverSuccess())
-      .catch(() => recoverFailure());
+  logout$ = () => {
+    return fromPromise(this.auth.currentUser().logout());
   };
 
-  updatePassword = (updatePassword, updateSuccess, updateFailure) => {
-    this.auth
-      .currentUser()
-      .update({ password: updatePassword })
-      .then(() => updateSuccess())
-      .catch(() => updateFailure());
+  requestPasswordRecovery$ = email => {
+    return fromPromise(this.auth.requestPasswordRecovery(email));
+  };
+
+  recoverPassword$ = token => {
+    return fromPromise(this.auth.recover(token));
+  };
+
+  updatePassword$ = updatePassword => {
+    return fromPromise(
+      this.auth.currentUser().update({ password: updatePassword })
+    );
   };
 }

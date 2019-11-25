@@ -20,14 +20,13 @@ declare const Buffer;
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  user;
   inviteToken;
   recoveryToken;
   submitButton = 1;
   requestPassword;
   requestPasswordSuccess;
   loginForm: FormGroup;
-  invitationForm: FormGroup;
+  passwordForm: FormGroup;
   requestPasswordForm: FormGroup;
   formErr = 0;
   toasterconfig = new ToasterConfig({
@@ -50,14 +49,12 @@ export class LoginPage implements OnInit {
       password: ["", Validators.compose([Validators.required])],
       remember: [0]
     });
-    this.invitationForm = fb.group({
+    this.passwordForm = fb.group({
       password: ["", Validators.compose([Validators.required])]
     });
     this.requestPasswordForm = fb.group({
       email: ["", Validators.compose([Validators.required, Validators.email])]
     });
-
-    this.user = this.gotrue.currentUser();
   }
 
   ngOnInit() {
@@ -71,11 +68,12 @@ export class LoginPage implements OnInit {
       }
       if (/recovery_token/.test(getRouteAnchorParams[0])) {
         let tmp = /\=\S+$/.exec(getRouteAnchorParams[0])[0].replace(/\=/, "");
-        const recoverSuccess = () => {
-          this.recoveryToken = tmp;
-        };
-        const recoverFailure = () => {};
-        this.gotrue.recoverPassword(tmp, recoverSuccess, recoverFailure);
+        this.gotrue
+          .recoverPassword$(tmp)
+          .subscribe(
+            () => (this.recoveryToken = tmp),
+            err => console.error(err)
+          );
       }
     }
   }
@@ -86,21 +84,17 @@ export class LoginPage implements OnInit {
     if (this.formErr) {
       this.formErr = 0;
     }
-
     for (let c in this.loginForm.controls) {
       this.loginForm.controls[c].markAsTouched();
     }
-
     if (!this.loginForm.valid) return;
-    const loginSuccess = () => {
-      this.router.navigate(["/dashboard"]);
-    };
-    const loginFailure = () => {
-      this.formErr = 1;
-      this.submitButton = 1;
-    };
-
-    this.gotrue.login(this.loginForm.value, loginSuccess, loginFailure);
+    this.gotrue.login$(this.loginForm.value).subscribe(
+      () => this.router.navigate(["/dashboard"]),
+      () => {
+        this.formErr = 1;
+        this.submitButton = 1;
+      }
+    );
   }
 
   acceptInvite($event) {
@@ -109,23 +103,19 @@ export class LoginPage implements OnInit {
     if (this.formErr) {
       this.formErr = 0;
     }
-    for (let c in this.invitationForm.controls) {
-      this.invitationForm.controls[c].markAsTouched();
+    for (let c in this.passwordForm.controls) {
+      this.passwordForm.controls[c].markAsTouched();
     }
-    if (!this.invitationForm.valid) return;
-    const inviteSuccess = () => {
-      this.router.navigate(["/dashboard"]);
-    };
-    const inviteFailure = () => {
-      this.formErr = 1;
-      this.submitButton = 1;
-    };
-    this.gotrue.acceptInvite(
-      this.inviteToken,
-      this.invitationForm.value.password,
-      inviteSuccess,
-      inviteFailure
-    );
+    if (!this.passwordForm.valid) return;
+    this.gotrue
+      .acceptInvite$(this.inviteToken, this.passwordForm.value.password)
+      .subscribe(
+        () => this.router.navigate(["/dashboard"]),
+        () => {
+          this.formErr = 1;
+          this.submitButton = 1;
+        }
+      );
   }
 
   requestPasswordRecovery($event) {
@@ -138,18 +128,15 @@ export class LoginPage implements OnInit {
       this.requestPasswordForm.controls[c].markAsTouched();
     }
     if (!this.requestPasswordForm.valid) return;
-    const requestSuccess = () => {
-      this.requestPasswordSuccess = 1;
-    };
-    const requestFailure = () => {
-      this.formErr = 1;
-      this.submitButton = 1;
-    };
-    this.gotrue.requestPasswordRecovery(
-      this.requestPasswordForm.value.email,
-      requestSuccess,
-      requestFailure
-    );
+    this.gotrue
+      .requestPasswordRecovery$(this.requestPasswordForm.value.email)
+      .subscribe(
+        () => (this.requestPasswordSuccess = 1),
+        () => {
+          this.formErr = 1;
+          this.submitButton = 1;
+        }
+      );
   }
 
   openForgotPassword() {
@@ -170,21 +157,18 @@ export class LoginPage implements OnInit {
     if (this.formErr) {
       this.formErr = 0;
     }
-    for (let c in this.invitationForm.controls) {
-      this.invitationForm.controls[c].markAsTouched();
+    for (let c in this.passwordForm.controls) {
+      this.passwordForm.controls[c].markAsTouched();
     }
-    if (!this.invitationForm.valid) return;
-    const updateSuccess = () => {
-      this.router.navigate(["/dashboard"]);
-    };
-    const updateFailure = () => {
-      this.formErr = 1;
-      this.submitButton = 1;
-    };
-    this.gotrue.updatePassword(
-      this.invitationForm.value.password,
-      updateSuccess,
-      updateFailure
+    if (!this.passwordForm.valid) return;
+    const updateSuccess = () => {};
+    const updateFailure = () => {};
+    this.gotrue.updatePassword$(this.passwordForm.value.password).subscribe(
+      () => this.router.navigate(["/dashboard"]),
+      () => {
+        this.formErr = 1;
+        this.submitButton = 1;
+      }
     );
   }
 }
