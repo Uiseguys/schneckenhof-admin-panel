@@ -12,9 +12,9 @@ import {
   CanActivate
 } from "@angular/router";
 import { Observable } from "rxjs";
-import { ClientApiService } from "../../services/api/clientapi.service";
-import { SettingsService } from "../../services/settings/settings.service";
-import { GoTrueJs } from "../../services/netlify/gotrue-js.service";
+import { ClientApiService } from "../api/clientapi.service";
+import { SettingsService } from "../settings/settings.service";
+import { GoTrueJs } from "../netlify/gotrue-js.service";
 
 @Injectable()
 export class AuthGuardResolve implements Resolve<any>, CanLoad, CanActivate {

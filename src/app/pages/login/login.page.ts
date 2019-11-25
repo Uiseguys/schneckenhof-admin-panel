@@ -59,23 +59,19 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     // Check to see if the URL contains a recovery or invitation token
-    if (/[\#]\S+\=\S+/.test(this.router.url)) {
-      const getRouteAnchorParams = /[\#]\S+\=\S+/.exec(this.router.url);
-      if (/invite_token/.test(getRouteAnchorParams[0])) {
-        this.inviteToken = /\=\S+$/
-          .exec(getRouteAnchorParams[0])[0]
-          .replace(/\=/, "");
+    this.activeRoute.fragment.subscribe(fragment => {
+      if (fragment) {
+        if (/invite_token/.test(fragment)) {
+          this.inviteToken = fragment.replace(/invite_token\=/, "");
+        }
+        if (/recovery_token/.test(fragment)) {
+          let tmp = fragment.replace(/recovery_token\=/, "");
+          this.gotrue
+            .recoverPassword$(tmp)
+            .subscribe(() => (this.recoveryToken = tmp));
+        }
       }
-      if (/recovery_token/.test(getRouteAnchorParams[0])) {
-        let tmp = /\=\S+$/.exec(getRouteAnchorParams[0])[0].replace(/\=/, "");
-        this.gotrue
-          .recoverPassword$(tmp)
-          .subscribe(
-            () => (this.recoveryToken = tmp),
-            err => console.error(err)
-          );
-      }
-    }
+    });
   }
 
   login($event) {
