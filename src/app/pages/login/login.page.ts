@@ -128,7 +128,8 @@ export class LoginPage implements OnInit {
       .requestPasswordRecovery$(this.requestPasswordForm.value.email)
       .subscribe(
         () => (this.requestPasswordSuccess = 1),
-        () => {
+        err => {
+          console.error(err);
           this.formErr = 1;
           this.submitButton = 1;
         }
