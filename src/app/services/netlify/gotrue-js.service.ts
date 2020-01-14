@@ -7,7 +7,7 @@ export class GoTrueJs {
   auth;
   constructor() {
     this.auth = new GoTrue({
-      APIUrl: "https://schneckenhof-admin-panel.netlify.com/.netlify/identity",
+      APIUrl: "https://weingut-admin.netlify.com/.netlify/identity",
       audience: "",
       setCookie: true
     });
