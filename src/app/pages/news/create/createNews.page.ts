@@ -34,7 +34,7 @@ export class CreateNewsPage implements OnInit {
             if (news.showOnHome == true) {
               this.router.navigate(['/dashboard/news']);
               let updated = news;
-              updated.showOnHome = false;
+           //   updated.showOnHome = false;
               this.api
                 .updateNews(news.id, {
                   ...news,
