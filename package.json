@@ -16,7 +16,6 @@
   "dependencies": {
     "@angular-devkit/core": "^0.4.9",
     "@angular/animations": "^5.1.0",
-    "@angular/cli": "1.6.4",
     "@angular/common": "^5.1.0",
     "@angular/compiler": "^5.1.0",
     "@angular/compiler-cli": "^5.1.0",
@@ -48,6 +47,7 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
+    "@angular/cli": "^9.1.6",
     "@angular/language-service": "^5.1.0",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
@@ -68,6 +68,6 @@
   },
   "engines": {
     "node": ">=8.6.0",
-    "yarn": "1.0.2"
+    "npm": ">=8.6.0"
   }
 }
