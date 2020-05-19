@@ -26,26 +26,26 @@ export const routes = [
 
       {
         path: 'packaging',
-        loadChildren: './packaging/packaging.module#PackagingModule'
+        loadChildren: () => import('./packaging/packaging.module').then(m => m.PackagingModule)
       },
-      { path: 'payments', loadChildren: './order/order.module#OrderModule' },
+      { path: 'payments', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
       {
         path: 'templates',
-        loadChildren: './template/template.module#TemplateModule'
+        loadChildren: () => import('./template/template.module').then(m => m.TemplateModule)
       },
       {
         path: 'images',
-        loadChildren: './image/image.module#ImageModule'
+        loadChildren: () => import('./image/image.module').then(m => m.ImageModule)
       },
       {
         path: 'settings',
-        loadChildren: './setting/setting.module#SettingModule'
+        loadChildren: () => import('./setting/setting.module').then(m => m.SettingModule)
       },
       { 
         path: 'news',
-        loadChildren: './news/news.module#NewsModule'
+        loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
      },
-      { path: ':type', loadChildren: './wine/wine.module#WineModule' }
+      { path: ':type', loadChildren: () => import('./wine/wine.module').then(m => m.WineModule) }
     ]
   },
   { path: '**', redirectTo: 'login' }
