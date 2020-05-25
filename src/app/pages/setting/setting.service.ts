@@ -3,32 +3,33 @@
  */
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
 import { Api } from '../../services/api/api.service';
 
 @Injectable()
 export class SettingService {
-  constructor(private api: Api) {}
+    constructor(private api: Api) {}
 
-  getAll() {
-    return this.api.get('/settings');
-  }
+    getAll(): Observable<any> {
+        return this.api.get('/settings');
+    }
 
-  getSetting(key) {
-    const filter = {
-      where: { key }
-    };
-    return this.api.get(`/settings?filter=${JSON.stringify(filter)}`);
-  }
+    getSetting(key): Observable<any> {
+        const filter = {
+            where: { key }
+        };
+        return this.api.get(`/settings?filter=${JSON.stringify(filter)}`);
+    }
 
-  deleteSetting(id) {
-    return this.api.delete(`/settings/${id}`);
-  }
+    deleteSetting(id): Observable<any> {
+        return this.api.delete(`/settings/${id}`);
+    }
 
-  updateSetting(key, value) {
-    const where = { key };
-    return this.api.post(
-      `/settings?where=${JSON.stringify(where)}`,
-      { key, value }
-    );
-  }
+    updateSetting(key, value): Observable<any> {
+        const where = { key };
+        return this.api.post(`/settings?where=${JSON.stringify(where)}`, {
+            key,
+            value
+        });
+    }
 }

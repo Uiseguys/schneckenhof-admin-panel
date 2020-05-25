@@ -2,8 +2,9 @@
  * Created by Tall Prince on 5/26/2017.
  */
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { environment as ENV } from '../../../environments/environment';
@@ -11,94 +12,102 @@ import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class Api {
-  public apiUrl = ENV.apiUrl;
+    public apiUrl = ENV.apiUrl;
 
-  constructor(
-    public http: Http,
-    private router: Router,
-    protected settings: SettingsService
-  ) {}
+    constructor(
+        public http: HttpClient,
+        private router: Router,
+        protected settings: SettingsService
+    ) {}
 
-  createAuthorizationHeader(headers: Headers) {
-    headers.append('Authorization', 'Basic '+this.settings.getStorage('token'));
-  }
-
-  get(url, data?) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-
-    let params: URLSearchParams = new URLSearchParams();
-    if (data) {
-      for (var key in data) {
-        params.set(key, data[key]);
-      }
+    createAuthorizationHeader(headers: HttpHeaders) {
+        headers.append(
+            'Authorization',
+            'Basic ' + this.settings.getStorage('token')
+        );
     }
 
-    return this.http
-      .get(this.apiUrl + url, {
-        headers: headers,
-        search: params
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
+    get(url, data?): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
 
-  post(url, data) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-    headers.append('withCredentials','false')
+        const params: HttpParams = new HttpParams();
+        if (data) {
+            for (const key in data) {
+                params.set(key, data[key]);
+            }
+        }
 
-    return this.http
-      .post(this.apiUrl + url, data, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  put(url, data) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-
-    return this.http
-      .put(this.apiUrl + url, data, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  patch(url, data) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-
-    return this.http
-      .patch(this.apiUrl + url, data, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  delete(url) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
-
-    return this.http
-      .delete(this.apiUrl + url, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  protected handleError(error: any) {
-    if (error.status == 401 && error.url && !error.url.endsWith('/login')) {
-      if (this.settings) this.settings.clearSetting();
-      document.location.href = '/';
+        return this.http
+            .get(this.apiUrl + url, {
+                headers: headers,
+                params: params
+            })
+            .pipe(catchError(this.handleError));
     }
-    // In a real world app, you might use a remote logging infrastructure
 
-    return Observable.throw(error);
-  }
+    post(url, data): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
+        headers.append('withCredentials', 'false');
+
+        return this.http
+            .post(this.apiUrl + url, data, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
+
+    put(url, data): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
+
+        return this.http
+            .put(this.apiUrl + url, data, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
+
+    patch(url, data): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
+
+        return this.http
+            .patch(this.apiUrl + url, data, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
+
+    delete(url): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
+
+        return this.http
+            .delete(this.apiUrl + url, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
+
+    protected handleError(error: any) {
+        if (error.status == 401 && error.url && !error.url.endsWith('/login')) {
+            if (this.settings) {
+                this.settings.clearSetting();
+            }
+            document.location.href = '/';
+        }
+
+        if (error.error instanceof ErrorEvent) {
+            // A client side or network error occurred. Handle it accordingly
+            console.log('An error occurred:', error.error.message);
+        } else {
+            console.log(
+                `Backend returned code ${error.status}, body was: ${error.error}`
+            );
+        }
+
+        return throwError('Something went wrong, please try again later');
+    }
 }

@@ -2,112 +2,124 @@
  * Created by S.Angel on 4/2/2017.
  */
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs';
+import {
+    HttpClient,
+    HttpHeaders,
+    HttpParams,
+    HttpErrorResponse
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Api } from '../../services/api/api.service';
 import { environment as ENV } from '../../../environments/environment';
 
 @Injectable()
 export class TemplateService {
-  public apiUrl = ENV.pdfUrl
+    public apiUrl = ENV.pdfUrl;
 
-  constructor(protected http: Http, private router: Router, private api: Api, ) { }
+    constructor(
+        protected http: HttpClient,
+        private router: Router,
+        private api: Api
+    ) {}
 
-  createAuthorizationHeader(headers: Headers) { }
+    createAuthorizationHeader(headers: HttpHeaders) {}
 
-  get(url, data?) {
-    console.log("GET" + this.apiUrl)
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
+    get(url, data?): Observable<any> {
+        console.log('GET' + this.apiUrl);
+        const headers = new HttpHeaders();
+        // this.createAuthorizationHeader(headers);
 
-    let params: URLSearchParams = new URLSearchParams();
-    if (data) {
-      for (var key in data) {
-        params.set(key, data[key]);
-      }
+        const params: HttpParams = new HttpParams();
+        if (data) {
+            for (const key in data) {
+                params.set(key, data[key]);
+            }
+        }
+
+        return this.http
+            .get(this.apiUrl + url, {
+                headers: headers,
+                params: params
+            })
+            .pipe(catchError(this.handleError));
     }
 
-    return this.http
-      .get(this.apiUrl + url, {
-        headers: headers,
-        search: params
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
+    post(url, data): Observable<any> {
+        const headers = new HttpHeaders();
+        // this.createAuthorizationHeader(headers);
 
-  post(url, data) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
+        return this.http
+            .post(url, data, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
 
-    return this.http
-      .post(url, data, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
+    put(url, data): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
 
-  put(url, data) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
+        return this.http
+            .put(this.apiUrl + url, data, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
 
-    return this.http
-      .put(this.apiUrl + url, data, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
+    patch(url, data): Observable<any> {
+        const headers = new HttpHeaders();
+        // this.createAuthorizationHeader(headers);
 
-  patch(url, data) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
+        return this.http
+            .patch(this.apiUrl + url, data, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
 
-    return this.http
-      .patch(this.apiUrl + url, data, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
+    delete(url): Observable<any> {
+        const headers = new HttpHeaders();
+        this.createAuthorizationHeader(headers);
 
-  delete(url) {
-    let headers = new Headers();
-    this.createAuthorizationHeader(headers);
+        return this.http
+            .delete(this.apiUrl + url, {
+                headers: headers
+            })
+            .pipe(catchError(this.handleError));
+    }
 
-    return this.http
-      .delete(this.apiUrl + url, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
+    protected handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            // A client side or network error occurred. Handle it accordingly
+            console.error('An error occurred:', error.error.message);
+        } else {
+            console.error(
+                `Backend returned code ${error.status}, body was: ${error.error}`
+            );
+        }
+        return throwError('Something went wrong, try again later');
+    }
 
-  protected handleError(error: any) {
-    return Observable.throw(error);
-  }
+    getTemplates() {}
 
-  getTemplates() {
-    return this.api.get('/Templates')
-  }
+    deleteTemplate(id): Observable<any> {
+        return this.delete(`/Templates/${id}`).pipe(catchError(this.handleError));
+    }
 
-  deleteTemplate(id) {
-    return this.delete(`/Templates/${id}`);
-  }
+    downloadTemplate(url, data, token): Observable<any> {
+        const headers = new HttpHeaders();
+        headers.append('token', token);
 
-  downloadTemplate(url, data, token) {
-    let headers = new Headers();
-    headers.append('token',  token);
-   
-    return this.http
-      .post(url, {data:data}, {
-        headers: headers
-      })
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-
+        return this.http
+            .post(
+                url,
+                { data: data },
+                {
+                    headers: headers
+                }
+            )
+            .pipe(catchError(this.handleError));
+    }
 }

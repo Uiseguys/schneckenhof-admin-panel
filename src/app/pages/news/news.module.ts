@@ -10,24 +10,35 @@ import { NewsPage } from './list/news.page';
 import { CreateNewsPage } from './create/createNews.page';
 import { EditNewsPage } from './edit/editNews.page';
 import { NgxEditorModule } from 'ngx-editor';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
-  { path: '', component: NewsPage },
-  {
-    path: 'create',
-    component: CreateNewsPage
-  },
-  {
-    path: ':id',
-    component: EditNewsPage
-  }
+    { path: '', component: NewsPage },
+    {
+        path: 'create',
+        component: CreateNewsPage
+    },
+    {
+        path: ':id',
+        component: EditNewsPage
+    }
 ];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes),NgxEditorModule,HttpClientModule],
-  declarations: [NewsForm, NewsPage, CreateNewsPage, EditNewsPage],
-  providers: [NewsService, PackagingService, ImageService, SettingsService,HttpClientModule],
-  exports: [RouterModule]
+    imports: [
+        SharedModule,
+        RouterModule.forChild(routes),
+        NgxEditorModule,
+        HttpClientModule
+    ],
+    declarations: [NewsForm, NewsPage, CreateNewsPage, EditNewsPage],
+    providers: [
+        NewsService,
+        PackagingService,
+        ImageService,
+        SettingsService,
+        HttpClientModule
+    ],
+    exports: [RouterModule]
 })
 export class NewsModule {}
