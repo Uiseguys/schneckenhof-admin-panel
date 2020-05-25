@@ -1,102 +1,168 @@
 <div class="container">
   <div class="d-flex mb-4 align-items-center">
-    <h3>{{ 'Packaging' | i18nextFormat }}</h3>
+    <h3>{{ "Packaging" | i18nextFormat }}</h3>
     <div class="ml-2">
-      <button class="btn btn-primary btn-sm" (click)="showCreateModal(packagingTemplate)">{{ 'Add Packaging' | i18nextFormat }}</button>
+      <button
+        class="btn btn-primary btn-sm"
+        (click)="showCreateModal(packagingTemplate)"
+      >
+        {{ "Add Packaging" | i18nextFormat }}
+      </button>
     </div>
   </div>
   <div style="min-height: 50vh">
     <table class="table w-100">
       <thead>
         <tr>
-          <th>{{ 'ID' | i18nextFormat }}</th>
-          <th>{{ 'Display Name' | i18nextFormat }}</th>
-          <th>{{ 'Measure' | i18nextFormat }}</th>
-          <th>{{ 'Unit of Measure' | i18nextFormat }}</th>
+          <th>{{ "ID" | i18nextFormat }}</th>
+          <th>{{ "Display Name" | i18nextFormat }}</th>
+          <th>{{ "Measure" | i18nextFormat }}</th>
+          <th>{{ "Unit of Measure" | i18nextFormat }}</th>
           <th width="200"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let packaging of packagings | async | paginate: pageConfig">
           <td>
-            {{packaging.id}}
+            {{ packaging.id }}
           </td>
           <td>
-            {{packaging.displayName}}
+            {{ packaging.displayName }}
           </td>
           <td>
-            {{packaging.measure}}
+            {{ packaging.measure }}
           </td>
           <td>
-            {{packaging.unitOfMeasure}}
+            {{ packaging.unitOfMeasure }}
           </td>
           <td class="text-right">
-            <button class="btn btn-success" (click)="showEditModal(packagingTemplate, packaging)" title="Edit">
+            <button
+              class="mr-2 btn btn-success"
+              (click)="showEditModal(packagingTemplate, packaging)"
+              title="Edit"
+            >
               <i class="fa fa-edit"></i>
             </button>
 
-            <button class="btn btn-danger" (click)="deletePackaging(packaging)" title="Delete">
+            <button
+              class="btn btn-danger"
+              (click)="deletePackaging(packaging)"
+              title="Delete"
+            >
               <i class="fa fa-trash"></i>
             </button>
           </td>
         </tr>
         <tr *ngIf="!pageConfig.totalItems">
           <td colspan="5" class="text-center my-5">
-            {{ 'No Packaging Found' | i18nextFormat }}
+            {{ "No Packaging Found" | i18nextFormat }}
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div *ngIf="pageConfig.totalItems > 0" class="mt-2 d-flex justify-content-center">
-    <pagination-controls (pageChange)="getPackagings($event)"></pagination-controls>
+  <div
+    *ngIf="pageConfig.totalItems > 0"
+    class="mt-2 d-flex justify-content-center"
+  >
+    <pagination-controls
+      (pageChange)="getPackagings($event)"
+    ></pagination-controls>
   </div>
 </div>
 
 <ng-template #packagingTemplate>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">{{ 'Package Details' | i18nextFormat }}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <h4 class="modal-title pull-left">
+      {{ "Package Details" | i18nextFormat }}
+    </h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form class="form-horizontal ng-pristine ng-valid" [formGroup]="form" (submit)="handleSubmit($event)">
+  <form
+    class="form-horizontal ng-pristine ng-valid"
+    [formGroup]="form"
+    (submit)="handleSubmit($event)"
+  >
     <div class="modal-body">
       <div class="form-group row">
-        <label class="col-sm-3">{{ 'Display Name' | i18nextFormat }}</label>
+        <label class="col-sm-3">{{ "Display Name" | i18nextFormat }}</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" formControlName="displayName" />
+          <input
+            type="text"
+            class="form-control"
+            formControlName="displayName"
+          />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-3">{{ 'Measure' | i18nextFormat }}</label>
+        <label class="col-sm-3">{{ "Measure" | i18nextFormat }}</label>
         <div class="col-sm-9">
           <input type="number" class="form-control" formControlName="measure" />
-          <div class="text-danger" *ngIf="form.controls['measure'].hasError('required') && (form.controls['measure'].dirty || form.controls['measure'].touched)">
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls['measure'].hasError('required') &&
+              (form.controls['measure'].dirty ||
+                form.controls['measure'].touched)
+            "
+          >
             This field is required
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-3">{{ 'Unit of Measure' | i18nextFormat }}</label>
+        <label class="col-sm-3">{{ "Unit of Measure" | i18nextFormat }}</label>
         <div class="col-sm-9">
           <select class="form-control" formControlName="unitOfMeasure">
             <option value="ml">ml</option>
             <option value="l">l</option>
           </select>
-          <div class="text-danger" *ngIf="form.controls['unitOfMeasure'].hasError('required') && (form.controls['unitOfMeasure'].dirty || form.controls['unitOfMeasure'].touched)">
+          <div
+            class="text-danger"
+            *ngIf="
+              form.controls['unitOfMeasure'].hasError('required') &&
+              (form.controls['unitOfMeasure'].dirty ||
+                form.controls['unitOfMeasure'].touched)
+            "
+          >
             This field is required
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" *ngIf="!selectedId" class="btn btn-primary float-right">Create</button>
-      <button type="submit" *ngIf="selectedId > 0" class="btn btn-success float-right">Update</button>
-      <button type="button" class="btn btn-default float-right" (click)="modalRef.hide()">Cancel</button>
+      <button
+        type="submit"
+        *ngIf="!selectedId"
+        class="btn btn-primary float-right"
+      >
+        Create
+      </button>
+      <button
+        type="submit"
+        *ngIf="selectedId > 0"
+        class="btn btn-success float-right"
+      >
+        Update
+      </button>
+      <button
+        type="button"
+        class="btn btn-default float-right"
+        (click)="modalRef.hide()"
+      >
+        Cancel
+      </button>
     </div>
   </form>
 </ng-template>
+

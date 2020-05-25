@@ -4,8 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  siteUrl: '',
-  apiUrl: 'http://localhost:4000',
-  pdfUrl: 'https://www.pdf-aas.io'
+    production: false,
+    siteUrl: '',
+    apiUrl: 'http://localhost:3000',
+    pdfUrl: 'https://www.pdf-aas.io'
 };

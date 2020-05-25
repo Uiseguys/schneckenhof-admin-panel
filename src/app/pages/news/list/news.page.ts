@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { SettingsService } from '../../../services/settings/settings.service';
 import { NewsService } from '../../../pages/news/news.service';
 import { ToasterService } from 'angular2-toaster';
 import { SettingService } from '../../../pages/setting/setting.service';
@@ -22,7 +21,6 @@ export class NewsPage implements OnInit {
         private route: ActivatedRoute,
         public router: Router,
         private api: NewsService,
-        private settings: SettingsService,
         private toasterService: ToasterService,
         private settingApi: SettingService
     ) {}
@@ -50,6 +48,7 @@ export class NewsPage implements OnInit {
 
         this.settingApi.getAll().subscribe(res => {
             let item;
+            console.log(res);
             item = res.find(item => item.key === 'introtext');
             this.introNews = item ? item.value : {};
         });
