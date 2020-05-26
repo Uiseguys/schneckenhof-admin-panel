@@ -25,6 +25,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "@typescript-eslint/tslint"],
   rules: {
+    "prettier/prettier": "error",
     "@angular-eslint/component-class-suffix": "error",
     "@angular-eslint/component-selector": [
       "error",

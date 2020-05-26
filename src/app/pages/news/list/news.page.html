@@ -19,12 +19,11 @@
   <div class="form-group into-text collapse" id="into-text-collapse">
     <label class="label">{{ "Intro News" | i18nextFormat }}</label>
 
-    <ngx-editor
+    <quill-editor
       [spellcheck]="true"
-      [(ngModel)]="introNews.text"
-      [ngModelOptions]="{ standalone: true }"
+      [(ngModel)]="introNews"
       minHeight="100px"
-    ></ngx-editor>
+    ></quill-editor>
 
     <button class="mt-3 btn btn-primary " (click)="updateTitleNews()">
       {{ "Update" | i18nextFormat }}
@@ -80,4 +79,3 @@
     </div>
   </div>
 </div>
-

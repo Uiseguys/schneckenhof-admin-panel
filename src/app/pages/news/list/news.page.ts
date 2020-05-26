@@ -48,10 +48,16 @@ export class NewsPage implements OnInit {
 
         this.settingApi.getAll().subscribe(res => {
             let item;
-            console.log(res);
             item = res.find(item => item.key === 'introtext');
-            this.introNews = item ? item.value : {};
+            this.introNews = item
+                ? item.value.text
+                : 'Please provide valid intro text';
         });
+    }
+
+    onChange(doc: object) {
+        this.introNews = doc;
+        console.log(this.introNews);
     }
 
     delete(news) {

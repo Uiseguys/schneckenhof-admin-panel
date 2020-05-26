@@ -188,12 +188,12 @@
         "Description" | i18nextFormat
       }}</label>
       <div class="col-sm-10">
-        <ngx-editor
+        <quill-editor
           [spellcheck]="true"
           [(ngModel)]="description"
           [ngModelOptions]="{ standalone: true }"
           minHeight="100px"
-        ></ngx-editor>
+        ></quill-editor>
       </div>
     </div>
   </div>
