@@ -89,6 +89,7 @@ export class WineForm implements OnInit, OnChanges {
                     this.form.controls[key].setValue(this.initialValue[key]);
                 }
             });
+            console.log(this.initialValue.image);
             this.image = this.initialValue.image;
         }
     }

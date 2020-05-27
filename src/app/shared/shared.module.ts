@@ -11,11 +11,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ToasterModule } from 'angular2-toaster';
 import { AttachUploader } from './attachUploader/attachUploader';
-// import {
-// CloudinaryModule,
-// CloudinaryConfiguration
-// } from '@cloudinary/angular-5.x';
-// import { Cloudinary } from 'cloudinary-core';
 
 import { SettingsService } from '../services/settings/settings.service';
 import { Api } from '../services/api/api.service';
@@ -37,10 +32,6 @@ import { I18NextFormatPipe } from './pipes/i18next.pipe';
         ModalModule.forRoot(),
         BsDropdownModule.forRoot(),
         TooltipModule.forRoot(),
-        // CloudinaryModule.forRoot({ Cloudinary }, {
-        // cloud_name: 'schneckenhof',
-        // secure: true
-        // } as CloudinaryConfiguration),
         ToasterModule
     ],
     providers: [AuthGuardResolve],

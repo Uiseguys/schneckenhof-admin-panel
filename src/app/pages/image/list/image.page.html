@@ -23,7 +23,11 @@
           <div class="image">
             <cl-image loading="lazy" public-id="{{ image.public_id }}">
               <cl-placeholder type="blur"></cl-placeholder>
-              <cl-transformation height="170" crop="scale"></cl-transformation>
+              <cl-transformation
+                width="128"
+                height="150"
+                crop="fit"
+              ></cl-transformation>
             </cl-image>
           </div>
           <td>
@@ -32,7 +36,7 @@
           <td class="text-right">
             <button
               class="btn btn-danger"
-              (click)="deleteImage(image)"
+              (click)="deleteImage(image.public_id)"
               title="Delete"
             >
               <i class="fa fa-trash"></i>

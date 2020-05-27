@@ -10,8 +10,13 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FileUploader } from 'ng2-file-upload';
+import {
+    FileUploader,
+    FileUploaderOptions,
+    ParsedResponseHeaders
+} from 'ng2-file-upload';
 import { uniqBy } from 'lodash';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 
 import { SettingsService } from '../../services/settings/settings.service';
 
@@ -24,12 +29,13 @@ declare let $: any;
     encapsulation: ViewEncapsulation.None
 })
 export class AttachUploader implements OnInit {
-    token = '';
     uploader: FileUploader;
     elem: HTMLElement;
 
-    @Input('mimeTypes') mimeTypes: any = [];
-    @Input('validate') validate: any;
+    @Input()
+    mimeTypes: any = [];
+    validate: any;
+    responses: Array<any>;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -37,9 +43,10 @@ export class AttachUploader implements OnInit {
         elementRef: ElementRef,
         private route: ActivatedRoute,
         private settings: SettingsService,
+        private cloudinary: Cloudinary,
         public zone: NgZone
     ) {
-        this.token = this.settings.getStorage('token', '');
+        this.responses = [];
     }
 
     ngOnInit() {

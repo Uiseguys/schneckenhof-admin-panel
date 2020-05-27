@@ -21,12 +21,6 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 
-// import {
-// CloudinaryModule,
-// CloudinaryConfiguration
-// } from '@cloudinary/angular-5.x';
-// import { Cloudinary } from 'cloudinary-core';
-
 const i18nextOptions = {
     whitelist: ['en', 'de'],
     fallbackLng: localStorage.getItem('stanapplang') || 'de',
@@ -85,10 +79,6 @@ export const I18N_PROVIDERS = [
         ToasterModule.forRoot(),
         I18NextModule.forRoot(),
         SharedModule.forRoot(),
-        // CloudinaryModule.forRoot({ Cloudinary }, {
-        // cloud_name: 'schneckenhof',
-        // secure: true
-        // } as CloudinaryConfiguration),
         PagesModule
     ],
     providers: [I18N_PROVIDERS],
