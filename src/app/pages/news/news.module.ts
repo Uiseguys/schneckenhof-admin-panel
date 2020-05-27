@@ -10,8 +10,6 @@ import { NewsPage } from './list/news.page';
 import { CreateNewsPage } from './create/createNews.page';
 import { EditNewsPage } from './edit/editNews.page';
 import { QuillModule } from 'ngx-quill';
-import { undo, redo, history } from 'prosemirror-history';
-import { keymap } from 'prosemirror-keymap';
 import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [

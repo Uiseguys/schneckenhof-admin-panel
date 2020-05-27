@@ -1,6 +1,6 @@
 # schneckenhof-admin-panel
 
-This project is built on Angular 5 for [schneckenhof-api](https://github.com/Uiseguys/schneckenhof-api).
+This project is built on Angular 9 for [schneckenhof-api](https://github.com/Uiseguys/schneckenhof-api).
 schneckenhof-admin-panel provides following features:
 
 * manage wines
@@ -9,7 +9,7 @@ schneckenhof-admin-panel provides following features:
 
 ## How to start
 
-**Note** that this seed project requires node v4.x.x or higher, npm 2.14.7 and Angular 5.x
+**Note** that this seed project requires node v8.x.x or higher, npm 6.0.0 and Angular 9.x
 
 In order to start the seed use:
 

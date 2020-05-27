@@ -17,15 +17,15 @@ import { ToasterModule } from 'angular2-toaster';
 import XHR from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import {
-    CloudinaryModule,
-    CloudinaryConfiguration
-} from '@cloudinary/angular-5.x';
-import { Cloudinary } from 'cloudinary-core';
-
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
+
+// import {
+// CloudinaryModule,
+// CloudinaryConfiguration
+// } from '@cloudinary/angular-5.x';
+// import { Cloudinary } from 'cloudinary-core';
 
 const i18nextOptions = {
     whitelist: ['en', 'de'],
@@ -85,10 +85,10 @@ export const I18N_PROVIDERS = [
         ToasterModule.forRoot(),
         I18NextModule.forRoot(),
         SharedModule.forRoot(),
-        CloudinaryModule.forRoot({ Cloudinary }, {
-            cloud_name: 'schneckenhof',
-            secure: true
-        } as CloudinaryConfiguration),
+        // CloudinaryModule.forRoot({ Cloudinary }, {
+        // cloud_name: 'schneckenhof',
+        // secure: true
+        // } as CloudinaryConfiguration),
         PagesModule
     ],
     providers: [I18N_PROVIDERS],

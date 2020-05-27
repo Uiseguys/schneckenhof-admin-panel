@@ -4,13 +4,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ImageService } from './image.service';
 import { ImagePage } from './list/image.page';
+import {
+    CloudinaryModule,
+    CloudinaryConfiguration
+} from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 
 const routes: Routes = [{ path: '', component: ImagePage }];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes)],
-  declarations: [ImagePage],
-  providers: [ImageService],
-  exports: [RouterModule]
+    imports: [
+        SharedModule,
+        CloudinaryModule.forRoot({ Cloudinary }, {
+            cloud_name: 'schneckenhof',
+            secure: true
+        } as CloudinaryConfiguration),
+        RouterModule.forChild(routes)
+    ],
+    declarations: [ImagePage],
+    providers: [ImageService],
+    exports: [RouterModule]
 })
 export class ImageModule {}

@@ -25,7 +25,7 @@ export class SettingService {
 
     deleteSetting(id) {
         console.log('This has been fired');
-    // return this.api.delete(`/settings/${id}`);
+        return this.api.delete(`/settings/${id}`);
     }
 
     updateSetting(key, value): Observable<any> {

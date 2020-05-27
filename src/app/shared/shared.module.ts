@@ -10,14 +10,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ToasterModule } from 'angular2-toaster';
-
 import { AttachUploader } from './attachUploader/attachUploader';
 
 import { SettingsService } from '../services/settings/settings.service';
 import { Api } from '../services/api/api.service';
 import { ClientApiService } from '../services/api/clientapi.service';
 import { AuthGuardResolve } from '../services/authguard/authguard.service';
-
 import { I18NextFormatPipe } from './pipes/i18next.pipe';
 
 // https://angular.io/styleguide#!#04-10
