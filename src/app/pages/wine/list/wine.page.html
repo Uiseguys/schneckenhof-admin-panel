@@ -1,45 +1,66 @@
 <div class="container">
   <h3 class="mt-4">
-    <span class="text-capitalize">{{type | i18nextFormat }}
-      <a [routerLink]="['./create']" class="ml-2 btn btn-primary btn-sm">{{ 'New Wine' | i18nextFormat }}</a>
+    <span class="text-capitalize"
+      >{{ type | i18nextFormat }}
+      <a [routerLink]="['./create']" class="ml-2 btn btn-primary btn-sm">{{
+        "New Wine" | i18nextFormat
+      }}</a>
     </span>
   </h3>
 
   <div *ngIf="wines && !wines.length" class="text-center mt-5">
-    {{ 'No Wines Found' | i18nextFormat }}
+    {{ "No Wines Found" | i18nextFormat }}
   </div>
 
   <div class="wine-list clearfix">
     <div *ngFor="let wine of wines" class="float-left m-2">
       <div class="c-wine">
         <div class="image">
-          <img [hidden]="!wine.image" [src]="wine.image" alt="portfolio" style="max-width: 100%" />
+          <cl-image loading="lazy" public-id="{{ wine.image }}">
+            <cl-placeholder type="blur"></cl-placeholder>
+            <cl-transformation width="auto" crop="scale"></cl-transformation>
+          </cl-image>
         </div>
         <div class="description">
-          <div *ngIf="wine.vintage" class="wine__vintage">{{wine.vintage}}</div>
-          <h4 class="item_name">{{wine.name}}</h4>
+          <div *ngIf="wine.vintage" class="wine__vintage">
+            {{ wine.vintage }}
+          </div>
+          <h4 class="item_name">{{ wine.name }}</h4>
           <div class="other_desc">
             <h6>
-              {{ (wine.varietal.length>10)? (wine.varietal | slice:0:10)+'...':(wine.varietal) }}
+              {{
+                wine.varietal.length > 10
+                  ? (wine.varietal | slice: 0:10) + "..."
+                  : wine.varietal
+              }}
             </h6>
             <div>
-              {{ (wine.awardText.length>10)? (wine.awardText | slice:0:10)+'...':(wine.awardText) }}
+              {{
+                wine.awardText.length > 10
+                  ? (wine.awardText | slice: 0:10) + "..."
+                  : wine.awardText
+              }}
             </div>
           </div>
           <div class="wine__costs">
             <span class="content">
               <span class="item_content">
-                {{wine.packaging && (wine.packaging.displayName || (wine.packaging.measure + wine.packaging.unitOfMeasure))}}
+                {{
+                  wine.packaging &&
+                    (wine.packaging.displayName ||
+                      wine.packaging.measure + wine.packaging.unitOfMeasure)
+                }}
               </span>
             </span>
-            <span class="c-price">
-              {{wine.price}}&euro;
-            </span>
+            <span class="c-price"> {{ wine.price }}&euro; </span>
           </div>
         </div>
       </div>
       <div class="text-center">
-        <a [routerLink]="'/dashboard/' + wine.type + '/' + wine.id" class="text-success">
+        <a
+          [routerLink]="'/dashboard/' + wine.type + '/' + wine.id"
+          class="text-success"
+        >
           <i class="fa fa-edit"></i>
         </a>
         <a class="text-danger cp ml-3" (click)="deleteWine(wine)">

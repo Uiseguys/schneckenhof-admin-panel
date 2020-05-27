@@ -10,23 +10,35 @@ import { WineForm } from './wineForm/wineForm';
 import { WinePage } from './list/wine.page';
 import { CreateWinePage } from './create/createWine.page';
 import { EditWinePage } from './edit/editWine.page';
+import {
+    CloudinaryModule,
+    CloudinaryConfiguration
+} from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 
 const routes: Routes = [
-  { path: '', component: WinePage },
-  {
-    path: 'create',
-    component: CreateWinePage
-  },
-  {
-    path: ':id',
-    component: EditWinePage
-  }
+    { path: '', component: WinePage },
+    {
+        path: 'create',
+        component: CreateWinePage
+    },
+    {
+        path: ':id',
+        component: EditWinePage
+    }
 ];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes)],
-  declarations: [WineForm, WinePage, CreateWinePage, EditWinePage],
-  providers: [WineService, PackagingService, ImageService, SettingsService],
-  exports: [RouterModule]
+    imports: [
+        SharedModule,
+        CloudinaryModule.forRoot({ Cloudinary }, {
+            cloud_name: 'schneckenhof',
+            secure: true
+        } as CloudinaryConfiguration),
+        RouterModule.forChild(routes)
+    ],
+    declarations: [WineForm, WinePage, CreateWinePage, EditWinePage],
+    providers: [WineService, PackagingService, ImageService, SettingsService],
+    exports: [RouterModule]
 })
 export class WineModule {}

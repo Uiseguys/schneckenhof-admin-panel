@@ -258,12 +258,13 @@
           {{ "Select Image" | i18nextFormat }}
         </button>
         <div>
-          <img
-            [hidden]="!image"
-            [src]="image"
-            alt="portfolio"
-            style="max-width: 100%; max-height: 250px;"
-          />
+          <!--<img-->
+          <!--[hidden]="!image"-->
+          <!--[src]="image"-->
+          <!--alt="portfolio"-->
+          <!--style="max-width: 100%; max-height: 250px;"-->
+          <!--/>-->
+          <cl-image height="250" public-id="{{ image }}"> </cl-image>
         </div>
       </div>
     </div>
@@ -307,12 +308,13 @@
         <tbody>
           <tr *ngFor="let image of images">
             <div class="image">
-              <img
-                [hidden]="!image.url"
-                [src]="getImageUrl(image.url)"
-                alt="portfolio"
-                style="width: auto; height: 170px;"
-              />
+              <cl-image loading="lazy" public-id="{{ image.public_id }}">
+                <cl-placeholder type="blur"></cl-placeholder>
+                <cl-transformation
+                  height="170"
+                  crop="scale"
+                ></cl-transformation>
+              </cl-image>
             </div>
             <!-- <td>
                             {{getImageUrl(image.weblinkUrl)}}
