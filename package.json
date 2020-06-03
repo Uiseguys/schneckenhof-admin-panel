@@ -83,6 +83,6 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">=10.13"
+    "node": ">=10.13.0"
   }
 }
