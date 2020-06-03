@@ -1,9 +1,9 @@
 /**
  * Created by S.Angel on 4/2/2017.
  */
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Api } from '../../services/api/api.service';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Api} from '../../services/api/api.service';
 
 @Injectable()
 export class ImageService {

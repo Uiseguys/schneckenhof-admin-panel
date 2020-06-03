@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToasterService } from 'angular2-toaster';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { SettingsService } from './../../../services/settings/settings.service';
-import { ImageService } from '../../../pages/image/image.service';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToasterService} from 'angular2-toaster';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {SettingsService} from './../../../services/settings/settings.service';
+import {ImageService} from '../../../pages/image/image.service';
 
 @Component({
     selector: 'app-image-page',
@@ -66,7 +66,7 @@ export class ImagePage implements OnInit {
     }
 
     getImages(page: number) {
-        this.router.navigate(['/dashboard/images'], { queryParams: { page } });
+        this.router.navigate(['/dashboard/images'], {queryParams: {page}});
     }
 
     deleteImage(image) {
