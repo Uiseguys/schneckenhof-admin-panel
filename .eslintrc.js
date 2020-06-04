@@ -17,7 +17,7 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ["prettier"],
+  extends: ["prettier", "prettier/@typescript-eslint"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "tsconfig.json",
@@ -25,7 +25,6 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "@typescript-eslint/tslint"],
   rules: {
-    "prettier/prettier": "error",
     "@angular-eslint/component-class-suffix": "error",
     "@angular-eslint/component-selector": [
       "error",
@@ -61,7 +60,7 @@ module.exports = {
         accessibility: "explicit"
       }
     ],
-    "@typescript-eslint/indent": "error",
+    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/member-delimiter-style": [
       "error",
       {
@@ -84,7 +83,7 @@ module.exports = {
     "@typescript-eslint/no-unused-expressions": "error",
     "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/quotes": ["error", "single"],
+    "@typescript-eslint/quotes": ["error", "double"],
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error",
@@ -166,7 +165,14 @@ module.exports = {
       {
         rules: {
           "import-spacing": true,
-          whitespace: true
+          whitespace: [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+          ]
         }
       }
     ]
