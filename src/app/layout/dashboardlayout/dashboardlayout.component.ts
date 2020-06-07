@@ -107,7 +107,7 @@ export class DashboardLayoutComponent implements OnInit {
       .subscribe(([res1, res2]: any) => {
         if (res2) {
           if (res2["value"]["state"] == "ready") {
-            window.open(res2["value"]["deploy_url"], "_blank");
+            window.open(res2["value"]["ssl_url"], "_blank");
             this.settingApi.deleteSetting(res2["id"]).subscribe(_ => null);
           } else {
             this.toasterService.popAsync(
