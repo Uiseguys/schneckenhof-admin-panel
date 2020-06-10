@@ -1,9 +1,9 @@
 /**
  * Created by S.Angel on 4/2/2017.
  */
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Api } from '../../services/api/api.service';
+import { Api } from "../../services/api/api.service";
 
 @Injectable()
 export class NewsService {
@@ -20,14 +20,14 @@ export class NewsService {
 
   getAll() {
     const filter = {
-      order: ['type', 'startDate ASC']
+      order: ["type", "startDate ASC"]
     };
     return this.api.get(`/news?filter=${JSON.stringify(filter)}`);
   }
 
   getNews(type) {
     const filter = {
-      order: 'startDate ASC',
+      order: "startDate ASC",
       where: {
         type
       }
@@ -41,13 +41,13 @@ export class NewsService {
         name: { like: `${encodeURIComponent(key)}%25` },
         type
       },
-      order: ['startDate ASC']
+      order: ["startDate ASC"]
     };
     return this.api.get(`/news?filter=${JSON.stringify(filter)}`);
   }
 
   createNews(info) {
-    return this.api.post('/news', info);
+    return this.api.post("/news", info);
   }
 
   updateNews(id, info) {
@@ -55,8 +55,7 @@ export class NewsService {
   }
 
   getSingleNews(id) {
-    const filter = {
-    };
+    const filter = {};
     return this.api.get(`/news/${id}?filter=${JSON.stringify(filter)}`);
   }
 

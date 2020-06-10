@@ -1,6 +1,10 @@
 <div class="container">
-  <h3 class="my-5">{{ 'Create' | i18nextFormat }}
-    <span class="text-capitialize">{{type | i18nextFormat}}</span> {{ 'Wine' | i18nextFormat }}</h3>
+  <h3 class="my-5">
+    {{ "Create" | i18nextFormat }}
+    <span class="text-capitialize">{{ type | i18nextFormat }}</span>
+    {{ "Wine" | i18nextFormat }}
+  </h3>
 
   <wineForm [isCreate]="true" (onSubmit)="handleSubmit($event)"></wineForm>
 </div>
+

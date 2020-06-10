@@ -258,7 +258,12 @@
           {{ "Select Image" | i18nextFormat }}
         </button>
         <div>
-          <cl-image height="250" public-id="{{ image }}"></cl-image>
+          <cl-image
+            *ngIf="form.value.image"
+            [public-id]="this.form.value.image"
+          >
+            <cl-transformation height="250" crop="scale"></cl-transformation>
+          </cl-image>
         </div>
       </div>
     </div>
@@ -316,7 +321,7 @@
             <td class="text-right">
               <button
                 class="btn btn-primary"
-                (click)="selectImage(image.url, $event)"
+                (click)="selectImage(image.public_id, $event)"
                 title="Select"
               >
                 Select

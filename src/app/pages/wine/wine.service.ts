@@ -1,9 +1,9 @@
 /**
  * Created by S.Angel on 4/2/2017.
  */
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Api } from '../../services/api/api.service';
+import { Api } from "../../services/api/api.service";
 
 @Injectable()
 export class WineService {
@@ -20,14 +20,14 @@ export class WineService {
 
   getAll() {
     const filter = {
-      order: ['type', 'priority ASC']
+      order: ["type", "priority ASC"]
     };
     return this.api.get(`/wines?filter=${JSON.stringify(filter)}`);
   }
 
   getWines(type) {
     const filter = {
-      order: 'priority ASC',
+      order: "priority ASC",
       where: {
         type
       }
@@ -41,13 +41,13 @@ export class WineService {
         name: { like: `${encodeURIComponent(key)}%25` },
         type
       },
-      order: ['priority ASC']
+      order: ["priority ASC"]
     };
     return this.api.get(`/wines?filter=${JSON.stringify(filter)}`);
   }
 
   createWine(info) {
-    return this.api.post('/wines', info);
+    return this.api.post("/wines", info);
   }
 
   updateWine(id, info) {
@@ -56,7 +56,7 @@ export class WineService {
 
   getWine(id) {
     const filter = {
-      include: ['packaging']
+      include: ["packaging"]
     };
     return this.api.get(`/wines/${id}`);
   }

@@ -101,10 +101,12 @@ export class Api {
 
     if (error.error instanceof ErrorEvent) {
       // A client side or network error occurred. Handle it accordingly
-      console.log("An error occurred:", error.error.message);
+      console.error("An error occurred:", JSON.stringify(error.error));
     } else {
-      console.log(
-        `Backend returned code ${error.status}, body was: ${error.error}`
+      console.error(
+        `Backend returned code ${error.status}, body was: ${JSON.stringify(
+          error.error
+        )}`
       );
     }
 

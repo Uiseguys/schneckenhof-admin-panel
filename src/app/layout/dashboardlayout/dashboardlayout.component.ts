@@ -94,19 +94,19 @@ export class DashboardLayoutComponent implements OnInit {
         .pipe(map(val => val.find(item => item.key == "netlifyHook")));
 
     const getNetlifyHook$ = () =>
-      timer(2000, 1000).pipe(
+      timer(5000, 1000).pipe(
         flatMap(netlifyHook$),
         takeWhile(
-          val => (val ? val["value"]["state"] === "building" : true),
+          val => (val ? val["value"]["state"] === "building" : false),
           true
         )
       );
 
     forkJoin(this.http.post(url, {}), getNetlifyHook$())
       .pipe(catchError(errorHandler))
-      .subscribe(([res1, res2]: any) => {
+      .subscribe(([_, res2]: any) => {
         if (res2) {
-          if (res2["value"]["state"] == "ready") {
+          if (res2["value"]["state"] === "ready") {
             window.open(res2["value"]["ssl_url"], "_blank");
             this.settingApi.deleteSetting(res2["id"]).subscribe(_ => null);
           } else {
