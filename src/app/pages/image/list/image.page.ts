@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToasterService} from 'angular2-toaster';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {SettingsService} from './../../../services/settings/settings.service';
-import {ImageService} from '../../../pages/image/image.service';
+import {ImageService} from '../image.service';
 
 @Component({
     selector: 'app-image-page',
@@ -80,15 +80,15 @@ export class ImagePage implements OnInit {
         });
     }
 
-    async refreshList($event) {
-        await this.toasterService.popAsync(
+    refreshList($event) {
+        this.toasterService.popAsync(
             'success',
             '',
             'Image has been uploaded'
         );
-        const checkImages = async () => {
-            await this.loadImages();
+        const checkImages = () => {
+            this.loadImages();
         };
-        setTimeout(checkImages, 1000);
+        setTimeout(checkImages, 2000);
     }
 }

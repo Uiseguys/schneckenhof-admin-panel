@@ -16,8 +16,6 @@ import {
     ParsedResponseHeaders
 } from 'ng2-file-upload';
 import { uniqBy } from 'lodash';
-import { Cloudinary } from '@cloudinary/angular-5.x';
-
 import { SettingsService } from '../../services/settings/settings.service';
 
 declare let $: any;
@@ -43,7 +41,6 @@ export class AttachUploader implements OnInit {
         elementRef: ElementRef,
         private route: ActivatedRoute,
         private settings: SettingsService,
-        private cloudinary: Cloudinary,
         public zone: NgZone
     ) {
         this.responses = [];

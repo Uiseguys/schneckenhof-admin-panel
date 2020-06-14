@@ -45,7 +45,7 @@ export class SettingPage implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   updateNetlifySetting() {
-    this.api.updateSetting("settings", this.settings).subscribe(res => {
+    this.api.updateSetting("settings", this.settings).subscribe(_ => {
       this.toasterService.popAsync(
         "success",
         "",
@@ -56,7 +56,7 @@ export class SettingPage implements OnInit, OnDestroy {
   }
 
   updateEmailSetting() {
-    this.api.updateSetting("email", this.emailSetting).subscribe(res => {
+    this.api.updateSetting("email", this.emailSetting).subscribe(_ => {
       this.toasterService.popAsync(
         "success",
         "",
@@ -69,7 +69,7 @@ export class SettingPage implements OnInit, OnDestroy {
   updateNewsletterSetting() {
     this.api
       .updateSetting("newsletter", this.newsletterSetting)
-      .subscribe(res => {
+      .subscribe(_ => {
         this.toasterService.popAsync(
           "success",
           "",
