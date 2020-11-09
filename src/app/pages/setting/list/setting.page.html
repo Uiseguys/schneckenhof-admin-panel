@@ -3,88 +3,74 @@
     <span class="text-capitalize">Settings</span>
   </h3>
   <form class="form-horizontal ng-pristine ng-valid" autocomplete="off">
-    <fieldset>
-      <legend>{{ 'Netlify' | i18nextFormat }}</legend>
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{{ 'Preview Hook' | i18nextFormat }}</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" name="previewBuildHook" [(ngModel)]="settings.previewBuildHook" autocomplete="off"
-          />
-        </div>
-      </div>
+    <!--<fieldset>-->
+    <!--<legend>{{ 'Netlify' | i18nextFormat }}</legend>-->
+    <!--<div class="form-group row">-->
+    <!--<label class="col-sm-2 col-form-label">{{ 'Preview Hook' | i18nextFormat }}</label>-->
+    <!--<div class="col-sm-10">-->
+    <!--<input type="text" class="form-control" name="previewBuildHook" [(ngModel)]="settings.previewBuildHook" autocomplete="off"-->
+    <!--/>-->
+    <!--</div>-->
+    <!--</div>-->
 
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{{ 'Live Hook' | i18nextFormat }}</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" name="liveBuildHook" [(ngModel)]="settings.liveBuildHook" autocomplete="off" />
-        </div>
-      </div>
+    <!--<div class="form-group row">-->
+    <!--<label class="col-sm-2 col-form-label">{{ 'Live Hook' | i18nextFormat }}</label>-->
+    <!--<div class="col-sm-10">-->
+    <!--<input type="text" class="form-control" name="liveBuildHook" [(ngModel)]="settings.liveBuildHook" autocomplete="off" />-->
+    <!--</div>-->
+    <!--</div>-->
 
-      <div class="form-group mt-3 row">
-        <div class="col-sm-10 offset-sm-2 d-flex">
-          <button type="button" class="btn btn-success" (click)="updateNetlifySetting()">{{ 'Update' | i18nextFormat }}</button>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>{{ 'Email' | i18nextFormat }}</legend>
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{{ 'From' | i18nextFormat }}</label>
-        <div class="col-sm-10">
-          <input type="email" class="form-control" name="emailSettingFrom" [(ngModel)]="emailSetting.from" autocomplete="off" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{{ 'To' | i18nextFormat }}</label>
-        <div class="col-sm-10">
-          <input type="email" class="form-control" name="emailSettingTo" [(ngModel)]="emailSetting.to" autocomplete="off" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{{ 'Bcc' | i18nextFormat }}</label>
-        <div class="col-sm-10">
-          <input type="email" class="form-control" name="emailSettingBcc" [(ngModel)]="emailSetting.bcc" autocomplete="off" />
-        </div>
-      </div>
-
-      <div class="form-group mt-3 row">
-        <div class="col-sm-10 offset-sm-2 d-flex">
-          <button type="button" class="btn btn-success" (click)="updateEmailSetting()">{{ 'Update' | i18nextFormat }}</button>
-        </div>
-      </div>
-    </fieldset>
+    <!--<div class="form-group mt-3 row">-->
+    <!--<div class="col-sm-10 offset-sm-2 d-flex">-->
+    <!--<button type="button" class="btn btn-success" (click)="updateNetlifySetting()">{{ 'Update' | i18nextFormat }}</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</fieldset>-->
 
     <fieldset>
-      <legend><!--{{ "Newsletters" | i18nextFormat }}-->Newsletters</legend>
+      <legend>{{ "Email" | i18nextFormat }}</legend>
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">
-          <!--{{ "Subject" | i18nextFormat }}-->New Subscriber Subject
-        </label>
+        <label class="col-sm-2 col-form-label">{{
+          "From" | i18nextFormat
+        }}</label>
         <div class="col-sm-10">
           <input
-            type="text"
+            type="email"
             class="form-control"
-            name="newSubscriberSubject"
-            [(ngModel)]="newsletterSetting.newSubscriberSubject"
+            name="emailSettingFrom"
+            [(ngModel)]="emailSetting.from"
             autocomplete="off"
           />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label">
-          <!--{{ "New Subscriber Message" | i18nextFormat }}-->New Subscriber Message
-        </label>
+        <label class="col-sm-2 col-form-label">{{
+          "To" | i18nextFormat
+        }}</label>
         <div class="col-sm-10">
-          <textarea
+          <input
+            type="email"
             class="form-control"
-            name="newSubscriberMessage"
-            [(ngModel)]="newsletterSetting.newSubscriberMessage"
+            name="emailSettingTo"
+            [(ngModel)]="emailSetting.to"
             autocomplete="off"
-          ></textarea>
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{
+          "Bcc" | i18nextFormat
+        }}</label>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            name="emailSettingBcc"
+            [(ngModel)]="emailSetting.bcc"
+            autocomplete="off"
+          />
         </div>
       </div>
 
@@ -93,12 +79,57 @@
           <button
             type="button"
             class="btn btn-success"
-            (click)="updateNewsletterSetting()"
+            (click)="updateEmailSetting()"
           >
             {{ "Update" | i18nextFormat }}
           </button>
         </div>
       </div>
     </fieldset>
+
+    <!--<fieldset>-->
+    <!--<legend>[>{{ "Newsletters" | i18nextFormat }}<]Newsletters</legend>-->
+    <!--<div class="form-group row">-->
+    <!--<label class="col-sm-2 col-form-label">-->
+    <!--[>{{ "Subject" | i18nextFormat }}<]New Subscriber Subject-->
+    <!--</label>-->
+    <!--<div class="col-sm-10">-->
+    <!--<input-->
+    <!--type="text"-->
+    <!--class="form-control"-->
+    <!--name="newSubscriberSubject"-->
+    <!--[(ngModel)]="newsletterSetting.newSubscriberSubject"-->
+    <!--autocomplete="off"-->
+    <!--/>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group row">-->
+    <!--<label class="col-sm-2 col-form-label">-->
+    <!--[>{{ "New Subscriber Message" | i18nextFormat }}<]New Subscriber Message-->
+    <!--</label>-->
+    <!--<div class="col-sm-10">-->
+    <!--<textarea-->
+    <!--class="form-control"-->
+    <!--name="newSubscriberMessage"-->
+    <!--[(ngModel)]="newsletterSetting.newSubscriberMessage"-->
+    <!--autocomplete="off"-->
+    <!--></textarea>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group mt-3 row">-->
+    <!--<div class="col-sm-10 offset-sm-2 d-flex">-->
+    <!--<button-->
+    <!--type="button"-->
+    <!--class="btn btn-success"-->
+    <!--(click)="updateNewsletterSetting()"-->
+    <!-->-->
+    <!--{{ "Update" | i18nextFormat }}-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</fieldset>-->
   </form>
 </div>
+
