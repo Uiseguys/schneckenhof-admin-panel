@@ -71,26 +71,33 @@
         <button
           type="button"
           class="btn btn-info btn-sm"
-          (click)="triggerHook(false)"
+          (click)="triggerHook(true)"
         >
-          Deploy Preview
+          Deploy Live
         </button>
-        <button
-          type="button"
-          class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
-          id="dropdownMenuReference"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          data-reference="parent"
-        >
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-          <div class="dropdown-item cp" (click)="triggerHook(true)">
-            Deploy Live
-          </div>
-        </div>
+        <!--<button-->
+        <!--type="button"-->
+        <!--class="btn btn-info btn-sm"-->
+        <!--(click)="triggerHook(false)"-->
+        <!-->-->
+        <!--Deploy Preview-->
+        <!--</button>-->
+        <!--<button-->
+        <!--type="button"-->
+        <!--class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"-->
+        <!--id="dropdownMenuReference"-->
+        <!--data-toggle="dropdown"-->
+        <!--aria-haspopup="true"-->
+        <!--aria-expanded="false"-->
+        <!--data-reference="parent"-->
+        <!-->-->
+        <!--<span class="sr-only">Toggle Dropdown</span>-->
+        <!--</button>-->
+        <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuReference">-->
+        <!--<div class="dropdown-item cp" (click)="triggerHook(true)">-->
+        <!--Deploy Live-->
+        <!--</div>-->
+        <!--</div>-->
       </div>
       <div *ngIf="timer != null">
         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
